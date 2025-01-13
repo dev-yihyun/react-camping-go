@@ -147,7 +147,12 @@ function Join() {
                                     {inputPWErrorMessage}
                                 </Text>
                             )}
-                            <Input placeholder="NAME" value={inputName} onChange={onInputName} />
+                            <Input
+                                placeholder="NAME"
+                                maxLength="16"
+                                value={inputName}
+                                onChange={onInputName}
+                            />
                             <Input
                                 type="tel"
                                 placeholder="PHONE"
