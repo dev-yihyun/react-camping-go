@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import Button from "../../component/Button/Button";
 import IconButton from "../../component/Button/IconButton";
@@ -9,6 +10,20 @@ import Page from "../../component/Layout/Page";
 import Text from "../../component/Text/Text";
 import Title from "../../component/Text/Title";
 function Join() {
+    const [inputID, setInputID] = useState("");
+    const [inputIDErrorMessage, setInputIDErrorMessage] = useState("");
+    const regexID = /^[a-zA-Z0-9]*$/;
+    const onInputID = (event) => {
+        setInputID(event.target.value);
+        if (!regexID.test(event.target.value)) {
+            setInputIDErrorMessage("아이디는 영어 대소문자와 숫자만 가능합니다.");
+        } else {
+            setInputIDErrorMessage("");
+        }
+    };
+    const onIDCheck = () => {
+        alert("클릭");
+    };
     return (
         <>
             <Page>
@@ -19,11 +34,24 @@ function Join() {
                     </FlexBox>
                     <Card>
                         <FlexBox gap="8px">
-                            <Input placeholder="ID" />
-                            <Text alignSelf="flex-start" color="error">
-                                오류 메시지
-                            </Text>
-                            <Button>버튼</Button>
+                            <Input
+                                placeholder="ID"
+                                value={inputID}
+                                onChange={onInputID}
+                                maxLength="16"
+                                error={inputIDErrorMessage}
+                            />
+                            {inputIDErrorMessage && (
+                                <Text color="error" alignSelf="flex-start">
+                                    {inputIDErrorMessage}
+                                </Text>
+                            )}
+                            <Button
+                                disabled={!inputID || !!inputIDErrorMessage}
+                                onClick={onIDCheck}
+                            >
+                                Check ID
+                            </Button>
                             <Password placeholder="Password" />
                             <Password placeholder="Check Password" />
                             <Text alignSelf="flex-start" color="error">
