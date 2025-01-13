@@ -9,6 +9,7 @@ import FlexBox from "../../component/Layout/FlexBox";
 import Page from "../../component/Layout/Page";
 import Text from "../../component/Text/Text";
 import Title from "../../component/Text/Title";
+import { formatPhoneNumber } from "../../function/formatPhoneNumber";
 function Join() {
     const [inputID, setInputID] = useState("");
     const [inputPW, setInputPW] = useState("");
@@ -16,8 +17,12 @@ function Join() {
     const [inputIDErrorMessage, setInputIDErrorMessage] = useState("");
     const [inputPWErrorMessage, setInputPWErrorMessage] = useState("");
     const [inputName, setInputName] = useState("");
+    const [inputPhone, setInputPhone] = useState("");
+    const [checkPhone, setCheckPhone] = useState(false);
+
     const regexID = /^[a-zA-Z0-9]*$/;
     const regexPW = /^[a-zA-Z0-9!@#$%^&*+\-=_?]*$/;
+
     const onInputID = (event) => {
         setInputID(event.target.value);
         if (!regexID.test(event.target.value)) {
@@ -26,6 +31,7 @@ function Join() {
             setInputIDErrorMessage("");
         }
     };
+
     const onIDCheck = () => {
         alert("클릭");
     };
@@ -40,6 +46,7 @@ function Join() {
             setInputPWErrorMessage("");
         }
     };
+
     const onInputCheckPW = (event) => {
         setInputCheckPW(event.target.value);
 
@@ -53,8 +60,30 @@ function Join() {
             setInputPWErrorMessage("");
         }
     };
+
     const onInputName = (event) => {
         setInputName(event.target.value);
+    };
+
+    const onInputPhone = (event) => {
+        const formattedValue = formatPhoneNumber(event.target.value);
+        setInputPhone(formattedValue);
+        setCheckPhone(!/^\d{3}-\d{4}-\d{4}$/.test(formattedValue));
+        if (event.target.value === "") {
+            setCheckPhone(false);
+        }
+    };
+
+    const isFormValid = () => {
+        return (
+            inputID.trim() &&
+            !inputIDErrorMessage &&
+            inputPW.trim() &&
+            !inputPWErrorMessage &&
+            inputName.trim() &&
+            inputPhone.trim() &&
+            !checkPhone
+        );
     };
 
     return (
@@ -104,15 +133,23 @@ function Join() {
                                 </Text>
                             )}
                             <Input placeholder="NAME" value={inputName} onChange={onInputName} />
-                            <Input placeholder="PHONE" />
-                            <Text alignSelf="flex-start" color="error">
-                                오류 메시지
-                            </Text>
+                            <Input
+                                type="tel"
+                                placeholder="PHONE"
+                                maxLength={13}
+                                value={inputPhone}
+                                onChange={onInputPhone}
+                            />
+                            {checkPhone && (
+                                <Text alignSelf="flex-start" color="error">
+                                    전화번호를 올바른 형식으로 입력해 주세요.
+                                </Text>
+                            )}
                             <Input placeholder="EMAIL" />
                             <Text alignSelf="flex-start" color="error">
                                 오류 메시지
                             </Text>
-                            <Button>버튼</Button>
+                            <Button disabled={!isFormValid()}>Join</Button>
                         </FlexBox>
                     </Card>
                 </FlexBox>
