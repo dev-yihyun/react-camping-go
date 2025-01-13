@@ -15,6 +15,7 @@ function Join() {
     const [inputCheckPW, setInputCheckPW] = useState("");
     const [inputIDErrorMessage, setInputIDErrorMessage] = useState("");
     const [inputPWErrorMessage, setInputPWErrorMessage] = useState("");
+    const [inputName, setInputName] = useState("");
     const regexID = /^[a-zA-Z0-9]*$/;
     const regexPW = /^[a-zA-Z0-9!@#$%^&*+\-=_?]*$/;
     const onInputID = (event) => {
@@ -52,6 +53,10 @@ function Join() {
             setInputPWErrorMessage("");
         }
     };
+    const onInputName = (event) => {
+        setInputName(event.target.value);
+    };
+
     return (
         <>
             <Page>
@@ -98,7 +103,7 @@ function Join() {
                                     {inputPWErrorMessage}
                                 </Text>
                             )}
-                            <Input placeholder="NAME" />
+                            <Input placeholder="NAME" value={inputName} onChange={onInputName} />
                             <Input placeholder="PHONE" />
                             <Text alignSelf="flex-start" color="error">
                                 오류 메시지
