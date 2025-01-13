@@ -19,9 +19,12 @@ function Join() {
     const [inputName, setInputName] = useState("");
     const [inputPhone, setInputPhone] = useState("");
     const [checkPhone, setCheckPhone] = useState(false);
+    const [inputEmail, setInputEmail] = useState("");
+    const [inputEmailErrorMessage, setInputEmailErrorMessage] = useState("");
 
     const regexID = /^[a-zA-Z0-9]*$/;
     const regexPW = /^[a-zA-Z0-9!@#$%^&*+\-=_?]*$/;
+    const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     const onInputID = (event) => {
         setInputID(event.target.value);
@@ -74,6 +77,15 @@ function Join() {
         }
     };
 
+    const onInputEmail = (event) => {
+        setInputEmail(event.target.value);
+        if (!regexEmail.test(event.target.value)) {
+            setInputEmailErrorMessage("이메일 주소를 정확히 입력해주세요.");
+        } else {
+            setInputEmailErrorMessage("");
+        }
+    };
+
     const isFormValid = () => {
         return (
             inputID.trim() &&
@@ -82,7 +94,10 @@ function Join() {
             !inputPWErrorMessage &&
             inputName.trim() &&
             inputPhone.trim() &&
-            !checkPhone
+            !checkPhone &&
+            inputEmail.trim() &&
+            !inputEmailErrorMessage &&
+            regexEmail.test(inputEmail)
         );
     };
 
@@ -145,10 +160,18 @@ function Join() {
                                     전화번호를 올바른 형식으로 입력해 주세요.
                                 </Text>
                             )}
-                            <Input placeholder="EMAIL" />
-                            <Text alignSelf="flex-start" color="error">
-                                오류 메시지
-                            </Text>
+                            <Input
+                                placeholder="EMAIL"
+                                maxLength={40}
+                                value={inputEmail}
+                                onChange={onInputEmail}
+                            />
+                            {inputEmailErrorMessage && (
+                                <Text alignSelf="flex-start" color="error">
+                                    {inputEmailErrorMessage}
+                                </Text>
+                            )}
+
                             <Button disabled={!isFormValid()}>Join</Button>
                         </FlexBox>
                     </Card>
