@@ -11,8 +11,12 @@ import Text from "../../component/Text/Text";
 import Title from "../../component/Text/Title";
 function Join() {
     const [inputID, setInputID] = useState("");
+    const [inputPW, setInputPW] = useState("");
+    const [inputCheckPW, setInputCheckPW] = useState("");
     const [inputIDErrorMessage, setInputIDErrorMessage] = useState("");
+    const [inputPWErrorMessage, setInputPWErrorMessage] = useState("");
     const regexID = /^[a-zA-Z0-9]*$/;
+    const regexPW = /^[a-zA-Z0-9!@#$%^&*+\-=_?]*$/;
     const onInputID = (event) => {
         setInputID(event.target.value);
         if (!regexID.test(event.target.value)) {
@@ -23,6 +27,30 @@ function Join() {
     };
     const onIDCheck = () => {
         alert("클릭");
+    };
+
+    const onInputPW = (event) => {
+        setInputPW(event.target.value);
+        if (!regexPW.test(event.target.value)) {
+            setInputPWErrorMessage(
+                "비밀번호는 영어,숫자,특수문자(!@#$%^&*+-=_?)만 입력 가능합니다."
+            );
+        } else {
+            setInputPWErrorMessage("");
+        }
+    };
+    const onInputCheckPW = (event) => {
+        setInputCheckPW(event.target.value);
+
+        if (
+            event.target.value !== inputPW ||
+            !regexPW.test(event.target.value) ||
+            !regexPW.test(inputPW)
+        ) {
+            setInputPWErrorMessage("비밀번호가 일치하지 않습니다.");
+        } else {
+            setInputPWErrorMessage("");
+        }
     };
     return (
         <>
@@ -52,11 +80,24 @@ function Join() {
                             >
                                 Check ID
                             </Button>
-                            <Password placeholder="Password" />
-                            <Password placeholder="Check Password" />
-                            <Text alignSelf="flex-start" color="error">
-                                오류 메시지
-                            </Text>
+                            <Password
+                                placeholder="Password"
+                                value={inputPW}
+                                onChange={onInputPW}
+                                maxLength="16"
+                            />
+                            <Password
+                                placeholder="Check Password"
+                                value={inputCheckPW}
+                                onChange={onInputCheckPW}
+                                maxLength="16"
+                            />
+
+                            {inputPWErrorMessage && (
+                                <Text alignSelf="flex-start" color="error">
+                                    {inputPWErrorMessage}
+                                </Text>
+                            )}
                             <Input placeholder="NAME" />
                             <Input placeholder="PHONE" />
                             <Text alignSelf="flex-start" color="error">
