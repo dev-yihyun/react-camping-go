@@ -51,7 +51,7 @@ const TextComponent = styled.p`
 const Text = ({ children, color, fontSize, fontWeight, textAlign, alignSelf }) => {
     return (
         <TextComponent
-            $color={color}
+            color={color}
             $fontSize={fontSize}
             $fontWeight={fontWeight}
             $textAlign={textAlign}
