@@ -1,5 +1,11 @@
+import Join from "./page/Join/main";
+
 function App() {
-    return <>react-camping-go</>;
+    return (
+        <>
+            <Join />
+        </>
+    );
 }
 
 export default App;
