@@ -11,20 +11,14 @@ const CardComponent = styled.div`
     padding-top: 20px;
     padding-bottom: 20px;
 
-    /*
-    margin: 12px;
-    */
-    /* 데스크톱 */
     @media (min-width: 1024px) {
         width: 490px;
     }
 
-    /* 태블릿 */
     @media (min-width: 600px) and (max-width: 1023px) {
         width: 450px;
     }
 
-    /* 모바일 */
     @media (max-width: 599px) {
         width: 320px;
     }
