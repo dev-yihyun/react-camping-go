@@ -36,9 +36,9 @@ const IconWrapper = styled.div`
     }
 `;
 
-const IconButton = ({ icon }) => {
+const IconButton = ({ icon, onClick }) => {
     return (
-        <IconButtonComponent>
+        <IconButtonComponent onClick={onClick}>
             <IconWrapper>{icon}</IconWrapper>
         </IconButtonComponent>
     );

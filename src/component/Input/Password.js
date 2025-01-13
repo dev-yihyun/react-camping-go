@@ -61,7 +61,7 @@ const PasswordContainer = styled.div`
     }
 `;
 
-const Password = ({ error, placeholder, value, onChange }) => {
+const Password = ({ error, placeholder, value, onChange, maxLength }) => {
     const [isShow, setIsShow] = useState(true);
     const onShow = () => {
         setIsShow(!isShow);
@@ -75,6 +75,7 @@ const Password = ({ error, placeholder, value, onChange }) => {
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}
+                    maxLength={maxLength}
                 />
                 <button onClick={onShow}>{isShow ? <IoMdEyeOff /> : <IoMdEye />}</button>
             </PasswordContainer>
@@ -93,6 +94,7 @@ Password.prototype = {
     onChange: PropTypes.func.isRequired,
     /** 입력 필드의 type (e.g., text, password) */
     type: PropTypes.oneOf(["text", "password"]),
+    maxLength: PropTypes.number,
 };
 Password.defaultProps = {
     error: false,
@@ -100,6 +102,7 @@ Password.defaultProps = {
     value: "",
     type: "password",
     onChange: () => {},
+    maxLength: 255,
 };
 
 export default React.memo(Password);
