@@ -11,7 +11,6 @@ const IconWrapper = styled.div`
     justify-content: center;
     align-items: center;
 
-    /* 데스크톱 */
     @media (min-width: 1024px) {
         svg {
             width: 45px;
@@ -19,7 +18,6 @@ const IconWrapper = styled.div`
         }
     }
 
-    /* 태블릿 */
     @media (min-width: 600px) and (max-width: 1023px) {
         svg {
             width: 35px;
@@ -27,7 +25,6 @@ const IconWrapper = styled.div`
         }
     }
 
-    /* 모바일 */
     @media (max-width: 599px) {
         svg {
             width: 25px;

@@ -9,14 +9,13 @@ const FlexBoxContainer = styled.div`
     justify-items: center;
     align-items: ${({ align }) => align || "center"};
     align-content: center;
-    /* gap이 주어지면 사용하고, 없으면 기본값 0px */
     gap: ${({ $gap }) => $gap || "0"};
 `;
 
 const FlexBox = ({ children, gap, direction, wrap, justify, align }) => {
     return (
         <FlexBoxContainer
-            $gap={gap} // $gap으로 전달
+            $gap={gap}
             direction={direction}
             $wrap={wrap}
             $justify={justify}
@@ -28,10 +27,10 @@ const FlexBox = ({ children, gap, direction, wrap, justify, align }) => {
 };
 
 FlexBox.propTypes = {
-    children: PropTypes.node, // React node (e.g., JSX elements or strings)
-    gap: PropTypes.string, // Gap between flex items, e.g., "10px", "1rem"
-    direction: PropTypes.oneOf(["row", "column", "row-reverse", "column-reverse"]), // Valid flex directions
-    wrap: PropTypes.oneOf(["nowrap", "wrap", "wrap-reverse"]), // Valid wrap values
+    children: PropTypes.node,
+    gap: PropTypes.string,
+    direction: PropTypes.oneOf(["row", "column", "row-reverse", "column-reverse"]),
+    wrap: PropTypes.oneOf(["nowrap", "wrap", "wrap-reverse"]),
     justify: PropTypes.oneOf([
         "flex-start",
         "flex-end",
@@ -39,8 +38,8 @@ FlexBox.propTypes = {
         "space-between",
         "space-around",
         "space-evenly",
-    ]), // Valid justify-content values
-    align: PropTypes.oneOf(["flex-start", "flex-end", "center", "stretch", "baseline"]), // Valid align-items values
+    ]),
+    align: PropTypes.oneOf(["flex-start", "flex-end", "center", "stretch", "baseline"]),
 };
 FlexBox.defaultProps = {
     gap: "0px",

@@ -18,17 +18,14 @@ const InputComponent = styled.input`
         font-size: 16px;
     }
 
-    /* 데스크톱 */
     @media (min-width: 1024px) {
         width: 370px;
     }
 
-    /* 태블릿 */
     @media (min-width: 600px) and (max-width: 1023px) {
         width: 340px;
     }
 
-    /* 모바일 */
     @media (max-width: 599px) {
         width: 290px;
     }
@@ -48,22 +45,11 @@ const Input = ({ value, onChange, placeholder, error, type, maxLength }) => {
 };
 
 Input.prototype = {
-    /* 오류가 있는 경우 true */
     error: PropTypes.bool,
-    /* 입력 필드의 placeholder */
     placeholder: PropTypes.string,
-    /* 입력 필드의 값 */
     value: PropTypes.string.isRequired,
-    /* 입력값 변경 핸들러 */
     onChange: PropTypes.func.isRequired,
-    /** 입력 필드의 type (e.g., text, password) */ type: PropTypes.oneOf([
-        "text",
-        "password",
-        "email",
-        "number",
-        "tel",
-        "url",
-    ]),
+    type: PropTypes.oneOf(["text", "password", "email", "number", "tel", "url"]),
     maxLength: PropTypes.number,
 };
 
