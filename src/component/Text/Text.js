@@ -41,8 +41,8 @@ const Text = ({ children, color, fontSize, fontWeight, textAlign, alignSelf }) =
     return (
         <TextComponent
             color={color}
-            $fontSize={fontSize}
-            $fontWeight={fontWeight}
+            fontSize={fontSize}
+            fontWeight={fontWeight}
             $textAlign={textAlign}
             $alignSelf={alignSelf}
         >
