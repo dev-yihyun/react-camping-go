@@ -1,9 +1,9 @@
-import Join from "./page/Join/main";
+import FindPW from "./page/FindAccount/FindPW";
 
 function App() {
     return (
         <>
-            <Join />
+            <FindPW />
         </>
     );
 }
