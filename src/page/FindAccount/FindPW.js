@@ -70,8 +70,6 @@ function FindPw() {
                             </Button>
                             {isShow && (
                                 <>
-                                    {/* ##TODO */}
-                                    {/* DB에서 사용자 계정이 있는 경우 */}
                                     <Password
                                         placeholder="Reset Password"
                                         maxLength={16}
@@ -91,16 +89,15 @@ function FindPw() {
                                     )}
                                     <Button
                                         disabled={
-                                            !inputPw.trim() || // 비밀번호가 비어있거나
-                                            !regexPw.test(inputPw) || // 비밀번호가 정규식을 만족하지 않거나
-                                            !inputCheckPw.trim() || // 확인 비밀번호가 비어있거나
-                                            inputPw !== inputCheckPw || // 비밀번호와 확인 비밀번호가 일치하지 않거나
-                                            inputPwErrorMessage // 에러 메시지가 존재할 때
+                                            !inputPw.trim() ||
+                                            !regexPw.test(inputPw) ||
+                                            !inputCheckPw.trim() ||
+                                            inputPw !== inputCheckPw ||
+                                            inputPwErrorMessage
                                         }
                                     >
                                         Reset Password
                                     </Button>
-                                    {/* DB에서 사용자 계정이 없는 경우 */}
                                     <Text
                                         fontSize="24px"
                                         fontWeight="bold"
@@ -111,9 +108,6 @@ function FindPw() {
                                     </Text>
                                 </>
                             )}
-                            {/* ##TODO */}
-                            {/* router */}
-                            {/* <Button>GO FIND ID</Button> */}
                         </FlexBox>
                     </Card>
                 </FlexBox>
