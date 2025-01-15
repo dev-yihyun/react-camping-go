@@ -70,6 +70,7 @@ function FindPw() {
                             </Button>
                             {isShow && (
                                 <>
+
                                     <Password
                                         placeholder="Reset Password"
                                         maxLength={16}
