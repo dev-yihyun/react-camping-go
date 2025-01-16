@@ -20,8 +20,9 @@ const ButtonComponent = styled.button`
     border-radius: 20px 20px 0 0;
     border: 3px solid #9ab3a0;
     border-bottom: none;
-    background-color: ${(props) => (props.active ? "#ffffff" : "#9ab3a0")};
-    color: ${(props) => (props.active ? "#000" : "#ffffff")};
+    background-color: ${({ $active }) => ($active ? "#ffffff" : "#9ab3a0")};
+    color: ${({ $active }) => ($active ? "#000" : "#ffffff")};
+    padding: 8px 0;
     padding: 8px 0;
     font-size: 20px;
     font-weight: bold;
@@ -56,7 +57,7 @@ const TabCard = ({ tabs }) => {
                 {tabs.map((tab, index) => (
                     <ButtonComponent
                         key={index}
-                        active={activeTab === index}
+                        $active={activeTab === index}
                         onClick={() => setActiveTab(index)}
                     >
                         {tab.label}
