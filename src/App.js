@@ -1,9 +1,9 @@
-import FindPw from "./page/FindAccount/FindPw";
+import FindId from "./page/FindAccount/FindId";
 
 function App() {
     return (
         <>
-            <FindPw />
+            <FindId />
         </>
     );
 }
