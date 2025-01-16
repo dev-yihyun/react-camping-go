@@ -1,33 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const TabContainer = styled.div`
-    width: 100%;
+    // width: 100%;
+    width: 90%;
     max-width: 500px;
     margin: 0 auto;
 `;
 
 const TabList = styled.ul`
     display: flex;
-    width: 100%;
     padding: 0;
     margin: 0;
     list-style: none;
     box-sizing: border-box;
-    /* 데스크톱 */
-    @media (min-width: 1024px) {
-        width: 490px;
-    }
-
-    /* 태블릿 */
-    @media (min-width: 600px) and (max-width: 1023px) {
-        width: 450px;
-    }
-
-    /* 모바일 */
-    @media (max-width: 599px) {
-        width: 320px;
-    }
 `;
 
 const ButtonComponent = styled.button`
@@ -35,50 +21,54 @@ const ButtonComponent = styled.button`
     border-radius: 20px 20px 0 0;
     border: 3px solid #9ab3a0;
     border-bottom: none;
-    background-color: #ffffff;
+    background-color: ${(props) => (props.active ? "#9ab3a0" : "#ffffff")};
+    color: ${(props) => (props.active ? "#ffffff" : "#000")};
     padding: 8px 0;
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
     height: 60px;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+        background-color: #8fa693;
+        color: #fff;
+    }
 `;
 
 const TabCardComponent = styled.div`
     border: 3px solid #9ab3a0;
-    border-radius: 0 0 20px 20px;
     border-top: none;
+    border-radius: 0 0 20px 20px;
     background-color: #ffffff;
     width: 100%;
     min-height: 100px;
-    padding: 8px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding: 16px;
     box-sizing: border-box;
-
-    /* 데스크톱 */
-    @media (min-width: 1024px) {
-        width: 490px;
-    }
-
-    /* 태블릿 */
-    @media (min-width: 600px) and (max-width: 1023px) {
-        width: 450px;
-    }
-
-    /* 모바일 */
-    @media (max-width: 599px) {
-        width: 320px;
-    }
 `;
 
-const TabCard = ({ children, tab1, tab2 }) => {
+const TabCard = ({ tabs }) => {
+    const [activeTab, setActiveTab] = useState(0); // 활성화된 탭 상태
+
     return (
         <TabContainer>
+            {/* Tab Buttons */}
             <TabList>
-                <ButtonComponent>{tab1}</ButtonComponent>
-                <ButtonComponent>{tab2}</ButtonComponent>
+                {tabs.map((tab, index) => (
+                    <ButtonComponent
+                        key={index}
+                        active={activeTab === index}
+                        onClick={() => setActiveTab(index)}
+                    >
+                        {tab.label}
+                    </ButtonComponent>
+                ))}
             </TabList>
-            <TabCardComponent>{children}</TabCardComponent>
+
+            {/* Tab Content */}
+            <TabCardComponent>
+                {tabs[activeTab]?.content || "No content available"}
+            </TabCardComponent>
         </TabContainer>
     );
 };
