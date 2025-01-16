@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const TabContainer = styled.div`
-    // width: 100%;
-    width: 90%;
+    width: 100%;
     max-width: 500px;
     margin: 0 auto;
 `;
@@ -30,10 +29,10 @@ const ButtonComponent = styled.button`
     height: 60px;
     transition: background-color 0.3s, color 0.3s;
 
-    &:hover {
-        background-color: #8fa693;
-        color: #fff;
-    }
+    // &:hover {
+    //     background-color: #8fa693;
+    //     color: #fff;
+    // }
 `;
 
 const TabCardComponent = styled.div`
