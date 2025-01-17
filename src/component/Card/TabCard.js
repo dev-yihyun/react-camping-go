@@ -46,17 +46,10 @@ const TabCardComponent = styled.div`
     padding: 16px;
     box-sizing: border-box;
 `;
-
-const TabCard = ({ tabs, activeTab: externalActiveTab, setActiveTab: externalSetActiveTab }) => {
-    // const [activeTab, setActiveTab] = useState(0); // 활성화된 탭 상태
-    // 내부 상태 관리
+const TabCard = ({ tabs, activeTab, setActiveTab }) => {
     const [internalActiveTab, setInternalActiveTab] = useState(0);
-
-    // 외부 상태가 제공되면 외부 상태를 사용, 그렇지 않으면 내부 상태를 사용
-    const activeTab = externalActiveTab !== undefined ? externalActiveTab : internalActiveTab;
-    const setActiveTab =
-        externalSetActiveTab !== undefined ? externalSetActiveTab : setInternalActiveTab;
-
+    const currentTab = activeTab !== undefined ? activeTab : internalActiveTab;
+    const changeTab = setActiveTab || setInternalActiveTab;
     return (
         <TabContainer>
             {/* Tab Buttons */}
@@ -64,8 +57,8 @@ const TabCard = ({ tabs, activeTab: externalActiveTab, setActiveTab: externalSet
                 {tabs.map((tab, index) => (
                     <ButtonComponent
                         key={index}
-                        $active={activeTab === index}
-                        onClick={() => setActiveTab(index)}
+                        $active={currentTab === index}
+                        onClick={() => changeTab(index)}
                     >
                         {tab.label}
                     </ButtonComponent>
@@ -74,7 +67,7 @@ const TabCard = ({ tabs, activeTab: externalActiveTab, setActiveTab: externalSet
 
             {/* Tab Content */}
             <TabCardComponent>
-                {tabs[activeTab]?.content || "No content available"}
+                {tabs[currentTab]?.content || "No content available"}
             </TabCardComponent>
         </TabContainer>
     );
