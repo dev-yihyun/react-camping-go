@@ -47,8 +47,15 @@ const TabCardComponent = styled.div`
     box-sizing: border-box;
 `;
 
-const TabCard = ({ tabs }) => {
-    const [activeTab, setActiveTab] = useState(0); // 활성화된 탭 상태
+const TabCard = ({ tabs, activeTab: externalActiveTab, setActiveTab: externalSetActiveTab }) => {
+    // const [activeTab, setActiveTab] = useState(0); // 활성화된 탭 상태
+    // 내부 상태 관리
+    const [internalActiveTab, setInternalActiveTab] = useState(0);
+
+    // 외부 상태가 제공되면 외부 상태를 사용, 그렇지 않으면 내부 상태를 사용
+    const activeTab = externalActiveTab !== undefined ? externalActiveTab : internalActiveTab;
+    const setActiveTab =
+        externalSetActiveTab !== undefined ? externalSetActiveTab : setInternalActiveTab;
 
     return (
         <TabContainer>
