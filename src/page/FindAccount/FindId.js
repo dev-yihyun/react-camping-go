@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import Button from "../../component/Button/Button";
 import IconButton from "../../component/Button/IconButton";
@@ -9,33 +8,21 @@ import Page from "../../component/Layout/Page";
 import Space from "../../component/Layout/Space";
 import Text from "../../component/Text/Text";
 import Title from "../../component/Text/Title";
-import { formatPhoneNumber } from "../../function/formatPhoneNumber";
+import { useFindId } from "./hook/useFindId";
 
 function FindId() {
-    const [inputName, setInputName] = useState("");
-    const [inputPhone, setInputPhone] = useState("");
-    const [inputEmail, setInputEmail] = useState("");
-    const [activeTab, setActiveTab] = useState(0);
-
-    const onInputName = (event) => {
-        setInputName(event.target.value);
-    };
-
-    const onInputPhone = (event) => {
-        const formattedValue = formatPhoneNumber(event.target.value);
-        setInputPhone(formattedValue);
-    };
-
-    const onInputEmail = (event) => {
-        setInputEmail(event.target.value);
-    };
-
-    // 탭 변경 시 input 상태 초기화
-    useEffect(() => {
-        setInputName("");
-        setInputEmail("");
-        setInputPhone("");
-    }, [activeTab]);
+    const {
+        inputName,
+        inputPhone,
+        inputEmail,
+        activeTab,
+        setActiveTab,
+        onInputName,
+        onInputPhone,
+        onInputEmail,
+        isPhoneTabDisabled,
+        isEmailTabDisabled,
+    } = useFindId();
 
     const tabs = [
         {
@@ -56,15 +43,7 @@ function FindId() {
                             value={inputPhone}
                             onChange={onInputPhone}
                         />
-                        <Button
-                            disabled={
-                                !inputName.trim() ||
-                                !inputPhone.trim() ||
-                                inputPhone.replace(/\D/g, "").length < 11
-                            }
-                        >
-                            Find
-                        </Button>
+                        <Button disabled={isPhoneTabDisabled}>Find</Button>
                         <Space height={5} />
                         <Text alignSelf="center" fontWeight="bold" fontSize="24px">
                             메세지
@@ -92,7 +71,7 @@ function FindId() {
                             value={inputEmail}
                             onChange={onInputEmail}
                         />
-                        <Button disabled={!inputName.trim() || !inputEmail.trim()}>Find</Button>
+                        <Button disabled={isEmailTabDisabled}>Find</Button>
                         <Space height={5} />
                         <Text alignSelf="center" color="error" fontWeight="bold" fontSize="24px">
                             메세지
