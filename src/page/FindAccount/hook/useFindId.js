@@ -20,7 +20,6 @@ export const useFindId = () => {
         setInputEmail(event.target.value);
     };
 
-    // 탭 변경 시 input 상태 초기화
     useEffect(() => {
         setInputName("");
         setInputEmail("");

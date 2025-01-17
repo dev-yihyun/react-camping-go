@@ -91,11 +91,7 @@ function FindId() {
                         <IconButton icon={<FaArrowLeft />} />
                         <Title>FIND ID</Title>
                     </FlexBox>
-                    <TabCard
-                        tabs={tabs}
-                        activeTab={activeTab}
-                        setActiveTab={setActiveTab} // activeTab 상태를 TabCard에 전달
-                    />
+                    <TabCard tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
                 </FlexBox>
             </Page>
         </>

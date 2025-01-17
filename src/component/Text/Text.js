@@ -33,7 +33,7 @@ const TextComponent = styled.p`
                 return "left";
         }
     }};
-    align-self: ${(props) => props.$alignSelf || "auto"}; /* 부모의 Flexbox 정렬에서 독립 */
+    align-self: ${(props) => props.$alignSelf || "auto"};
     margin: 0;
 `;
 

@@ -29,11 +29,6 @@ const ButtonComponent = styled.button`
     cursor: pointer;
     height: 60px;
     transition: background-color 0.3s, color 0.3s;
-
-    // &:hover {
-    //     background-color: #8fa693;
-    //     color: #fff;
-    // }
 `;
 
 const TabCardComponent = styled.div`
@@ -46,13 +41,14 @@ const TabCardComponent = styled.div`
     padding: 16px;
     box-sizing: border-box;
 `;
+
 const TabCard = ({ tabs, activeTab, setActiveTab }) => {
     const [internalActiveTab, setInternalActiveTab] = useState(0);
     const currentTab = activeTab !== undefined ? activeTab : internalActiveTab;
     const changeTab = setActiveTab || setInternalActiveTab;
+
     return (
         <TabContainer>
-            {/* Tab Buttons */}
             <TabList>
                 {tabs.map((tab, index) => (
                     <ButtonComponent
@@ -65,7 +61,6 @@ const TabCard = ({ tabs, activeTab, setActiveTab }) => {
                 ))}
             </TabList>
 
-            {/* Tab Content */}
             <TabCardComponent>
                 {tabs[currentTab]?.content || "No content available"}
             </TabCardComponent>
