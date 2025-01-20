@@ -16,15 +16,15 @@ const TextLink = ({ text, links = [], color, fontSize, fontWeight, textAlign, al
         >
             {parsedText.map((segment, index) => {
                 if (segment === "{link}") {
-                    const currentLink = links.shift() || { to: "#", label: "Link" }; // links 배열에서 하나씩 꺼냄
+                    const currentLink = links.shift(); // links 배열에서 하나씩 꺼냄
                     return (
                         <Link
                             key={index}
                             to={currentLink.to}
                             style={{
-                                color: color === "blue" ? "#0D47A1" : color || "#0D47A1",
+                                color: currentLink.color,
                                 textDecoration: "none",
-                                fontWeight: fontWeight === "bold" ? "700" : "400",
+                                fontWeight: currentLink.fontWeight === "bold" ? "700" : "400",
                             }}
                         >
                             {currentLink.label}
@@ -36,7 +36,6 @@ const TextLink = ({ text, links = [], color, fontSize, fontWeight, textAlign, al
         </Text>
     );
 };
-
 TextLink.propTypes = {
     text: PropTypes.string.isRequired, // 텍스트 내용
     links: PropTypes.arrayOf(
@@ -59,5 +58,4 @@ TextLink.defaultProps = {
     textAlign: "left", // 기본 텍스트 정렬
     alignSelf: "auto", // 기본 Flexbox 정렬
 };
-
 export default React.memo(TextLink);
