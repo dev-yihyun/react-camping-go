@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Text from "./Text";
 
 const TextLink = ({ text, links = [], color, fontSize, fontWeight, textAlign, alignSelf }) => {
-    const parsedText = text.split(/(\{link\})/); // "{link}"로 텍스트를 분리
+    const parsedText = text.split(/(\{link\})/);
 
     return (
         <Text
@@ -16,7 +16,7 @@ const TextLink = ({ text, links = [], color, fontSize, fontWeight, textAlign, al
         >
             {parsedText.map((segment, index) => {
                 if (segment === "{link}") {
-                    const currentLink = links.shift(); // links 배열에서 하나씩 꺼냄
+                    const currentLink = links.shift();
                     return (
                         <Link
                             key={index}
@@ -31,17 +31,17 @@ const TextLink = ({ text, links = [], color, fontSize, fontWeight, textAlign, al
                         </Link>
                     );
                 }
-                return <span key={index}>{segment}</span>; // 일반 텍스트 반환
+                return <span key={index}>{segment}</span>;
             })}
         </Text>
     );
 };
 TextLink.propTypes = {
-    text: PropTypes.string.isRequired, // 텍스트 내용
+    text: PropTypes.string.isRequired,
     links: PropTypes.arrayOf(
         PropTypes.shape({
-            to: PropTypes.string.isRequired, // 라우트 경로
-            label: PropTypes.string.isRequired, // 링크 라벨
+            to: PropTypes.string.isRequired,
+            label: PropTypes.string.isRequired,
         })
     ).isRequired,
     color: PropTypes.string,
@@ -52,10 +52,10 @@ TextLink.propTypes = {
 };
 
 TextLink.defaultProps = {
-    color: "#212121", // 기본 검정색
-    fontSize: "16px", // 기본 폰트 크기
-    fontWeight: "normal", // 기본 폰트 굵기
-    textAlign: "left", // 기본 텍스트 정렬
-    alignSelf: "auto", // 기본 Flexbox 정렬
+    color: "#212121",
+    fontSize: "16px",
+    fontWeight: "normal",
+    textAlign: "left",
+    alignSelf: "auto",
 };
 export default React.memo(TextLink);
