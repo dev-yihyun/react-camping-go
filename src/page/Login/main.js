@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Button from "../../component/Button/Button";
 import Card from "../../component/Card/Card";
 import Input from "../../component/Input/Input";
@@ -9,24 +8,10 @@ import Space from "../../component/Layout/Space";
 import Text from "../../component/Text/Text";
 import TextLink from "../../component/Text/TextLink";
 import Title from "../../component/Text/Title";
+import { useLogin } from "./hook/useLogin";
 
 function Login() {
-    const [inputId, setInputId] = useState("");
-    const [inputPw, setInputPw] = useState("");
-
-    const onInputId = (event) => {
-        setInputId(event.target.value);
-    };
-
-    const onInputPw = (event) => {
-        setInputPw(event.target.value);
-    };
-
-    const onLogin = () => {
-        if (!inputId.trim() || !inputPw.trim()) {
-            return alert("아이디와 비밀번호를 입력해 주세요.");
-        }
-    };
+    const { inputId, inputPw, onInputId, onInputPw, onLogin } = useLogin();
 
     return (
         <>
