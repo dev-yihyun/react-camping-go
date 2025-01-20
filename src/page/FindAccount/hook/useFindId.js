@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { formatPhoneNumber } from "../../../function/formatPhoneNumber";
+import { formatPhoneNumber } from "../../../utils/formatPhoneNumber";
 
 export const useFindId = () => {
     const [inputName, setInputName] = useState("");

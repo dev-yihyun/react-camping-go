@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { formatPhoneNumber } from "../../../function/formatPhoneNumber";
+import { formatPhoneNumber } from "../../../utils/formatPhoneNumber";
 
 export const useFindPw = () => {
     const [inputId, setInputId] = useState("");

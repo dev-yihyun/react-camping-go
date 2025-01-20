@@ -1,9 +1,9 @@
-import FindId from "./page/FindAccount/FindId";
+import Router from "./router";
 
 function App() {
     return (
         <>
-            <FindId />
+            <Router />
         </>
     );
 }
