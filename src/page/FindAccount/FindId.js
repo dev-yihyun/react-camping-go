@@ -1,4 +1,5 @@
 import { FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import Button from "../../component/Button/Button";
 import IconButton from "../../component/Button/IconButton";
 import TabCard from "../../component/Card/TabCard";
@@ -11,6 +12,7 @@ import Title from "../../component/Text/Title";
 import { useFindId } from "./hook/useFindId";
 
 function FindId() {
+    const navigate = useNavigate(); // useNavigate hook
     const {
         inputName,
         inputPhone,
@@ -88,7 +90,7 @@ function FindId() {
             <Page>
                 <FlexBox>
                     <FlexBox direction="row" gap="8px">
-                        <IconButton icon={<FaArrowLeft />} />
+                        <IconButton icon={<FaArrowLeft />} onClick={() => navigate(-1)} />
                         <Title>FIND ID</Title>
                     </FlexBox>
                     <TabCard tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
