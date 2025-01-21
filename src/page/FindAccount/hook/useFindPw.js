@@ -59,7 +59,13 @@ export const useFindPw = () => {
     };
 
     const isFormValid = () => {
-        return !inputId.trim() || !inputName.trim() || !inputPhone.trim() || !inputEmail.trim();
+        return (
+            !inputId.trim() ||
+            !inputName.trim() ||
+            !inputPhone.trim() ||
+            !inputEmail.trim() ||
+            inputPhone.replace(/\D/g, "").length < 11
+        );
     };
 
     return {
