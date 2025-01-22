@@ -4,7 +4,7 @@ import MainSection from "./ui/MainSection";
 function Home() {
     return (
         <>
-            <Nav type="mypage" />
+            <Nav type="home" />
             <MainSection />
         </>
     );
