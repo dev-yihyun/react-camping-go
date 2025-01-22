@@ -1,7 +1,10 @@
+import Nav from "../../component/Nav/Nav";
+
 function Home() {
     return (
         <>
-            <p>Home</p>
+            <Nav type="mypage" />
+            {/* <p>Home</p> */}
         </>
     );
 }

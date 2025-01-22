@@ -1,0 +1,52 @@
+.nav {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+}
+.backgroundHeader {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.homelogo {
+    padding: 1rem 2rem;
+    cursor: pointer;
+}
+.homelogo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+.usermenu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 1rem 2rem;
+}
+.usermenu a {
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+}
+.userinfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    line-height: 22px;
+}
+.userID {
+    font-weight: bold;
+}
+@media (max-width: 599px) {
+    .userinfo {
+        display: none;
+    }
+
+    .nav .homelogo a {
+        font-size: 1.2rem;
+    }
+}
