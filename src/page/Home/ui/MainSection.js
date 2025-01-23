@@ -1,7 +1,7 @@
 import { FaLocationDot } from "react-icons/fa6";
 // import "../css/mainsection.css";
 import styled, { keyframes } from "styled-components";
-import mainsection from "../img/mainsection.jpg";
+import mainsection from "../../../assets/img/Home/mainsection.jpg";
 
 const MainComponent = styled.section`
     position: relative;

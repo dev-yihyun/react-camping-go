@@ -1,16 +1,19 @@
+import { Link } from "react-router-dom";
+import PageButton from "../../component/Button/PageButton";
 import FlexBox from "../../component/Layout/FlexBox";
 import Space from "../../component/Layout/Space";
 import Nav from "../../component/Nav/Nav";
 import ListItem from "./ui/ListItem";
 import MainSection from "./ui/MainSection";
-import PageButton from "./ui/PageButton";
 function Home() {
     return (
         <>
             <Nav type="home" />
             <MainSection />
             <Space height={8} />
-            <ListItem />
+            <Link to={"/campinfo"}>
+                <ListItem />
+            </Link>
             <ListItem />
             <ListItem />
             <ListItem />
