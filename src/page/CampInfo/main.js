@@ -1,3 +1,4 @@
+import Footer from "../../component/Footer/Footer";
 import Space from "../../component/Layout/Space";
 import Nav from "../../component/Nav/Nav";
 import CampAmenities from "./ui/CampAmenities ";
@@ -21,6 +22,7 @@ function CampInfo() {
             <Space height={8} />
             <MapSection />
             <Space height={8} />
+            <Footer />
         </>
     );
 }

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import PageButton from "../../component/Button/PageButton";
+import Footer from "../../component/Footer/Footer";
 import FlexBox from "../../component/Layout/FlexBox";
 import Space from "../../component/Layout/Space";
 import Nav from "../../component/Nav/Nav";
@@ -32,6 +33,7 @@ function Home() {
             </FlexBox>
 
             <Space height={8} />
+            <Footer />
         </>
     );
 }
