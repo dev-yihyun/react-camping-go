@@ -10,18 +10,11 @@ const BoxShadowCardComponent = styled.div`
     ${({ $flex }) => $flex && `flex: ${$flex};`}
 
     display: flex;
-    // flex-direction: column;
-    // justify-items: center;
-    // justify-content: center;
-    // align-items: flex-start;
-    // align-content: center;
-    // gap: 20px;
 
     ${({ $flex }) => $flex && `flex: ${$flex};`}
     ${({ $gap }) => $gap && `gap: ${$gap};`}
     ${({ direction }) => direction && `flex-direction: ${direction};`}
     ${({ wrap }) => wrap && `flex-wrap: ${wrap};`}
-    // ${({ justifyItems }) => justifyItems && `justify-items: ${justifyItems};`}
     ${({ $justifyContent }) => $justifyContent && `justify-content: ${$justifyContent};`}
     ${({ $alignItems }) => $alignItems && `align-items: ${$alignItems};`}
     ${({ $alignContent }) => $alignContent && `align-content: ${$alignContent};`}
@@ -33,7 +26,6 @@ const BoxShadowCard = ({
     gap,
     direction,
     wrap,
-    // justifyItems,
     justifyContent,
     alignItems,
     alignContent,
@@ -44,7 +36,6 @@ const BoxShadowCard = ({
             $gap={gap}
             direction={direction}
             wrap={wrap}
-            // justifyItems={justifyItems}
             $justifyContent={justifyContent}
             $alignItems={alignItems}
             $alignContent={alignContent}

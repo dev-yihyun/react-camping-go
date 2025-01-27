@@ -11,7 +11,7 @@ import Text from "../../component/Text/Text";
 import Title from "../../component/Text/Title";
 import { useFindPw } from "./hook/useFindPw";
 function FindPw() {
-    const navigate = useNavigate(); // useNavigate hook
+    const navigate = useNavigate();
 
     const {
         inputId,

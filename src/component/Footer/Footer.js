@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const FooterComponent = styled.footer`
-    // background-color: #4caf50;
     background-color: #004d40;
     color: white;
     padding: 10px 0;

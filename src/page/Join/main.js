@@ -11,7 +11,7 @@ import Text from "../../component/Text/Text";
 import Title from "../../component/Text/Title";
 import { useJoin } from "./hook/useJoin";
 function Join() {
-    const navigate = useNavigate(); // useNavigate hook
+    const navigate = useNavigate();
     const {
         inputId,
         inputPw,

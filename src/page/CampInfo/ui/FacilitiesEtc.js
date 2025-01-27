@@ -17,7 +17,6 @@ function FacilitiesEtc() {
                     justifyContent="center"
                     wrap="wrap"
                 >
-                    {/* <Text> */}
                     <h2>📍 주소</h2>
                     <p>Lorem ipsum dolor sit amet</p>
                     <h2>📞 연락처</h2>

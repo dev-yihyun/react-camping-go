@@ -1,5 +1,4 @@
 import { FaLocationDot } from "react-icons/fa6";
-// import "../css/mainsection.css";
 import styled, { keyframes } from "styled-components";
 import mainsection from "../../../assets/img/Home/mainsection.jpg";
 
@@ -10,7 +9,7 @@ const MainComponent = styled.section`
     align-items: start;
     justify-content: center;
     flex-direction: column;
-    overflow: hidden; /* 배경 이미지 넘침 방지 */
+    overflow: hidden;
 `;
 const BackgroundComponent = styled.div`
     position: absolute;

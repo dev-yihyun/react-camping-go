@@ -22,7 +22,7 @@ const ImageComponent = styled.div`
 const BannerImageComponent = styled.img`
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 이미지 비율을 유지하며 요소 크기에 맞게 자름 */
+    object-fit: cover;
     border-radius: 8px;
 `;
 
@@ -43,7 +43,6 @@ function InfoSection() {
                         justifyContent="center"
                         wrap="wrap"
                     >
-                        {/* <Text> */}
                         <Text fontWeight="bold" fontSize="24px">
                             📍 주소
                         </Text>
