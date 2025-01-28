@@ -12,7 +12,7 @@ import Title from "../../component/Text/Title";
 import { useFindId } from "./hook/useFindId";
 
 function FindId() {
-    const navigate = useNavigate(); // useNavigate hook
+    const navigate = useNavigate();
     const {
         inputName,
         inputPhone,
