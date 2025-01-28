@@ -11,6 +11,7 @@ import Space from "../../component/Layout/Space";
 import Nav from "../../component/Nav/Nav";
 import Text from "../../component/Text/Text";
 import Title from "../../component/Text/Title";
+import { formatPhoneNumber } from "../../utils/formatPhoneNumber";
 
 function MyPage() {
     const navigate = useNavigate();
@@ -39,8 +40,32 @@ function MyPage() {
         setIsShowEmail(!isShowEmail);
     };
 
+    const [isShowPhone, setIsShowPhone] = useState(false);
+    const [inputPhone, setInputPhone] = useState("");
+    const [inputPhoneErrorMessage, setInputPhoneErrorMessage] = useState("");
+    const onInputPhone = (event) => {
+        const formattedValue = formatPhoneNumber(event.target.value);
+        setInputPhone(formattedValue);
+        if (/^\d{3}-\d{4}-\d{4}$/.test(formattedValue)) {
+            //전화번호 정규식과 맞을 때
+            setInputPhoneErrorMessage("");
+        } else {
+            // 맞지 않을 때
+            setInputPhoneErrorMessage("전화번호를 올바른 형식으로 입력해 주세요.");
+        }
+    };
+    const onShowPhone = () => {
+        if (isShowPhone) {
+            // 전화번호 수정 취소 시 초기값으로 되돌림
+            setInputPhone("010-0000-0000");
+            setInputPhoneErrorMessage(""); // 에러 메시지도 초기화
+        }
+        setIsShowPhone(!isShowPhone);
+    };
+
     useEffect(() => {
         setInputEmail("example@email.com");
+        setInputPhone("010-0000-0000");
     }, []);
 
     const tabs = [
@@ -53,7 +78,6 @@ function MyPage() {
                             <Text>가입시기 : 2025.01.01</Text>
                             <Text>ID : admin</Text>
                             <Text>Name : 홍길동</Text>
-
                             {isShowEmail ? (
                                 <>
                                     <Input
@@ -74,25 +98,46 @@ function MyPage() {
                                             inputEmailErrorMessage
                                         }
                                     >
-                                        Email
+                                        Email 수정하기
                                     </Button>
                                 </>
                             ) : (
                                 <>
                                     <Text>Email : example@email.com</Text>
-                                    <Button onClick={onShowEmail}>Email</Button>
+                                    <Button onClick={onShowEmail}>Email 수정하기</Button>
                                 </>
                             )}
 
-                            {/*  */}
-                            {/*  */}
-                            {/*  
-                            <Text>Phone : email@email.com</Text>
-                            <Input type="tel" placeholder="Phone" />
-                            <Text color="error">오류 메시지</Text>
-                            <Button>취소</Button>
-                            <Button>Phone</Button>
-                            <Button>회원 탈퇴</Button>*/}
+                            {isShowPhone ? (
+                                <>
+                                    <Input
+                                        type="tel"
+                                        placeholder="PHONE"
+                                        maxLength={13}
+                                        value={inputPhone}
+                                        onChange={onInputPhone}
+                                    />
+                                    {inputPhoneErrorMessage && (
+                                        <Text color="error">{inputPhoneErrorMessage}</Text>
+                                    )}
+                                    <Button onClick={onShowPhone}>취소</Button>
+                                    <Button
+                                        disabled={
+                                            !inputPhone.trim() ||
+                                            inputPhone.replace(/\D/g, "").length < 11
+                                        }
+                                    >
+                                        Phone 수정
+                                    </Button>
+                                </>
+                            ) : (
+                                <>
+                                    <Text>Phone : {inputPhone}</Text>
+                                    <Button onClick={onShowPhone}>Phone</Button>
+                                </>
+                            )}
+
+                            <Button>회원 탈퇴</Button>
                         </FlexBox>
                     </FlexBox>
                 </>
@@ -117,7 +162,6 @@ function MyPage() {
     return (
         <>
             <Nav type="mypage" />
-
             <Page>
                 <FlexBox direction="column">
                     <FlexBox direction="row" gap="8px">
