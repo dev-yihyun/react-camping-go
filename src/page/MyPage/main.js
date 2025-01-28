@@ -5,6 +5,7 @@ import Button from "../../component/Button/Button";
 import IconButton from "../../component/Button/IconButton";
 import TabCard from "../../component/Card/TabCard";
 import Input from "../../component/Input/Input";
+import Password from "../../component/Input/Password";
 import FlexBox from "../../component/Layout/FlexBox";
 import Page from "../../component/Layout/Page";
 import Space from "../../component/Layout/Space";
@@ -21,6 +22,10 @@ function MyPage() {
     const [inputEmailErrorMessage, setInputEmailErrorMessage] = useState("");
     const [isShowEmail, setIsShowEmail] = useState(false);
     const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    const [isShowPhone, setIsShowPhone] = useState(false);
+    const [inputPhone, setInputPhone] = useState("");
+    const [inputPhoneErrorMessage, setInputPhoneErrorMessage] = useState("");
 
     const onInputEmail = (event) => {
         setInputEmail(event.target.value);
@@ -40,9 +45,6 @@ function MyPage() {
         setIsShowEmail(!isShowEmail);
     };
 
-    const [isShowPhone, setIsShowPhone] = useState(false);
-    const [inputPhone, setInputPhone] = useState("");
-    const [inputPhoneErrorMessage, setInputPhoneErrorMessage] = useState("");
     const onInputPhone = (event) => {
         const formattedValue = formatPhoneNumber(event.target.value);
         setInputPhone(formattedValue);
@@ -67,6 +69,40 @@ function MyPage() {
         setInputEmail("example@email.com");
         setInputPhone("010-0000-0000");
     }, []);
+    useEffect(() => {
+        setInputEmail("example@email.com");
+        setInputPhone("010-0000-0000");
+        setIsShowEmail(false);
+        setIsShowPhone(false);
+    }, [activeTab]);
+
+    const [inputCurrentPassword, setInputCurrentPassword] = useState("");
+    const [inputResetPassword, setInputResetPassword] = useState("");
+    const [inputCheckPassword, setInputCheckPassword] = useState("");
+    const [inputPasswordErrorMessage, setInputPasswordErrorMessage] = useState("");
+
+    const regexPw = /^[a-zA-Z0-9!@#$%^&*+\-=_?]*$/;
+    const onInputCurrentPassword = (event) => {
+        setInputCurrentPassword(event.target.value);
+    };
+    const onInputResetPassword = (event) => {
+        setInputResetPassword(event.target.value);
+        if (!regexPw.test(event.target.value)) {
+            setInputPasswordErrorMessage(
+                "비밀번호는 영어,숫자,특수문자(!@#$%^&*+-=_?)만 입력 가능합니다."
+            );
+        } else {
+            setInputPasswordErrorMessage("");
+        }
+    };
+    const onInputCheckPassword = (event) => {
+        setInputCheckPassword(event.target.value); // 새 비밀번호와 확인 비밀번호가 다를 경우 에러 메시지 설정
+        if (inputResetPassword !== event.target.value) {
+            setInputPasswordErrorMessage("새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+        } else {
+            setInputPasswordErrorMessage(""); // 동일한 경우 에러 메시지 제거
+        }
+    };
 
     const tabs = [
         {
@@ -75,6 +111,7 @@ function MyPage() {
                 <>
                     <FlexBox gap="8px">
                         <FlexBox align="flex-start" gap="8px">
+                            <Space height="4" />
                             <Text>가입시기 : 2025.01.01</Text>
                             <Text>ID : admin</Text>
                             <Text>Name : 홍길동</Text>
@@ -139,6 +176,7 @@ function MyPage() {
 
                             <Button>회원 탈퇴</Button>
                         </FlexBox>
+                        <Space height="4" />
                     </FlexBox>
                 </>
             ),
@@ -147,13 +185,43 @@ function MyPage() {
             label: "Password",
             content: (
                 <>
-                    <FlexBox align="flex-start" gap="8px">
-                        <Input placeholder="Current Password" />
+                    <FlexBox justify="center" align="center" gap="8px">
+                        <Space height="4" />
+                        <Password
+                            maxLength="16"
+                            placeholder="Current Password"
+                            value={inputCurrentPassword}
+                            onChange={onInputCurrentPassword}
+                        />
                         <Space height="3" />
-                        <Input placeholder="Reset Password" />
-                        <Input placeholder="Check password" />
-                        <Text color="error">오류 메시지</Text>
-                        <Button>reset password</Button>
+                        <Password
+                            maxLength="16"
+                            placeholder="Reset Password"
+                            value={inputResetPassword}
+                            onChange={onInputResetPassword}
+                        />
+                        <Password
+                            maxLength="16"
+                            placeholder="Check password"
+                            value={inputCheckPassword}
+                            onChange={onInputCheckPassword}
+                        />
+                        {inputPasswordErrorMessage && (
+                            <Text color="error">{inputPasswordErrorMessage}</Text>
+                        )}
+                        <Button
+                            disabled={
+                                !inputCurrentPassword.trim() ||
+                                !inputCheckPassword.trim() ||
+                                !inputResetPassword.trim() ||
+                                inputPasswordErrorMessage ||
+                                inputResetPassword !== inputCheckPassword || // 새 비밀번호와 확인 비밀번호가 다르면 비활성화
+                                !regexPw.test(inputResetPassword) // 새 비밀번호가 정규식 조건에 맞지 않으면 비활성화
+                            }
+                        >
+                            reset password
+                        </Button>
+                        <Space height="4" />
                     </FlexBox>
                 </>
             ),
@@ -168,7 +236,7 @@ function MyPage() {
                         <IconButton icon={<FaArrowLeft />} onClick={() => navigate(-1)} />
                         <Title>MyPage</Title>
                     </FlexBox>
-                    <Space height="7" />
+                    <Space height="8" />
                     <TabCard tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
                 </FlexBox>
             </Page>
