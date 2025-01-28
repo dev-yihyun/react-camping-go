@@ -6,6 +6,7 @@ import FindPw from "./page/FindAccount/FindPW";
 import Home from "./page/Home/main";
 import Join from "./page/Join/main";
 import Login from "./page/Login/main";
+import MyPage from "./page/MyPage/main";
 
 function Router() {
     return (
@@ -18,6 +19,7 @@ function Router() {
                     <Route path="/findpw" element={<FindPw />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/campinfo" element={<CampInfo />} />
+                    <Route path="/mypage" element={<MyPage />} />
                 </Routes>
             </BrowserRouter>
         </>
