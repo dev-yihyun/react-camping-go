@@ -19,7 +19,7 @@ const FlexBox = ({ children, gap, direction, wrap, justify, align }) => {
             direction={direction}
             $wrap={wrap}
             $justify={justify}
-            $align={align}
+            align={align}
         >
             {children}
         </FlexBoxContainer>

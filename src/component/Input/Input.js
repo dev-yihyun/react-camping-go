@@ -17,6 +17,9 @@ const InputComponent = styled.input`
         font-weight: bold;
         font-size: 16px;
     }
+    &:focus {
+        outline: none;
+    }
 
     @media (min-width: 1024px) {
         width: 370px;

@@ -11,7 +11,7 @@ function Nav({ type = "home" }) {
                     <a href="/home">🏕️ Camping Go⛺</a>
                 </div>
                 <div className="usermenu">
-                    <a href="/#" className="usermenuicon" aria-label="User Profile">
+                    <a href="/mypage" className="usermenuicon" aria-label="User Profile">
                         <IoPerson />
                     </a>
 
