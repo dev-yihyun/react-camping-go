@@ -7,7 +7,7 @@ const PasswordContainer = styled.div`
     display: flex;
     align-items: center;
     background-color: #f2f2f2;
-    border: none;
+    border: ${({ error }) => (error ? "2px solid red" : "none")};
     border-radius: 10px;
     padding: 10px;
     color: #1e1e23;
@@ -59,10 +59,9 @@ const Password = ({ error, placeholder, value, onChange, maxLength }) => {
     };
     return (
         <>
-            <PasswordContainer>
+            <PasswordContainer error={error}>
                 <input
                     type={isShow ? "password" : "text"}
-                    error={error}
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}
