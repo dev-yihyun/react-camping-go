@@ -41,7 +41,7 @@ const PasswordContainer = styled.div`
     }
 
     input:focus {
-        outline: none; /* 기본 포커스 아웃라인 제거 */
+        outline: none;
     }
 
     @media (min-width: 1024px) {

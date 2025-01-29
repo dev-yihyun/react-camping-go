@@ -153,8 +153,8 @@ function MyPage() {
                                 !inputCheckPassword.trim() ||
                                 !inputResetPassword.trim() ||
                                 inputPasswordErrorMessage ||
-                                inputResetPassword !== inputCheckPassword || // 새 비밀번호와 확인 비밀번호가 다르면 비활성화
-                                !regexPw.test(inputResetPassword) // 새 비밀번호가 정규식 조건에 맞지 않으면 비활성화
+                                inputResetPassword !== inputCheckPassword ||
+                                !regexPw.test(inputResetPassword)
                             }
                         >
                             reset password

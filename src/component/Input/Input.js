@@ -18,7 +18,7 @@ const InputComponent = styled.input`
         font-size: 16px;
     }
     &:focus {
-        outline: none; /* 기본 포커스 아웃라인 제거 */
+        outline: none;
     }
 
     @media (min-width: 1024px) {
