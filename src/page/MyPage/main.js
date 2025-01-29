@@ -27,6 +27,24 @@ function MyPage() {
     const [inputPhone, setInputPhone] = useState("");
     const [inputPhoneErrorMessage, setInputPhoneErrorMessage] = useState("");
 
+    const [inputCurrentPassword, setInputCurrentPassword] = useState("");
+    const [inputResetPassword, setInputResetPassword] = useState("");
+    const [inputCheckPassword, setInputCheckPassword] = useState("");
+    const [inputPasswordErrorMessage, setInputPasswordErrorMessage] = useState("");
+    const regexPw = /^[a-zA-Z0-9!@#$%^&*+\-=_?]*$/;
+
+    useEffect(() => {
+        setInputEmail("example@email.com");
+        setInputPhone("010-0000-0000");
+    }, []);
+
+    useEffect(() => {
+        setInputEmail("example@email.com");
+        setInputPhone("010-0000-0000");
+        setIsShowEmail(false);
+        setIsShowPhone(false);
+    }, [activeTab]);
+
     const onInputEmail = (event) => {
         setInputEmail(event.target.value);
         if (!regexEmail.test(event.target.value)) {
@@ -56,6 +74,7 @@ function MyPage() {
             setInputPhoneErrorMessage("전화번호를 올바른 형식으로 입력해 주세요.");
         }
     };
+
     const onShowPhone = () => {
         if (isShowPhone) {
             // 전화번호 수정 취소 시 초기값으로 되돌림
@@ -65,26 +84,10 @@ function MyPage() {
         setIsShowPhone(!isShowPhone);
     };
 
-    useEffect(() => {
-        setInputEmail("example@email.com");
-        setInputPhone("010-0000-0000");
-    }, []);
-    useEffect(() => {
-        setInputEmail("example@email.com");
-        setInputPhone("010-0000-0000");
-        setIsShowEmail(false);
-        setIsShowPhone(false);
-    }, [activeTab]);
-
-    const [inputCurrentPassword, setInputCurrentPassword] = useState("");
-    const [inputResetPassword, setInputResetPassword] = useState("");
-    const [inputCheckPassword, setInputCheckPassword] = useState("");
-    const [inputPasswordErrorMessage, setInputPasswordErrorMessage] = useState("");
-
-    const regexPw = /^[a-zA-Z0-9!@#$%^&*+\-=_?]*$/;
     const onInputCurrentPassword = (event) => {
         setInputCurrentPassword(event.target.value);
     };
+
     const onInputResetPassword = (event) => {
         setInputResetPassword(event.target.value);
         if (!regexPw.test(event.target.value)) {
@@ -95,12 +98,20 @@ function MyPage() {
             setInputPasswordErrorMessage("");
         }
     };
+
     const onInputCheckPassword = (event) => {
         setInputCheckPassword(event.target.value); // 새 비밀번호와 확인 비밀번호가 다를 경우 에러 메시지 설정
         if (inputResetPassword !== event.target.value) {
             setInputPasswordErrorMessage("새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
         } else {
             setInputPasswordErrorMessage(""); // 동일한 경우 에러 메시지 제거
+        }
+        if (!regexPw.test(event.target.value)) {
+            setInputPasswordErrorMessage(
+                "비밀번호는 영어,숫자,특수문자(!@#$%^&*+-=_?)만 입력 가능합니다."
+            );
+        } else {
+            setInputPasswordErrorMessage("");
         }
     };
 
@@ -118,6 +129,7 @@ function MyPage() {
                             {isShowEmail ? (
                                 <>
                                     <Input
+                                        error={inputEmailErrorMessage}
                                         type="email"
                                         placeholder="Email"
                                         maxLength={40}
@@ -148,6 +160,7 @@ function MyPage() {
                             {isShowPhone ? (
                                 <>
                                     <Input
+                                        error={inputPhoneErrorMessage}
                                         type="tel"
                                         placeholder="PHONE"
                                         maxLength={13}
@@ -195,12 +208,14 @@ function MyPage() {
                         />
                         <Space height="3" />
                         <Password
+                            error={inputPasswordErrorMessage}
                             maxLength="16"
                             placeholder="Reset Password"
                             value={inputResetPassword}
                             onChange={onInputResetPassword}
                         />
                         <Password
+                            error={inputPasswordErrorMessage}
                             maxLength="16"
                             placeholder="Check password"
                             value={inputCheckPassword}
