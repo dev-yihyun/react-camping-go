@@ -13,6 +13,7 @@ export const useJoin = () => {
     const [checkPhone, setCheckPhone] = useState(false);
     const [inputEmail, setInputEmail] = useState("");
     const [inputEmailErrorMessage, setInputEmailErrorMessage] = useState("");
+    const [idCheck, setIdCheck] = useState(false);
 
     const regexId = /^[a-zA-Z0-9]*$/;
     const regexPw = /^[a-zA-Z0-9!@#$%^&*+\-=_?]*$/;
@@ -27,27 +28,21 @@ export const useJoin = () => {
         } else {
             setInputIdErrorMessage("");
         }
+        setIdCheck(false);
     };
 
     const onInputPw = (event) => {
         setInputPw(event.target.value);
-        if (!regexPw.test(event.target.value)) {
-            setInputPwErrorMessage("비밀번호는 영어,숫자,특수문자만 입력 가능합니다.");
-        } else {
-            setInputPwErrorMessage("");
-        }
     };
 
     const onInputCheckPw = (event) => {
         setInputCheckPw(event.target.value);
 
-        if (
-            event.target.value !== inputPw ||
-            !regexPw.test(event.target.value) ||
-            !regexPw.test(inputPw)
-        ) {
+        if (!regexPw.test(event.target.value)) {
+            setInputPwErrorMessage("비밀번호는 영어, 숫자, 특수문자만 입력 가능합니다.");
+        } else if (event.target.value !== inputPw) {
             setInputPwErrorMessage("비밀번호가 일치하지 않습니다.");
-        } else {
+        } else if (event.target.value === inputPw && regexPw.test(event.target.value)) {
             setInputPwErrorMessage("");
         }
     };
@@ -75,9 +70,7 @@ export const useJoin = () => {
     };
 
     // DB
-
     const onIdCheck = () => {
-        console.log("##inputId", inputId);
         fetch("http://localhost:3001/idcheck", {
             method: "POST",
             headers: {
@@ -87,21 +80,59 @@ export const useJoin = () => {
         })
             .then((res) => {
                 if (!res.ok) {
+                    console.error(`오류: ${res.status}`);
                     throw new Error(`서버 요청 실패: ${res.status}`);
                 }
                 return res.json();
             })
             .then((json) => {
-                console.log("##json", json);
                 if (json.success) {
                     setInputIdErrorMessage("사용 가능한 아이디입니다.");
+                    setIdCheck(true);
                 } else {
                     setInputIdErrorMessage("사용할수 없는 아이디입니다.");
+                    setIdCheck(false);
                 }
             })
             .catch((error) => {
-                console.error("오류:", error);
+                console.error(`오류: ${error}`);
                 alert("중복 체크 중 오류가 발생했습니다. 로그인으로 이동합니다.");
+                setIdCheck(false);
+                navigate("/"); // 로그인 페이지로 이동
+            });
+    };
+
+    const onJoin = () => {
+        fetch("http://localhost:3001/join", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({ inputId, inputPw, inputName, inputPhone, inputEmail }),
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    console.error(`오류: ${res.status}`);
+                    throw new Error(`서버 요청 실패: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then((json) => {
+                if (!json || typeof json.success === "undefined") {
+                    throw new Error("서버 응답이 올바르지 않습니다.");
+                }
+
+                if (json.success) {
+                    alert("회원가입이 완료되었습니다. 로그인으로 이동합니다.");
+                    navigate("/"); // 로그인 페이지로 이동
+                } else {
+                    alert("회원가입에 실패했습니다. 로그인으로 이동합니다.");
+                    navigate("/"); // 로그인 페이지로 이동
+                }
+            })
+            .catch((error) => {
+                console.error(`오류: ${error}`);
+                alert("회원가입 중 오류가 발생했습니다. 로그인으로 이동합니다.");
                 navigate("/"); // 로그인 페이지로 이동
             });
     };
@@ -109,7 +140,6 @@ export const useJoin = () => {
     const isFormValid = () => {
         return (
             inputId.trim() &&
-            !inputIdErrorMessage &&
             inputPw.trim() &&
             !inputPwErrorMessage &&
             inputName.trim() &&
@@ -117,10 +147,10 @@ export const useJoin = () => {
             !checkPhone &&
             inputEmail.trim() &&
             !inputEmailErrorMessage &&
-            regexEmail.test(inputEmail)
+            regexEmail.test(inputEmail) &&
+            idCheck
         );
     };
-
     return {
         inputId,
         inputPw,
@@ -132,6 +162,7 @@ export const useJoin = () => {
         checkPhone,
         inputEmail,
         inputEmailErrorMessage,
+        idCheck,
         onInputId,
         onIdCheck,
         onInputPw,
@@ -139,6 +170,7 @@ export const useJoin = () => {
         onInputName,
         onInputPhone,
         onInputEmail,
+        onJoin,
         isFormValid,
     };
 };

@@ -36,7 +36,7 @@ app.post("/idcheck", (req, res) => {
     const query = "SELECT COUNT(id) AS count FROM `react_project`.`user_` WHERE id=?";
     const getUserById = (err, rows) => {
         if (err) {
-            console.log("##fail", err);
+            console.error("##fail", err);
             return res.status(500).json({
                 success: false,
                 message: "서버 오류가 발생했습니다.",
@@ -44,12 +44,12 @@ app.post("/idcheck", (req, res) => {
             });
         } else {
             if (rows[0].count > 0) {
-                console.log("##사용할 수 없는 아이디입니다.");
+                console.log("사용할 수 없는 아이디입니다.");
                 return res.status(200).json({
                     success: false,
                 });
             } else {
-                console.log("##사용 가능한 아이디입니다.");
+                console.log("사용 가능한 아이디입니다.");
                 return res.status(200).json({
                     success: true,
                 });
@@ -57,6 +57,34 @@ app.post("/idcheck", (req, res) => {
         }
     };
     connection.query(query, data, getUserById);
+});
+
+app.post("/join", (req, res) => {
+    const data = [
+        req.body.inputId,
+        req.body.inputPw,
+        req.body.inputName,
+        req.body.inputPhone,
+        req.body.inputEmail,
+    ];
+    const query =
+        "INSERT INTO `react_project`.`user_` (`id`,`pw`,`name`,`phone`,`email`,`insertdate`) values (?,?,?,?,?,NOW())";
+    const insertUser = (err) => {
+        if (err) {
+            console.error("##fail", err);
+            return res.status(500).json({
+                success: false,
+                message: "서버 오류가 발생했습니다.",
+                error: err,
+            });
+        } else {
+            console.log("회원가입 성공");
+            return res.status(200).json({
+                success: true,
+            });
+        }
+    };
+    connection.query(query, data, insertUser);
 });
 
 app.listen(port, () => {

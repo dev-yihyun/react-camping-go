@@ -23,6 +23,7 @@ function Join() {
         checkPhone,
         inputEmail,
         inputEmailErrorMessage,
+        idCheck,
         onInputId,
         onIdCheck,
         onInputPw,
@@ -30,6 +31,7 @@ function Join() {
         onInputName,
         onInputPhone,
         onInputEmail,
+        onJoin,
         isFormValid,
     } = useJoin();
 
@@ -48,10 +50,10 @@ function Join() {
                                 value={inputId}
                                 onChange={onInputId}
                                 maxLength="16"
-                                error={inputIdErrorMessage}
+                                error={inputIdErrorMessage ? (idCheck ? false : true) : false}
                             />
                             {inputIdErrorMessage && (
-                                <Text color="error" alignSelf="flex-start">
+                                <Text color={idCheck ? "green" : "error"} alignSelf="flex-start">
                                     {inputIdErrorMessage}
                                 </Text>
                             )}
@@ -115,7 +117,9 @@ function Join() {
                                 </Text>
                             )}
 
-                            <Button disabled={!isFormValid()}>Join</Button>
+                            <Button disabled={!isFormValid()} onClick={onJoin}>
+                                Join
+                            </Button>
                         </FlexBox>
                     </Card>
                 </FlexBox>
