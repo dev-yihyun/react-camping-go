@@ -70,7 +70,6 @@ export const useJoin = () => {
         }
     };
 
-    // DB
     const getUserById = async (inputId) => {
         const response = await fetch("http://localhost:3001/idcheck", {
             method: "POST",
@@ -83,6 +82,7 @@ export const useJoin = () => {
         }
         return response.json();
     };
+
     const setIdCheckSuccess = (data) => {
         if (data.success) {
             setInputIdErrorMessage("사용 가능한 아이디입니다.");
@@ -97,7 +97,7 @@ export const useJoin = () => {
         console.error(`오류: ${error}`);
         alert("중복 체크 중 오류가 발생했습니다. 로그인으로 이동합니다.");
         setIdCheck(false);
-        navigate("/"); // 로그인 페이지로 이동
+        navigate("/");
     };
 
     const idCheckMutation = useMutation({
@@ -109,6 +109,7 @@ export const useJoin = () => {
     const onIdCheck = () => {
         idCheckMutation.mutate(inputId);
     };
+
     const insertUser = async (userData) => {
         const response = await fetch("http://localhost:3001/join", {
             method: "POST",
@@ -123,18 +124,20 @@ export const useJoin = () => {
         }
         return response.json();
     };
+
     const setInsertUserSuccess = (data) => {
         if (data.success) {
             alert("회원가입이 완료되었습니다. 로그인으로 이동합니다.");
         } else {
             alert("회원가입에 실패했습니다. 로그인으로 이동합니다.");
         }
-        navigate("/"); // 로그인 페이지로 이동
+        navigate("/");
     };
+
     const setInsertUserError = (error) => {
         console.error(`오류: ${error}`);
         alert("회원가입 중 오류가 발생했습니다. 로그인으로 이동합니다.");
-        navigate("/"); // 로그인 페이지로 이동
+        navigate("/");
     };
 
     const joinMutation = useMutation({
@@ -144,11 +147,6 @@ export const useJoin = () => {
     });
 
     const onJoin = () => {
-        console.log("##inputId", inputId);
-        console.log("##inputPw", inputPw);
-        console.log("##inputName", inputName);
-        console.log("##inputPhone", inputPhone);
-        console.log("##inputEmail", inputEmail);
         const userData = { inputId, inputPw, inputName, inputPhone, inputEmail };
         joinMutation.mutate(userData);
     };

@@ -33,10 +33,10 @@ app.get("/", (req, res) => {
 
 app.post("/idcheck", (req, res) => {
     const data = [req.body.inputId];
-    const query = "SELECT COUNT(id) AS count FROM `react_project`.`user_` WHERE id=?";
+    const query = `SELECT COUNT(id) AS count FROM react_project.user_ WHERE id=?`;
     const getUserById = (err, rows) => {
         if (err) {
-            console.error("##fail", err);
+            console.error("fail", err);
             return res.status(500).json({
                 success: false,
                 message: "서버 오류가 발생했습니다.",
@@ -68,7 +68,7 @@ app.post("/join", (req, res) => {
     `;
     const insertUser = (err) => {
         if (err) {
-            console.error("##fail", err);
+            console.error("fail", err);
             return res.status(500).json({
                 success: false,
                 message: "서버 오류가 발생했습니다.",
