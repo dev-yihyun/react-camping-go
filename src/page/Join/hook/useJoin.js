@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { formatPhoneNumber } from "../../../utils/formatPhoneNumber";
@@ -70,71 +71,86 @@ export const useJoin = () => {
     };
 
     // DB
-    const onIdCheck = () => {
-        fetch("http://localhost:3001/idcheck", {
+    const getUserById = async (inputId) => {
+        const response = await fetch("http://localhost:3001/idcheck", {
             method: "POST",
-            headers: {
-                "content-type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ inputId }),
-        })
-            .then((res) => {
-                if (!res.ok) {
-                    console.error(`오류: ${res.status}`);
-                    throw new Error(`서버 요청 실패: ${res.status}`);
-                }
-                return res.json();
-            })
-            .then((json) => {
-                if (json.success) {
-                    setInputIdErrorMessage("사용 가능한 아이디입니다.");
-                    setIdCheck(true);
-                } else {
-                    setInputIdErrorMessage("사용할수 없는 아이디입니다.");
-                    setIdCheck(false);
-                }
-            })
-            .catch((error) => {
-                console.error(`오류: ${error}`);
-                alert("중복 체크 중 오류가 발생했습니다. 로그인으로 이동합니다.");
-                setIdCheck(false);
-                navigate("/"); // 로그인 페이지로 이동
-            });
+        });
+        if (!response.ok) {
+            console.error(`오류: ${response.status}`);
+            throw new Error("서버 요청 실패");
+        }
+        return response.json();
+    };
+    const setIdCheckSuccess = (data) => {
+        if (data.success) {
+            setInputIdErrorMessage("사용 가능한 아이디입니다.");
+            setIdCheck(true);
+        } else {
+            setInputIdErrorMessage("사용할수 없는 아이디입니다.");
+            setIdCheck(false);
+        }
     };
 
-    const onJoin = () => {
-        fetch("http://localhost:3001/join", {
+    const setIdCheckError = (error) => {
+        console.error(`오류: ${error}`);
+        alert("중복 체크 중 오류가 발생했습니다. 로그인으로 이동합니다.");
+        setIdCheck(false);
+        navigate("/"); // 로그인 페이지로 이동
+    };
+
+    const idCheckMutation = useMutation({
+        mutationFn: getUserById,
+        onSuccess: setIdCheckSuccess,
+        onError: setIdCheckError,
+    });
+
+    const onIdCheck = () => {
+        idCheckMutation.mutate(inputId);
+    };
+    const insertUser = async (userData) => {
+        const response = await fetch("http://localhost:3001/join", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
             },
-            body: JSON.stringify({ inputId, inputPw, inputName, inputPhone, inputEmail }),
-        })
-            .then((res) => {
-                if (!res.ok) {
-                    console.error(`오류: ${res.status}`);
-                    throw new Error(`서버 요청 실패: ${res.status}`);
-                }
-                return res.json();
-            })
-            .then((json) => {
-                if (!json || typeof json.success === "undefined") {
-                    throw new Error("서버 응답이 올바르지 않습니다.");
-                }
+            body: JSON.stringify({ userData }),
+        });
+        if (!response.ok) {
+            console.error(`오류: ${response.status}`);
+            throw new Error("서버 요청 실패");
+        }
+        return response.json();
+    };
+    const setInsertUserSuccess = (data) => {
+        if (data.success) {
+            alert("회원가입이 완료되었습니다. 로그인으로 이동합니다.");
+        } else {
+            alert("회원가입에 실패했습니다. 로그인으로 이동합니다.");
+        }
+        navigate("/"); // 로그인 페이지로 이동
+    };
+    const setInsertUserError = (error) => {
+        console.error(`오류: ${error}`);
+        alert("회원가입 중 오류가 발생했습니다. 로그인으로 이동합니다.");
+        navigate("/"); // 로그인 페이지로 이동
+    };
 
-                if (json.success) {
-                    alert("회원가입이 완료되었습니다. 로그인으로 이동합니다.");
-                    navigate("/"); // 로그인 페이지로 이동
-                } else {
-                    alert("회원가입에 실패했습니다. 로그인으로 이동합니다.");
-                    navigate("/"); // 로그인 페이지로 이동
-                }
-            })
-            .catch((error) => {
-                console.error(`오류: ${error}`);
-                alert("회원가입 중 오류가 발생했습니다. 로그인으로 이동합니다.");
-                navigate("/"); // 로그인 페이지로 이동
-            });
+    const joinMutation = useMutation({
+        mutationFn: insertUser,
+        onSuccess: setInsertUserSuccess,
+        onError: setInsertUserError,
+    });
+
+    const onJoin = () => {
+        console.log("##inputId", inputId);
+        console.log("##inputPw", inputPw);
+        console.log("##inputName", inputName);
+        console.log("##inputPhone", inputPhone);
+        console.log("##inputEmail", inputEmail);
+        const userData = { inputId, inputPw, inputName, inputPhone, inputEmail };
+        joinMutation.mutate(userData);
     };
 
     const isFormValid = () => {

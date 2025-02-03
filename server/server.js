@@ -60,15 +60,12 @@ app.post("/idcheck", (req, res) => {
 });
 
 app.post("/join", (req, res) => {
-    const data = [
-        req.body.inputId,
-        req.body.inputPw,
-        req.body.inputName,
-        req.body.inputPhone,
-        req.body.inputEmail,
-    ];
-    const query =
-        "INSERT INTO `react_project`.`user_` (`id`,`pw`,`name`,`phone`,`email`,`insertdate`) values (?,?,?,?,?,NOW())";
+    const { inputId, inputPw, inputName, inputPhone, inputEmail } = req.body.userData;
+    const data = [inputId, inputPw, inputName, inputPhone, inputEmail];
+    const query = `
+        INSERT INTO react_project.user_ (id, pw, name, phone, email, insertdate) 
+        VALUES (?, ?, ?, ?, ?, NOW())
+    `;
     const insertUser = (err) => {
         if (err) {
             console.error("##fail", err);
