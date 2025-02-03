@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { formatPhoneNumber } from "../../../utils/formatPhoneNumber";
 
 export const useJoin = () => {
@@ -17,6 +18,8 @@ export const useJoin = () => {
     const regexPw = /^[a-zA-Z0-9!@#$%^&*+\-=_?]*$/;
     const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+    const navigate = useNavigate();
+
     const onInputId = (event) => {
         setInputId(event.target.value);
         if (!regexId.test(event.target.value)) {
@@ -26,16 +29,10 @@ export const useJoin = () => {
         }
     };
 
-    const onIdCheck = () => {
-        alert("클릭");
-    };
-
     const onInputPw = (event) => {
         setInputPw(event.target.value);
         if (!regexPw.test(event.target.value)) {
-            setInputPwErrorMessage(
-                "비밀번호는 영어,숫자,특수문자(!@#$%^&*+-=_?)만 입력 가능합니다."
-            );
+            setInputPwErrorMessage("비밀번호는 영어,숫자,특수문자만 입력 가능합니다.");
         } else {
             setInputPwErrorMessage("");
         }
@@ -75,6 +72,38 @@ export const useJoin = () => {
         } else {
             setInputEmailErrorMessage("");
         }
+    };
+
+    // DB
+
+    const onIdCheck = () => {
+        console.log("##inputId", inputId);
+        fetch("http://localhost:3001/idcheck", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({ inputId }),
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`서버 요청 실패: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then((json) => {
+                console.log("##json", json);
+                if (json.success) {
+                    setInputIdErrorMessage("사용 가능한 아이디입니다.");
+                } else {
+                    setInputIdErrorMessage("사용할수 없는 아이디입니다.");
+                }
+            })
+            .catch((error) => {
+                console.error("오류:", error);
+                alert("중복 체크 중 오류가 발생했습니다. 로그인으로 이동합니다.");
+                navigate("/"); // 로그인 페이지로 이동
+            });
     };
 
     const isFormValid = () => {
