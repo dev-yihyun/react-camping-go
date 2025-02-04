@@ -1,4 +1,5 @@
 import Footer from "../../component/Footer/Footer";
+import SideSpace from "../../component/Layout/SideSpace";
 import Space from "../../component/Layout/Space";
 import Nav from "../../component/Nav/Nav";
 import CampAmenities from "./ui/CampAmenities ";
@@ -11,16 +12,19 @@ function CampInfo() {
     return (
         <>
             <Nav type="CampInfo" />
-            <Space height={8} />
-            <InfoSection />
-            <Space height={8} />
-            <DescriptionSection />
-            <Space height={8} />
-            <CampAmenities />
-            <Space height={8} />
-            <FacilitiesEtc />
-            <Space height={8} />
-            <MapSection />
+
+            <SideSpace margin="20px">
+                <Space height={8} />
+                <InfoSection />
+                <Space height={8} />
+                <DescriptionSection />
+                <Space height={8} />
+                <CampAmenities />
+                <Space height={8} />
+                <FacilitiesEtc />
+                <Space height={8} />
+                <MapSection />
+            </SideSpace>
             <Space height={8} />
             <Footer />
         </>
