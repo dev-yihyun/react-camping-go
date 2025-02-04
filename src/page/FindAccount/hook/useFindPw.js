@@ -18,37 +18,43 @@ export const useFindPw = () => {
     const [pwResult, setPwResult] = useState(false);
 
     const onInputId = (event) => {
-        setInputId(event.target.value);
+        const { value } = event.target;
+        setInputId(value);
     };
 
     const onInputName = (event) => {
-        setInputName(event.target.value);
+        const { value } = event.target;
+        setInputName(value);
     };
 
     const onInputPhone = (event) => {
-        const formattedValue = formatPhoneNumber(event.target.value);
+        const { value } = event.target;
+        const formattedValue = formatPhoneNumber(value);
         setInputPhone(formattedValue);
     };
 
     const onInputEmail = (event) => {
-        setInputEmail(event.target.value);
+        const { value } = event.target;
+        setInputEmail(value);
     };
 
     const onInputPw = (event) => {
-        setInputPw(event.target.value);
-        if (!regexPw.test(event.target.value)) {
+        const { value } = event.target;
+        setInputPw(value);
+        if (!regexPw.test(value)) {
             setInputPwErrorMessage("비밀번호는 영어, 숫자, 특수문자만 입력 가능합니다.");
         }
     };
 
     const onInputCheckPw = (event) => {
-        setInputCheckPw(event.target.value);
+        const { value } = event.target;
+        setInputCheckPw(value);
 
-        if (!regexPw.test(event.target.value)) {
+        if (!regexPw.test(value)) {
             setInputPwErrorMessage("비밀번호는 영어, 숫자, 특수문자만 입력 가능합니다.");
-        } else if (event.target.value !== inputPw) {
+        } else if (value !== inputPw) {
             setInputPwErrorMessage("비밀번호가 일치하지 않습니다.");
-        } else if (event.target.value === inputPw && regexPw.test(event.target.value)) {
+        } else if (value === inputPw && regexPw.test(value)) {
             setInputPwErrorMessage("");
         }
     };

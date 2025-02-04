@@ -23,8 +23,9 @@ export const useJoin = () => {
     const navigate = useNavigate();
 
     const onInputId = (event) => {
-        setInputId(event.target.value);
-        if (!regexId.test(event.target.value)) {
+        const { value } = event.target;
+        setInputId(value);
+        if (!regexId.test(value)) {
             setInputIdErrorMessage("아이디는 영어 대소문자와 숫자만 가능합니다.");
         } else {
             setInputIdErrorMessage("");
@@ -33,37 +34,42 @@ export const useJoin = () => {
     };
 
     const onInputPw = (event) => {
-        setInputPw(event.target.value);
+        const { value } = event.target;
+        setInputPw(value);
     };
 
     const onInputCheckPw = (event) => {
-        setInputCheckPw(event.target.value);
+        const { value } = event.target;
+        setInputCheckPw(value);
 
-        if (!regexPw.test(event.target.value)) {
+        if (!regexPw.test(value)) {
             setInputPwErrorMessage("비밀번호는 영어, 숫자, 특수문자만 입력 가능합니다.");
-        } else if (event.target.value !== inputPw) {
+        } else if (value !== inputPw) {
             setInputPwErrorMessage("비밀번호가 일치하지 않습니다.");
-        } else if (event.target.value === inputPw && regexPw.test(event.target.value)) {
+        } else if (value === inputPw && regexPw.test(value)) {
             setInputPwErrorMessage("");
         }
     };
 
     const onInputName = (event) => {
-        setInputName(event.target.value);
+        const { value } = event.target;
+        setInputName(value);
     };
 
     const onInputPhone = (event) => {
-        const formattedValue = formatPhoneNumber(event.target.value);
+        const { value } = event.target;
+        const formattedValue = formatPhoneNumber(value);
         setInputPhone(formattedValue);
         setCheckPhone(!/^\d{3}-\d{4}-\d{4}$/.test(formattedValue));
-        if (event.target.value === "") {
+        if (value === "") {
             setCheckPhone(false);
         }
     };
 
     const onInputEmail = (event) => {
-        setInputEmail(event.target.value);
-        if (!regexEmail.test(event.target.value)) {
+        const { value } = event.target;
+        setInputEmail(value);
+        if (!regexEmail.test(value)) {
             setInputEmailErrorMessage("이메일 주소를 정확히 입력해주세요.");
         } else {
             setInputEmailErrorMessage("");
