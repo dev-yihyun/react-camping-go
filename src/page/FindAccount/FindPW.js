@@ -7,6 +7,7 @@ import Input from "../../component/Input/Input";
 import Password from "../../component/Input/Password";
 import FlexBox from "../../component/Layout/FlexBox";
 import Page from "../../component/Layout/Page";
+import Space from "../../component/Layout/Space";
 import Text from "../../component/Text/Text";
 import Title from "../../component/Text/Title";
 import { useFindPw } from "./hook/useFindPw";
@@ -23,6 +24,7 @@ function FindPw() {
         inputPwErrorMessage,
         isShow,
         regexPw,
+        pwResult,
         onInputId,
         onInputName,
         onInputPhone,
@@ -71,46 +73,53 @@ function FindPw() {
                             <Button disabled={isFormValid()} onClick={onFindPw}>
                                 FIND PW
                             </Button>
-                            {isShow && (
-                                <>
-                                    <Password
-                                        placeholder="Reset Password"
-                                        maxLength={16}
-                                        value={inputPw}
-                                        onChange={onInputPw}
-                                    />
-                                    <Password
-                                        placeholder="Check Password"
-                                        maxLength={16}
-                                        value={inputCheckPw}
-                                        onChange={onInputCheckPw}
-                                    />
-                                    {inputPwErrorMessage && (
-                                        <Text alignSelf="flex-start" color="error">
-                                            {inputPwErrorMessage}
+                            {/* isShow&&(pwResult?true:false) */}
+                            {isShow &&
+                                (pwResult ? (
+                                    <>
+                                        <Password
+                                            placeholder="Reset Password"
+                                            maxLength={16}
+                                            value={inputPw}
+                                            onChange={onInputPw}
+                                        />
+                                        <Password
+                                            placeholder="Check Password"
+                                            maxLength={16}
+                                            value={inputCheckPw}
+                                            onChange={onInputCheckPw}
+                                        />
+                                        {inputPwErrorMessage && (
+                                            <Text alignSelf="flex-start" color="error">
+                                                {inputPwErrorMessage}
+                                            </Text>
+                                        )}
+                                        <Button
+                                            disabled={
+                                                !inputPw.trim() ||
+                                                !regexPw.test(inputPw) ||
+                                                !inputCheckPw.trim() ||
+                                                inputPw !== inputCheckPw ||
+                                                inputPwErrorMessage
+                                            }
+                                        >
+                                            Reset Password
+                                        </Button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Space height={10} />
+                                        <Text
+                                            fontSize="24px"
+                                            fontWeight="bold"
+                                            color="red"
+                                            alignSelf="center"
+                                        >
+                                            PW not found
                                         </Text>
-                                    )}
-                                    <Button
-                                        disabled={
-                                            !inputPw.trim() ||
-                                            !regexPw.test(inputPw) ||
-                                            !inputCheckPw.trim() ||
-                                            inputPw !== inputCheckPw ||
-                                            inputPwErrorMessage
-                                        }
-                                    >
-                                        Reset Password
-                                    </Button>
-                                    <Text
-                                        fontSize="24px"
-                                        fontWeight="bold"
-                                        color="red"
-                                        alignSelf="center"
-                                    >
-                                        PW not found
-                                    </Text>
-                                </>
-                            )}
+                                        <Space height={10} />
+                                    </>
+                                ))}
                         </FlexBox>
                     </Card>
                 </FlexBox>

@@ -84,6 +84,37 @@ app.post("/join", (req, res) => {
     connection.query(query, data, insertUser);
 });
 
+app.post("/findpw", (req, res) => {
+    const { inputId, inputName, inputEmail, inputPhone } = req.body.userData;
+    const data = [inputId, inputName, inputEmail, inputPhone];
+    const query = `SELECT pw FROM react_project.user_ where id=? and name=? and email=? and phone=?`;
+    console.log("##data", data);
+    const getUserByPw = (err, result) => {
+        if (err) {
+            console.error("fail find password : ", err);
+            return res.status(500).json({
+                success: false,
+                message: "서버 오류가 발생했습니다.",
+                error: err,
+            });
+        } else {
+            if (result.length <= 0) {
+                console.log("PW 찾기 실패");
+                return res.status(200).json({
+                    success: false,
+                });
+            } else {
+                console.log("PW 찾기 성공");
+                return res.status(200).json({
+                    success: true,
+                });
+            }
+        }
+    };
+
+    connection.query(query, data, getUserByPw);
+});
+
 app.listen(port, () => {
     console.log(`Connect at http://localhost:${port}`);
 });

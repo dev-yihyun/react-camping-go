@@ -1,4 +1,6 @@
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { formatPhoneNumber } from "../../../utils/formatPhoneNumber";
 
 export const useFindPw = () => {
@@ -11,6 +13,9 @@ export const useFindPw = () => {
     const [inputPwErrorMessage, setInputPwErrorMessage] = useState("");
     const [isShow, setIsShow] = useState(false);
     const regexPw = /^[a-zA-Z0-9!@#$%^&*+\-=_?]*$/;
+    const navigate = useNavigate();
+
+    const [pwResult, setPwResult] = useState(false);
 
     const onInputId = (event) => {
         setInputId(event.target.value);
@@ -54,8 +59,50 @@ export const useFindPw = () => {
         }
     };
 
+    const getUserByPw = async (userData) => {
+        const response = await fetch("http://localhost:3001/findpw", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({ userData }),
+        });
+        if (!response.ok) {
+            console.error(`오류: ${response.status}`);
+            throw new Error("서버 요청 실패");
+        }
+        return response.json();
+    };
+
+    const setFindPwSuccess = (data) => {
+        setIsShow(true);
+        if (data.success) {
+            setPwResult(true);
+        } else {
+            setPwResult(false);
+        }
+    };
+
+    const setFindPwError = (error) => {
+        console.error(`오류: ${error}`);
+        alert("서버 요청 중 오류가 발생했습니다. 로그인으로 이동합니다.");
+        navigate("/");
+    };
+
+    const findPwMutation = useMutation({
+        mutationFn: getUserByPw,
+        onSuccess: setFindPwSuccess,
+        onError: setFindPwError,
+    });
+
     const onFindPw = () => {
-        setIsShow(!isShow);
+        const userData = {
+            inputId,
+            inputName,
+            inputEmail,
+            inputPhone,
+        };
+        findPwMutation.mutate(userData);
     };
 
     const isFormValid = () => {
@@ -78,6 +125,7 @@ export const useFindPw = () => {
         inputPwErrorMessage,
         isShow,
         regexPw,
+        pwResult,
         onInputId,
         onInputName,
         onInputPhone,
