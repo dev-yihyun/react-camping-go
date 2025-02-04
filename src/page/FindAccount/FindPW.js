@@ -36,14 +36,6 @@ function FindPw() {
         isFormValid,
     } = useFindPw();
 
-    // console.log("############");
-    // console.log("##inputPw.trim()", inputPw.trim());
-    // console.log("##inputPwErrorMessage", inputPwErrorMessage);
-    // console.log("##inputCheckPw.trim()", inputCheckPw.trim());
-    // console.log("##(inputCheckPw === inputPw)", inputCheckPw === inputPw);
-    // console.log("##regexPw.test(inputCheckPw)", regexPw.test(inputCheckPw));
-    // console.log("##regexPw.test(inputPw)", regexPw.test(inputPw));
-
     return (
         <>
             <Page>
@@ -82,8 +74,8 @@ function FindPw() {
                             <Button disabled={isFormValid()} onClick={onFindPw}>
                                 FIND PW
                             </Button>
-                            {!isShow &&
-                                (!pwResult ? (
+                            {isShow &&
+                                (pwResult ? (
                                     <>
                                         <Password
                                             placeholder="Reset Password"
@@ -106,11 +98,11 @@ function FindPw() {
                                         )}
                                         <Button
                                             disabled={
-                                                !inputPw.trim() || // 비밀번호 입력 여부
-                                                !regexPw.test(inputPw) || // 비밀번호 유효성 검사
-                                                !inputCheckPw.trim() || // 비밀번호 확인 입력 여부
-                                                inputPw !== inputCheckPw || // 비밀번호 일치 여부
-                                                inputPwErrorMessage // 에러 메시지 존재 여부
+                                                !inputPw.trim() ||
+                                                !regexPw.test(inputPw) ||
+                                                !inputCheckPw.trim() ||
+                                                inputPw !== inputCheckPw ||
+                                                inputPwErrorMessage
                                             }
                                             onClick={onResetPassword}
                                         >
