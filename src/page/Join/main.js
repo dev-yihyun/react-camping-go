@@ -23,6 +23,7 @@ function Join() {
         checkPhone,
         inputEmail,
         inputEmailErrorMessage,
+        idCheck,
         onInputId,
         onIdCheck,
         onInputPw,
@@ -30,6 +31,7 @@ function Join() {
         onInputName,
         onInputPhone,
         onInputEmail,
+        onJoin,
         isFormValid,
     } = useJoin();
 
@@ -48,15 +50,15 @@ function Join() {
                                 value={inputId}
                                 onChange={onInputId}
                                 maxLength="16"
-                                error={inputIdErrorMessage}
+                                error={inputIdErrorMessage ? (idCheck ? false : true) : false}
                             />
                             {inputIdErrorMessage && (
-                                <Text color="error" alignSelf="flex-start">
+                                <Text color={idCheck ? "green" : "error"} alignSelf="flex-start">
                                     {inputIdErrorMessage}
                                 </Text>
                             )}
                             <Button
-                                disabled={!inputId || !!inputIdErrorMessage}
+                                disabled={!inputId || !!inputIdErrorMessage || inputId.length < 4}
                                 onClick={onIdCheck}
                             >
                                 Check ID
@@ -66,12 +68,14 @@ function Join() {
                                 value={inputPw}
                                 onChange={onInputPw}
                                 maxLength="16"
+                                error={inputPwErrorMessage}
                             />
                             <Password
                                 placeholder="Check Password"
                                 value={inputCheckPw}
                                 onChange={onInputCheckPw}
                                 maxLength="16"
+                                error={inputPwErrorMessage}
                             />
 
                             {inputPwErrorMessage && (
@@ -91,17 +95,21 @@ function Join() {
                                 maxLength={13}
                                 value={inputPhone}
                                 onChange={onInputPhone}
+                                error={checkPhone}
                             />
-                            {checkPhone && (
+                            {checkPhone ? (
                                 <Text alignSelf="flex-start" color="error">
                                     전화번호를 올바른 형식으로 입력해 주세요.
                                 </Text>
+                            ) : (
+                                ""
                             )}
                             <Input
                                 placeholder="EMAIL"
                                 maxLength={40}
                                 value={inputEmail}
                                 onChange={onInputEmail}
+                                error={inputEmailErrorMessage}
                             />
                             {inputEmailErrorMessage && (
                                 <Text alignSelf="flex-start" color="error">
@@ -109,7 +117,9 @@ function Join() {
                                 </Text>
                             )}
 
-                            <Button disabled={!isFormValid()}>Join</Button>
+                            <Button disabled={!isFormValid()} onClick={onJoin}>
+                                Join
+                            </Button>
                         </FlexBox>
                     </Card>
                 </FlexBox>

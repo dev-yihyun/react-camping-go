@@ -14,6 +14,7 @@ function Router() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Login />} />
+                    <Route path="/login" element={<Login />} />
                     <Route path="/join" element={<Join />} />
                     <Route path="/findid" element={<FindId />} />
                     <Route path="/findpw" element={<FindPw />} />
