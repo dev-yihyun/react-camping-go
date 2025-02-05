@@ -7,6 +7,9 @@ const mysql = require("mysql2");
 const app = express();
 const port = process.env.SERVER_PORT;
 
+const JWT_SECRET = "your_jwt_secret_key";
+const jwt = require("jsonwebtoken");
+
 var connection = mysql.createConnection({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
@@ -176,6 +179,39 @@ app.post("/findid", (req, res) => {
         }
     };
     connection.query(query, data, getUserById);
+});
+
+app.post("/login", (req, res) => {
+    const { inputId, inputPw } = req.body.userData;
+    const data = [inputId, inputPw];
+    const query = `SELECT id,pw FROM react_project.user_ WHERE id=? and pw=?`;
+
+    const getUserInfo = (err, result) => {
+        if (err) {
+            console.error("fail", err);
+            return res.status(500).json({
+                success: false,
+                message: "서버 오류가 발생했습니다.",
+                error: err,
+            });
+        } else {
+            if (result.length === 0) {
+                console.log("##login fail");
+                return res.status(200).json({
+                    success: false,
+                });
+            } else {
+                const token = jwt.sign({ id: inputId }, JWT_SECRET, { expiresIn: "1h" });
+                console.log("##login success");
+                return res.status(200).json({
+                    success: true,
+                    token: token,
+                });
+            }
+        }
+    };
+
+    connection.query(query, data, getUserInfo);
 });
 
 app.listen(port, () => {
