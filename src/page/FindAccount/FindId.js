@@ -18,12 +18,15 @@ function FindId() {
         inputPhone,
         inputEmail,
         activeTab,
+        resultMessage,
         setActiveTab,
         onInputName,
         onInputPhone,
         onInputEmail,
         isPhoneTabDisabled,
         isEmailTabDisabled,
+        findIdByPhone,
+        findIdByEmail,
     } = useFindId();
 
     const tabs = [
@@ -45,10 +48,17 @@ function FindId() {
                             value={inputPhone}
                             onChange={onInputPhone}
                         />
-                        <Button disabled={isPhoneTabDisabled}>Find</Button>
+                        <Button disabled={isPhoneTabDisabled} onClick={findIdByPhone}>
+                            Find
+                        </Button>
                         <Space height={5} />
-                        <Text alignSelf="center" fontWeight="bold" fontSize="24px">
-                            메세지
+                        <Text
+                            alignSelf="center"
+                            fontWeight="bold"
+                            fontSize="24px"
+                            color={resultMessage.includes("Your ID") ? "" : "error"}
+                        >
+                            {resultMessage}
                         </Text>
                         <Space height={5} />
                     </FlexBox>
@@ -73,10 +83,17 @@ function FindId() {
                             value={inputEmail}
                             onChange={onInputEmail}
                         />
-                        <Button disabled={isEmailTabDisabled}>Find</Button>
+                        <Button disabled={isEmailTabDisabled} onClick={findIdByEmail}>
+                            Find
+                        </Button>
                         <Space height={5} />
-                        <Text alignSelf="center" color="error" fontWeight="bold" fontSize="24px">
-                            메세지
+                        <Text
+                            alignSelf="center"
+                            fontWeight="bold"
+                            fontSize="24px"
+                            color={resultMessage.includes("Your ID") ? "" : "error"}
+                        >
+                            {resultMessage}
                         </Text>
                         <Space height={5} />
                     </FlexBox>
