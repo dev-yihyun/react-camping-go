@@ -1,9 +1,18 @@
 import React from "react";
 import { IoPerson } from "react-icons/io5";
 import { SlLogout } from "react-icons/sl";
+import { useNavigate } from "react-router-dom";
 import "./css/Nav.css";
 
-function Nav({ type = "home" }) {
+function Nav({ type = "home", userId }) {
+    const navigate = useNavigate();
+    const onLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        alert("로그아웃되었습니다. 로그인 화면으로 돌아갑니다.");
+        navigate("/");
+    };
+
     return (
         <>
             <nav className={type === "home" ? "nav" : "nav backgroundHeader"}>
@@ -16,10 +25,10 @@ function Nav({ type = "home" }) {
                     </a>
 
                     <div className="userinfo">
-                        안녕하세요 <span className="userID">사용자</span>님
+                        안녕하세요 <span className="userID">{userId}</span>님
                     </div>
 
-                    <a href="/#" className="usermenuicon" aria-label="Logout">
+                    <a href="/#" className="usermenuicon" aria-label="Logout" onClick={onLogout}>
                         <SlLogout />
                     </a>
                 </div>

@@ -37,7 +37,7 @@ const InputComponent = styled.input`
 const Input = ({ value, onChange, placeholder, error, type, maxLength }) => {
     return (
         <InputComponent
-            error={error ? "true" : undefined} // error가 true면 "true", 아니면 속성 제거
+            error={error ? "true" : undefined}
             type={type}
             placeholder={placeholder}
             value={value}
