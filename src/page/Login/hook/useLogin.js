@@ -7,13 +7,12 @@ export const useLogin = () => {
     const [inputId, setInputId] = useState("");
     const [inputPw, setInputPw] = useState("");
 
-    // 로그인 상태 확인 후 자동 리디렉션
     useEffect(() => {
         const storedUserId = localStorage.getItem("userId");
         const storedToken = localStorage.getItem("token");
 
         if (storedUserId && storedToken) {
-            navigate("/home"); // 로그인 상태라면 홈으로 이동
+            navigate("/home");
         }
     }, [navigate]);
 
