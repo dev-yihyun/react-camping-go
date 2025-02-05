@@ -1,11 +1,21 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
     const navigate = useNavigate();
     const [inputId, setInputId] = useState("");
     const [inputPw, setInputPw] = useState("");
+
+    // 로그인 상태 확인 후 자동 리디렉션
+    useEffect(() => {
+        const storedUserId = localStorage.getItem("userId");
+        const storedToken = localStorage.getItem("token");
+
+        if (storedUserId && storedToken) {
+            navigate("/home"); // 로그인 상태라면 홈으로 이동
+        }
+    }, [navigate]);
 
     const onInputId = (event) => {
         const { value } = event.target;
@@ -34,7 +44,11 @@ export const useLogin = () => {
     const setUserInfoSuccess = (data) => {
         if (data.success) {
             alert("로그인 완료! 메인 페이지로 이동합니다.");
-            return navigate("/home");
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("userId", inputId);
+            return setTimeout(() => {
+                navigate("/home");
+            }, 100);
         } else {
             alert("일치하는 정보가 없습니다.");
             setInputId("");
@@ -62,8 +76,6 @@ export const useLogin = () => {
         const userData = { inputId, inputPw };
 
         loginMutation.mutate(userData);
-        setInputId("");
-        setInputPw("");
     };
 
     return {

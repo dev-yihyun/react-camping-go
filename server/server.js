@@ -7,6 +7,9 @@ const mysql = require("mysql2");
 const app = express();
 const port = process.env.SERVER_PORT;
 
+const JWT_SECRET = "your_jwt_secret_key";
+const jwt = require("jsonwebtoken");
+
 var connection = mysql.createConnection({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
@@ -198,9 +201,11 @@ app.post("/login", (req, res) => {
                     success: false,
                 });
             } else {
+                const token = jwt.sign({ id: inputId }, JWT_SECRET, { expiresIn: "1h" });
                 console.log("##login success");
                 return res.status(200).json({
                     success: true,
+                    token: token,
                 });
             }
         }

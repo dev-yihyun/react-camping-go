@@ -7,9 +7,11 @@ import Nav from "../../component/Nav/Nav";
 import ListItem from "./ui/ListItem";
 import MainSection from "./ui/MainSection";
 function Home() {
+    const userId = localStorage.getItem("userId");
+
     return (
         <>
-            <Nav type="home" />
+            <Nav type="home" userId={userId} />
             <MainSection />
             <Space height={8} />
             <Link to={"/campinfo"}>
