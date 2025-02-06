@@ -24,7 +24,8 @@ export const useMyPage = () => {
     const regexPw = /^[a-zA-Z0-9!@#$%^&*+\-=_?]*$/;
 
     const userId = localStorage.getItem("userId");
-    const [userInfo, setUserInfo] = useState();
+    const [userInfo, setUserInfo] = useState({});
+
     const [insertDate, setInsertDate] = useState("");
     const [userName, setUserName] = useState("");
 
@@ -55,8 +56,11 @@ export const useMyPage = () => {
             setInputPhone(data.phone);
         } else {
             console.log("##데이터 찾기 실패");
+            alert("오류가 발생했습니다. 홈으로 이동합니다.");
+            navigate("/home");
         }
     };
+
     const setUserInfoError = (error) => {
         console.error(`오류: ${error}`);
         alert("서버요청 중 오류가 발생했습니다. 홈으로 이동합니다.");
@@ -75,16 +79,14 @@ export const useMyPage = () => {
 
     useEffect(() => {
         if (userInfo) {
-            // || "example@email.com"
-            // || "010-0000-0000"
-            setInputEmail(userInfo.email);
-            setInputPhone(userInfo.phone);
+            setInputEmail(userInfo.email || "정보 없음");
+            setInputPhone(userInfo.phone || "정보 없음");
         }
     }, [userInfo]);
 
     useEffect(() => {
         // setInputPhone("010-0000-0000");
-        setInputEmail(userInfo.email);
+        setInputEmail(userInfo?.email || "정보없음");
         setInputEmailErrorMessage("");
         setIsShowEmail(false);
         setIsShowPhone(false);
@@ -170,6 +172,8 @@ export const useMyPage = () => {
             navigate("/home");
         } else {
             console.log("##이메일 업데이트 실패");
+            alert("이메일 수정 중 오류가 발생했습니다. 홈 화면으로 이동합니다.");
+            navigate("/home");
         }
     };
 
