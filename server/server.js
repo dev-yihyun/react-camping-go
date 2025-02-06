@@ -278,6 +278,35 @@ app.post("/emailupdate", (req, res) => {
     connection.query(query, data, updateUserInfo);
 });
 
+app.post("/phoneupdate", (req, res) => {
+    const { inputPhone, inputId } = req.body.userData;
+    const data = [inputPhone, inputId];
+    const query = "UPDATE react_project.user_ SET phone=? WHERE id=?";
+    const updateUserInfo = (err) => {
+        if (err) {
+            console.error("phone update fail", err);
+            return res.status(500).json({
+                success: false,
+                message: "서버 오류가 발생했습니다.",
+                error: err,
+            });
+        } else {
+            try {
+                console.log("##phone update success");
+                return res.status(200).json({
+                    success: true,
+                });
+            } catch (error) {
+                console.log("##phone update fail");
+                return res.status(200).json({
+                    success: false,
+                });
+            }
+        }
+    };
+    connection.query(query, data, updateUserInfo);
+});
+
 app.listen(port, () => {
     console.log(`Connect at http://localhost:${port}`);
 });

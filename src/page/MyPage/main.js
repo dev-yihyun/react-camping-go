@@ -40,6 +40,7 @@ function MyPage() {
         regexEmail,
         regexPw,
         onSaveEmail,
+        onSavePhone,
     } = useMyPage();
 
     const tabs = [
@@ -104,6 +105,7 @@ function MyPage() {
                                             !inputPhone.trim() ||
                                             inputPhone.replace(/\D/g, "").length < 11
                                         }
+                                        onClick={onSavePhone}
                                     >
                                         Phone 수정
                                     </Button>

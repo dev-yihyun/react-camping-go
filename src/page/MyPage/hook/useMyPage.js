@@ -49,11 +49,11 @@ export const useMyPage = () => {
     const setUserInfoSuccess = (data) => {
         if (data.success) {
             console.log("##데이터 찾기 성공");
-            setUserInfo(data.userinfo); // 데이터 저장
-            setInsertDate(formatDate(data.insertdate));
-            setUserName(data.name);
-            setInputEmail(data.email);
-            setInputPhone(data.phone);
+            setUserInfo(data?.userinfo); // 데이터 저장
+            setInsertDate(formatDate(data?.insertdate));
+            setUserName(data?.name);
+            setInputEmail(data?.email);
+            setInputPhone(data?.phone);
         } else {
             console.log("##데이터 찾기 실패");
             alert("오류가 발생했습니다. 홈으로 이동합니다.");
@@ -79,13 +79,14 @@ export const useMyPage = () => {
 
     useEffect(() => {
         if (userInfo) {
-            setInputEmail(userInfo.email || "정보 없음");
-            setInputPhone(userInfo.phone || "정보 없음");
+            setInputEmail(userInfo?.email || "정보 없음");
+            setInputPhone(userInfo?.phone || "정보 없음");
         }
     }, [userInfo]);
 
     useEffect(() => {
-        // setInputPhone("010-0000-0000");
+        setInputPhone(userInfo?.phone || "정보없음");
+        setInputPhoneErrorMessage("");
         setInputEmail(userInfo?.email || "정보없음");
         setInputEmailErrorMessage("");
         setIsShowEmail(false);
@@ -102,7 +103,7 @@ export const useMyPage = () => {
 
     const onShowEmail = () => {
         if (isShowEmail) {
-            setInputEmail(userInfo.email);
+            setInputEmail(userInfo?.email);
             setInputEmailErrorMessage("");
         }
         setIsShowEmail(!isShowEmail);
@@ -120,7 +121,7 @@ export const useMyPage = () => {
 
     const onShowPhone = () => {
         if (isShowPhone) {
-            setInputPhone("010-0000-0000");
+            setInputPhone(userInfo?.phone);
             setInputPhoneErrorMessage("");
         }
         setIsShowPhone(!isShowPhone);
@@ -195,6 +196,50 @@ export const useMyPage = () => {
         console.log("##onSaveEmail");
     };
 
+    const savePhone = async (userData) => {
+        const response = await fetch("http://localhost:3001/phoneupdate", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({ userData }),
+        });
+        if (!response.ok) {
+            console.error(`오류: ${response.status}`);
+            throw new Error("서버 요청 실패");
+        }
+        return response.json();
+    };
+
+    const setSavePhoneSuccess = (data) => {
+        if (data.success) {
+            console.log("##전화번호 업데이트 성공.");
+            alert("전화번호 업데이트 성공. 홈 화면으로 이동합니다.");
+            navigate("/home");
+        } else {
+            console.log("##전화번호 업데이트 실패");
+            alert("전화번호 수정 중 오류가 발생했습니다. 홈 화면으로 이동합니다.");
+            navigate("/home");
+        }
+    };
+
+    const setSavePhoneError = (error) => {
+        console.error(`오류: ${error}`);
+        alert("서버요청 중 오류가 발생했습니다. 홈으로 이동합니다.");
+        navigate("/home");
+    };
+
+    const savePhoneMutation = useMutation({
+        mutationFn: savePhone,
+        onSuccess: setSavePhoneSuccess,
+        onError: setSavePhoneError,
+    });
+
+    const onSavePhone = () => {
+        const userData = { inputPhone, inputId: userId };
+        savePhoneMutation.mutate(userData);
+    };
+
     return {
         userId,
         insertDate,
@@ -222,5 +267,6 @@ export const useMyPage = () => {
         regexEmail,
         regexPw,
         onSaveEmail,
+        onSavePhone,
     };
 };
