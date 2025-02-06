@@ -41,6 +41,7 @@ function MyPage() {
         regexPw,
         onSaveEmail,
         onSavePhone,
+        onResetPassword,
     } = useMyPage();
 
     const tabs = [
@@ -163,6 +164,7 @@ function MyPage() {
                                 inputResetPassword !== inputCheckPassword ||
                                 !regexPw.test(inputResetPassword)
                             }
+                            onClick={onResetPassword}
                         >
                             reset password
                         </Button>

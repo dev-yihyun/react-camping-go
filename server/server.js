@@ -307,6 +307,37 @@ app.post("/phoneupdate", (req, res) => {
     connection.query(query, data, updateUserInfo);
 });
 
+app.post("/checkcurrentpassword", (req, res) => {
+    const { inputId, inputPw } = req.body.userData;
+    const data = [inputId, inputPw];
+    const query = `SELECT pw FROM react_project.user_ WHERE id=? and pw=?`;
+
+    const getUserInfo = (err, result) => {
+        if (err) {
+            console.error("fail", err);
+            return res.status(500).json({
+                success: false,
+                message: "서버 오류가 발생했습니다.",
+                error: err,
+            });
+        } else {
+            if (result.length > 0) {
+                console.log("계정과 pw 일치");
+                return res.status(200).json({
+                    success: true,
+                });
+            } else {
+                console.log("계정과 pw 일치하지 않습니다.");
+                return res.status(200).json({
+                    success: false,
+                });
+            }
+        }
+    };
+
+    connection.query(query, data, getUserInfo);
+});
+
 app.listen(port, () => {
     console.log(`Connect at http://localhost:${port}`);
 });

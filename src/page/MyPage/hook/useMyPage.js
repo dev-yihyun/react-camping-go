@@ -94,7 +94,7 @@ export const useMyPage = () => {
     }, [activeTab]);
 
     const onInputEmail = (event) => {
-        const value = event.target.value;
+        const { value } = event.target;
         setInputEmail(value);
         setInputEmailErrorMessage(
             regexEmail.test(value) ? "" : "이메일 주소를 정확히 입력해주세요."
@@ -125,30 +125,6 @@ export const useMyPage = () => {
             setInputPhoneErrorMessage("");
         }
         setIsShowPhone(!isShowPhone);
-    };
-
-    const onInputCurrentPassword = (event) => {
-        setInputCurrentPassword(event.target.value);
-    };
-
-    const onInputResetPassword = (event) => {
-        const value = event.target.value;
-        setInputResetPassword(value);
-        setInputPasswordErrorMessage(
-            regexPw.test(value) ? "" : "비밀번호는 영어, 숫자, 특수문자만 입력 가능합니다."
-        );
-    };
-
-    const onInputCheckPassword = (event) => {
-        const value = event.target.value;
-        setInputCheckPassword(value);
-        if (inputResetPassword !== value) {
-            setInputPasswordErrorMessage("새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
-        } else {
-            setInputPasswordErrorMessage(
-                regexPw.test(value) ? "" : "비밀번호는 영어, 숫자, 특수문자만 입력 가능합니다."
-            );
-        }
     };
 
     const saveEmail = async (userData) => {
@@ -240,6 +216,112 @@ export const useMyPage = () => {
         savePhoneMutation.mutate(userData);
     };
 
+    // ## reset Pw
+    const onInputCurrentPassword = (event) => {
+        const { value } = event.target;
+        setInputCurrentPassword(value);
+    };
+
+    const onInputResetPassword = (event) => {
+        const { value } = event.target;
+        setInputResetPassword(value);
+        setInputPasswordErrorMessage(
+            regexPw.test(value) ? "" : "비밀번호는 영어, 숫자, 특수문자만 입력 가능합니다."
+        );
+    };
+
+    const onInputCheckPassword = (event) => {
+        const { value } = event.target;
+        setInputCheckPassword(value);
+        if (inputResetPassword !== value) {
+            setInputPasswordErrorMessage("새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+        } else {
+            setInputPasswordErrorMessage(
+                regexPw.test(value) ? "" : "비밀번호는 영어, 숫자, 특수문자만 입력 가능합니다."
+            );
+        }
+    };
+
+    const updateUserInfo = async (userData) => {
+        const response = await fetch("http://localhost:3001/resetpassword", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({ userData }),
+        });
+        if (!response.ok) {
+            console.error(`오류: ${response.status}`);
+            throw new Error("서버 요청 실패");
+        }
+        return response.json();
+    };
+    const setUpdateUserSuccess = (data) => {
+        if (data.success) {
+            alert("비밀번호 초기화에 성공했습니다. 로그인으로 이동합니다.");
+            localStorage.removeItem("token");
+            localStorage.removeItem("userId");
+            navigate("/login");
+        } else {
+            alert("비밀번호 초기화에 실패했습니다. 홈으로 이동합니다.");
+            navigate("/home");
+        }
+    };
+    const setUpdateUserError = (error) => {
+        console.error(`오류: ${error}`);
+        alert("비밀번호 초기화 중 오류가 발생했습니다. 로그인으로 이동합니다.");
+        navigate("/home");
+    };
+
+    const resetPasswordMutation = useMutation({
+        mutationFn: updateUserInfo,
+        onSuccess: setUpdateUserSuccess,
+        onError: setUpdateUserError,
+    });
+
+    const findUserPw = async (userData) => {
+        const response = await fetch("http://localhost:3001/checkcurrentpassword", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({ userData }),
+        });
+        if (!response.ok) {
+            console.error(`오류: ${response.status}`);
+            throw new Error("서버 요청 실패");
+        }
+        return response.json();
+    };
+
+    const findUserPwSuccess = (data) => {
+        if (data.success) {
+            console.log("##현재 계정의 비밀번호와 입력한 비밀번호가 일치합니다.");
+            const userData = { inputPw: inputCheckPassword, inputId: userId };
+            resetPasswordMutation.mutate(userData);
+        } else {
+            console.log("##현재 계정의 비밀번호와 입력한 비밀번호가 일치하지 않습니다.");
+            alert("현재 비밀번호가 일치하지 않습니다.");
+        }
+    };
+    const findUserPwError = (error) => {
+        console.error(`오류: ${error}`);
+        alert("서버 요청 중 오류가 발생했습니다. 로그인으로 이동합니다.");
+        navigate("/");
+    };
+
+    const checkCurrentPassword = useMutation({
+        mutationFn: findUserPw,
+        onSuccess: findUserPwSuccess,
+        onError: findUserPwError,
+    });
+
+    const onResetPassword = () => {
+        const userData = { inputId: userId, inputPw: inputCurrentPassword };
+        checkCurrentPassword.mutate(userData);
+        // resetPasswordMutation.mutate(userData);
+    };
+
     return {
         userId,
         insertDate,
@@ -268,5 +350,6 @@ export const useMyPage = () => {
         regexPw,
         onSaveEmail,
         onSavePhone,
+        onResetPassword,
     };
 };
