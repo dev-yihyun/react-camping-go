@@ -1,5 +1,7 @@
+import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { formatDate } from "../../../utils/formatDate ";
 import { formatPhoneNumber } from "../../../utils/formatPhoneNumber";
 
 export const useMyPage = () => {
@@ -21,14 +23,64 @@ export const useMyPage = () => {
     const [inputPasswordErrorMessage, setInputPasswordErrorMessage] = useState("");
     const regexPw = /^[a-zA-Z0-9!@#$%^&*+\-=_?]*$/;
 
+    const userId = localStorage.getItem("userId");
+    const [userInfo, setUserInfo] = useState();
+    const [insertDate, setInsertDate] = useState("");
+    const [userName, setUserName] = useState("");
+
+    console.log("##userInfo", userInfo);
+
+    const getUserInfo = async (userData) => {
+        const response = await fetch("http://localhost:3001/mypage", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({ userData }),
+        });
+        if (!response.ok) {
+            console.error(`오류: ${response.status}`);
+            throw new Error("서버 요청 실패");
+        }
+        return response.json();
+    };
+    const setUserInfoSuccess = (data) => {
+        if (data.success) {
+            console.log("##데이터 찾기 성공");
+            setUserInfo(data.userinfo); // 데이터 저장
+            setInsertDate(formatDate(data.insertdate));
+            setUserName(data.name);
+            setInputEmail(data.email);
+        } else {
+            console.log("##데이터 찾기 실패");
+        }
+    };
+    const setUserInfoError = (error) => {
+        console.error(`오류: ${error}`);
+        alert("서버요청 중 오류가 발생했습니다. 홈으로 이동합니다.");
+        navigate("/home");
+    };
+
+    const mypageMutation = useMutation({
+        mutationFn: getUserInfo,
+        onSuccess: setUserInfoSuccess,
+        onError: setUserInfoError,
+    });
+
     useEffect(() => {
-        setInputEmail("example@email.com");
-        setInputPhone("010-0000-0000");
+        mypageMutation.mutate(userId);
     }, []);
 
     useEffect(() => {
-        setInputEmail("example@email.com");
-        setInputPhone("010-0000-0000");
+        if (userInfo) {
+            setInputEmail(userInfo.email || "example@email.com");
+            setInputPhone(userInfo.phone || "010-0000-0000");
+        }
+    }, [userInfo]);
+
+    useEffect(() => {
+        // setInputEmail("example@email.com");
+        // setInputPhone("010-0000-0000");
         setIsShowEmail(false);
         setIsShowPhone(false);
     }, [activeTab]);
@@ -92,6 +144,9 @@ export const useMyPage = () => {
     };
 
     return {
+        userId,
+        insertDate,
+        userName,
         navigate,
         activeTab,
         setActiveTab,

@@ -214,6 +214,41 @@ app.post("/login", (req, res) => {
     connection.query(query, data, getUserInfo);
 });
 
+app.post("/mypage", (req, res) => {
+    const data = req.body.userData;
+    console.log("##data", data);
+    const query = "SELECT id,name,phone,email,insertdate FROM react_project.user_ WHERE id=?;";
+
+    const getUserInfo = (err, result) => {
+        if (err) {
+            console.log("정보 찾기 실패", err);
+            return res.status(500).json({
+                success: false,
+                message: "서버 오류가 발생했습니다.",
+                error: err,
+            });
+        } else {
+            if (result.length > 0) {
+                return res.status(200).json({
+                    success: true,
+                    id: result[0].id,
+                    name: result[0].name,
+                    phone: result[0].phone,
+                    email: result[0].email,
+                    insertdate: result[0].insertdate,
+                    userinfo: result[0],
+                });
+            } else {
+                return res.status(200).json({
+                    success: false,
+                    message: "정보를 찾을 수 없습니다.",
+                });
+            }
+        }
+    };
+    connection.query(query, data, getUserInfo);
+});
+
 app.listen(port, () => {
     console.log(`Connect at http://localhost:${port}`);
 });
