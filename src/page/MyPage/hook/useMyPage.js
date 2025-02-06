@@ -51,6 +51,7 @@ export const useMyPage = () => {
             setInsertDate(formatDate(data.insertdate));
             setUserName(data.name);
             setInputEmail(data.email);
+            setInputPhone(data.phone);
         } else {
             console.log("##데이터 찾기 실패");
         }

@@ -108,10 +108,7 @@ function MyPage() {
                                 </>
                             ) : (
                                 <>
-                                    <Text>
-                                        Phone :
-                                        {/* {userInfo?.phone || inputPhone || "010-0000-0000"} */}
-                                    </Text>
+                                    <Text>Phone : {inputPhone || "정보없음음"}</Text>
                                     <Button onClick={onShowPhone}>Phone</Button>
                                 </>
                             )}
