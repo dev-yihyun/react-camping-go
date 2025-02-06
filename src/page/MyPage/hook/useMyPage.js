@@ -44,6 +44,7 @@ export const useMyPage = () => {
         }
         return response.json();
     };
+
     const setUserInfoSuccess = (data) => {
         if (data.success) {
             console.log("##데이터 찾기 성공");
@@ -74,14 +75,17 @@ export const useMyPage = () => {
 
     useEffect(() => {
         if (userInfo) {
-            setInputEmail(userInfo.email || "example@email.com");
-            setInputPhone(userInfo.phone || "010-0000-0000");
+            // || "example@email.com"
+            // || "010-0000-0000"
+            setInputEmail(userInfo.email);
+            setInputPhone(userInfo.phone);
         }
     }, [userInfo]);
 
     useEffect(() => {
-        // setInputEmail("example@email.com");
         // setInputPhone("010-0000-0000");
+        setInputEmail(userInfo.email);
+        setInputEmailErrorMessage("");
         setIsShowEmail(false);
         setIsShowPhone(false);
     }, [activeTab]);
@@ -96,7 +100,7 @@ export const useMyPage = () => {
 
     const onShowEmail = () => {
         if (isShowEmail) {
-            setInputEmail("example@email.com");
+            setInputEmail(userInfo.email);
             setInputEmailErrorMessage("");
         }
         setIsShowEmail(!isShowEmail);
@@ -144,6 +148,49 @@ export const useMyPage = () => {
         }
     };
 
+    const saveEmail = async (userData) => {
+        const response = await fetch("http://localhost:3001/emailupdate", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({ userData }),
+        });
+        if (!response.ok) {
+            console.error(`오류: ${response.status}`);
+            throw new Error("서버 요청 실패");
+        }
+        return response.json();
+    };
+
+    const setSaveEmailSuccess = (data) => {
+        if (data.success) {
+            console.log("##이메일 업데이트 성공.");
+            alert("이메일 업데이트 성공. 홈 화면으로 이동합니다.");
+            navigate("/home");
+        } else {
+            console.log("##이메일 업데이트 실패");
+        }
+    };
+
+    const setSaveEmailError = (error) => {
+        console.error(`오류: ${error}`);
+        alert("서버요청 중 오류가 발생했습니다. 홈으로 이동합니다.");
+        navigate("/home");
+    };
+
+    const saveEmailMutation = useMutation({
+        mutationFn: saveEmail,
+        onSuccess: setSaveEmailSuccess,
+        onError: setSaveEmailError,
+    });
+
+    const onSaveEmail = () => {
+        const userData = { inputEmail, inputId: userId };
+        saveEmailMutation.mutate(userData);
+        console.log("##onSaveEmail");
+    };
+
     return {
         userId,
         insertDate,
@@ -170,5 +217,6 @@ export const useMyPage = () => {
         inputPasswordErrorMessage,
         regexEmail,
         regexPw,
+        onSaveEmail,
     };
 };

@@ -249,6 +249,35 @@ app.post("/mypage", (req, res) => {
     connection.query(query, data, getUserInfo);
 });
 
+app.post("/emailupdate", (req, res) => {
+    const { inputEmail, inputId } = req.body.userData;
+    const data = [inputEmail, inputId];
+    const query = "UPDATE react_project.user_ SET email=? WHERE id=?";
+    const updateUserInfo = (err) => {
+        if (err) {
+            console.error("email update fail", err);
+            return res.status(500).json({
+                success: false,
+                message: "서버 오류가 발생했습니다.",
+                error: err,
+            });
+        } else {
+            try {
+                console.log("##email update success");
+                return res.status(200).json({
+                    success: true,
+                });
+            } catch (error) {
+                console.log("##email update fail");
+                return res.status(200).json({
+                    success: false,
+                });
+            }
+        }
+    };
+    connection.query(query, data, updateUserInfo);
+});
+
 app.listen(port, () => {
     console.log(`Connect at http://localhost:${port}`);
 });

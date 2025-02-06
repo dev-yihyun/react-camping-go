@@ -39,6 +39,7 @@ function MyPage() {
         inputPasswordErrorMessage,
         regexEmail,
         regexPw,
+        onSaveEmail,
     } = useMyPage();
 
     const tabs = [
@@ -72,6 +73,7 @@ function MyPage() {
                                             !inputEmail.trim() ||
                                             inputEmailErrorMessage
                                         }
+                                        onClick={onSaveEmail}
                                     >
                                         Email 수정하기
                                     </Button>
