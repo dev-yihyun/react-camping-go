@@ -42,6 +42,7 @@ function MyPage() {
         onSaveEmail,
         onSavePhone,
         onResetPassword,
+        onDelete,
     } = useMyPage();
 
     const tabs = [
@@ -118,7 +119,7 @@ function MyPage() {
                                 </>
                             )}
 
-                            <Button>회원 탈퇴</Button>
+                            <Button onClick={onDelete}>회원 탈퇴</Button>
                         </FlexBox>
                         <Space height="4" />
                     </FlexBox>

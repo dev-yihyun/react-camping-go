@@ -319,7 +319,53 @@ export const useMyPage = () => {
     const onResetPassword = () => {
         const userData = { inputId: userId, inputPw: inputCurrentPassword };
         checkCurrentPassword.mutate(userData);
-        // resetPasswordMutation.mutate(userData);
+    };
+
+    // ## delete
+
+    const deleteUser = async (userData) => {
+        const response = await fetch("http://localhost:3001/deleteuser", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({ userData }),
+        });
+        if (!response.ok) {
+            console.error(`오류: ${response.status}`);
+            throw new Error("서버 요청 실패");
+        }
+        return response.json();
+    };
+    const deleteUserSuccess = (data) => {
+        if (data.success) {
+            alert("탈퇴 되었습니다. 로그인 화면으로 돌아갑니다.");
+            localStorage.removeItem("token");
+            localStorage.removeItem("userId");
+            navigate("/");
+        } else {
+            alert("서버 요청 중 오류가 발생했습니다. 홈으로 돌아갑니다.");
+            navigate("/home");
+        }
+    };
+    const deleteUserError = (error) => {
+        console.error(`오류: ${error}`);
+        alert("서버 요청 중 오류가 발생했습니다. 로그인으로 이동합니다.");
+        navigate("/");
+    };
+
+    const deleteMutation = useMutation({
+        mutationFn: deleteUser,
+        onSuccess: deleteUserSuccess,
+        onError: deleteUserError,
+    });
+
+    const onDelete = () => {
+        if (window.confirm("정말 탈퇴하시겠습니가?")) {
+            deleteMutation.mutate(userId);
+        } else {
+            alert("탈퇴 취소합니다.");
+        }
     };
 
     return {
@@ -351,5 +397,6 @@ export const useMyPage = () => {
         onSaveEmail,
         onSavePhone,
         onResetPassword,
+        onDelete,
     };
 };
