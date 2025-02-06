@@ -29,8 +29,6 @@ export const useMyPage = () => {
     const [insertDate, setInsertDate] = useState("");
     const [userName, setUserName] = useState("");
 
-    console.log("##userInfo", userInfo);
-
     const getUserInfo = async (userData) => {
         const response = await fetch("http://localhost:3001/mypage", {
             method: "POST",
@@ -48,14 +46,12 @@ export const useMyPage = () => {
 
     const setUserInfoSuccess = (data) => {
         if (data.success) {
-            console.log("##데이터 찾기 성공");
-            setUserInfo(data?.userinfo); // 데이터 저장
+            setUserInfo(data?.userinfo);
             setInsertDate(formatDate(data?.insertdate));
             setUserName(data?.name);
             setInputEmail(data?.email);
             setInputPhone(data?.phone);
         } else {
-            console.log("##데이터 찾기 실패");
             alert("오류가 발생했습니다. 홈으로 이동합니다.");
             navigate("/home");
         }
@@ -144,11 +140,9 @@ export const useMyPage = () => {
 
     const setSaveEmailSuccess = (data) => {
         if (data.success) {
-            console.log("##이메일 업데이트 성공.");
             alert("이메일 업데이트 성공. 홈 화면으로 이동합니다.");
             navigate("/home");
         } else {
-            console.log("##이메일 업데이트 실패");
             alert("이메일 수정 중 오류가 발생했습니다. 홈 화면으로 이동합니다.");
             navigate("/home");
         }
@@ -169,7 +163,6 @@ export const useMyPage = () => {
     const onSaveEmail = () => {
         const userData = { inputEmail, inputId: userId };
         saveEmailMutation.mutate(userData);
-        console.log("##onSaveEmail");
     };
 
     const savePhone = async (userData) => {
@@ -189,11 +182,9 @@ export const useMyPage = () => {
 
     const setSavePhoneSuccess = (data) => {
         if (data.success) {
-            console.log("##전화번호 업데이트 성공.");
             alert("전화번호 업데이트 성공. 홈 화면으로 이동합니다.");
             navigate("/home");
         } else {
-            console.log("##전화번호 업데이트 실패");
             alert("전화번호 수정 중 오류가 발생했습니다. 홈 화면으로 이동합니다.");
             navigate("/home");
         }
@@ -216,7 +207,6 @@ export const useMyPage = () => {
         savePhoneMutation.mutate(userData);
     };
 
-    // ## reset Pw
     const onInputCurrentPassword = (event) => {
         const { value } = event.target;
         setInputCurrentPassword(value);
@@ -296,11 +286,9 @@ export const useMyPage = () => {
 
     const findUserPwSuccess = (data) => {
         if (data.success) {
-            console.log("##현재 계정의 비밀번호와 입력한 비밀번호가 일치합니다.");
             const userData = { inputPw: inputCheckPassword, inputId: userId };
             resetPasswordMutation.mutate(userData);
         } else {
-            console.log("##현재 계정의 비밀번호와 입력한 비밀번호가 일치하지 않습니다.");
             alert("현재 비밀번호가 일치하지 않습니다.");
         }
     };
@@ -320,8 +308,6 @@ export const useMyPage = () => {
         const userData = { inputId: userId, inputPw: inputCurrentPassword };
         checkCurrentPassword.mutate(userData);
     };
-
-    // ## delete
 
     const deleteUser = async (userData) => {
         const response = await fetch("http://localhost:3001/deleteuser", {
