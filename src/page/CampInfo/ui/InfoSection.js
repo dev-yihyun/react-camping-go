@@ -26,8 +26,6 @@ const BannerImageComponent = styled.img`
 `;
 
 function InfoSection({ InfoData }) {
-    console.log("##InfoData", InfoData);
-
     const homepageLink = InfoData?.homepage.startsWith("http")
         ? InfoData?.homepage
         : `http://${InfoData?.homepage}`;
