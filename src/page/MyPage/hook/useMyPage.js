@@ -74,13 +74,6 @@ export const useMyPage = () => {
     }, []);
 
     useEffect(() => {
-        if (userInfo) {
-            setInputEmail(userInfo?.email || "정보 없음");
-            setInputPhone(userInfo?.phone || "정보 없음");
-        }
-    }, [userInfo]);
-
-    useEffect(() => {
         setInputPhone(userInfo?.phone || "정보없음");
         setInputPhoneErrorMessage("");
         setInputEmail(userInfo?.email || "정보없음");

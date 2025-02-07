@@ -114,7 +114,7 @@ function MyPage() {
                                 </>
                             ) : (
                                 <>
-                                    <Text>Phone : {inputPhone || "정보없음음"}</Text>
+                                    <Text>Phone : {inputPhone || "정보없음"}</Text>
                                     <Button onClick={onShowPhone}>Phone</Button>
                                 </>
                             )}
