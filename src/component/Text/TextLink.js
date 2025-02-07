@@ -60,6 +60,7 @@ TextLink.propTypes = {
     fontWeight: PropTypes.oneOf(["normal", "bold"]),
     textAlign: PropTypes.oneOf(["left", "center", "right"]),
     alignSelf: PropTypes.string,
+    target: PropTypes.bool,
 };
 
 TextLink.defaultProps = {
@@ -68,5 +69,6 @@ TextLink.defaultProps = {
     fontWeight: "normal",
     textAlign: "left",
     alignSelf: "auto",
+    target: false,
 };
 export default React.memo(TextLink);
