@@ -124,7 +124,7 @@ function ListItem({ campInfo }) {
                                 <InfoComponent>
                                     <AddressComponent>
                                         <FaLocationDot />
-                                        {item?.addr1 || "주소 정보 없음음"}
+                                        {item?.addr1 || "주소 정보 없음"}
                                     </AddressComponent>
                                     <PhoneComponent>
                                         <FaPhone />
