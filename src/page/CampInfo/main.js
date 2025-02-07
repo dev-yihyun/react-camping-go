@@ -44,7 +44,7 @@ function CampInfo() {
         <>
             <Nav type="CampInfo" userId={userId} />
 
-            <SideSpace margin="20px">
+            <SideSpace>
                 <Space height={8} />
                 <InfoSection InfoData={InfoData} />
                 <Space height={8} />
@@ -54,7 +54,7 @@ function CampInfo() {
                 <Space height={8} />
                 {/* <FacilitiesEtc /> */}
                 <Space height={8} />
-                <MapSection />
+                <MapSection mapX={campData?.mapX} mapY={campData?.mapY} />
             </SideSpace>
             <Space height={8} />
             <Footer />
