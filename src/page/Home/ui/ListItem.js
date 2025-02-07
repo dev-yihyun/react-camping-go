@@ -10,7 +10,6 @@ const ItemCardComponent = styled.div`
     width: 80%;
     height: 300px;
     margin: 20px auto;
-    font-family: Arial, sans-serif;
     cursor: pointer;
 
     @media (max-width: 599px) {
