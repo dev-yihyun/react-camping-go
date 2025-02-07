@@ -23,7 +23,7 @@ const TextLink = ({
             textAlign={textAlign}
             alignSelf={alignSelf}
             style={{
-                whiteSpace: "normal", // 긴 텍스트 자동 줄바꿈 허용
+                whiteSpace: "normal",
                 wordBreak: "break-word",
             }}
         >
@@ -39,10 +39,10 @@ const TextLink = ({
                                 textDecoration: "none",
                                 fontWeight: currentLink.fontWeight === "bold" ? "700" : "400",
 
-                                wordBreak: "break-word", // 긴 단어를 줄바꿈
+                                wordBreak: "break-word",
                                 overflowWrap: "break-word",
-                                display: "inline-block", // 부모 요소의 크기를 넘지 않도록 설정
-                                maxWidth: "100%", // 부모 요소 크기에 맞춤
+                                display: "inline-block",
+                                maxWidth: "100%",
                             }}
                             target={target ? "_blank" : undefined}
                             rel={target ? "noopener noreferrer" : undefined}
