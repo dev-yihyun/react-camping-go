@@ -5,14 +5,18 @@ import Footer from "../../component/Footer/Footer";
 import FlexBox from "../../component/Layout/FlexBox";
 import Space from "../../component/Layout/Space";
 import Nav from "../../component/Nav/Nav";
+import Text from "../../component/Text/Text";
 import ListItem from "./ui/ListItem";
 import MainSection from "./ui/MainSection";
 function Home() {
     const userId = localStorage.getItem("userId");
     const [campInfo, setCampInfo] = useState();
 
+    const [loading, setLoading] = useState(false);
+
     const fetchData = async () => {
         console.log("##Loading..");
+        setLoading(true);
         const API_URL = `https://apis.data.go.kr/B551011/GoCamping/basedList?numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=WebTest&serviceKey=${process.env.REACT_APP_API_KEY}&_type=JSON`;
         try {
             const response = await axios.get(API_URL);
@@ -24,6 +28,7 @@ function Home() {
             );
         } finally {
             console.log("Loading..");
+            setLoading(false);
         }
     };
 
@@ -38,19 +43,29 @@ function Home() {
             {/* <Link to={"/campinfo"}>
                 <ListItem />
             </Link> */}
-            <ListItem campInfo={campInfo} />
-            <Space height={8} />
-            <FlexBox direction="row" wrap="wrap" gap="10px">
-                <PageButton>{"<"}</PageButton>
-                <PageButton>{"<<"}</PageButton>
-                <PageButton>222</PageButton>
-                <PageButton>222</PageButton>
-                <PageButton>222</PageButton>
-                <PageButton>222</PageButton>
-                <PageButton>222</PageButton>
-                <PageButton>{">>"}</PageButton>
-                <PageButton>{">"}</PageButton>
-            </FlexBox>
+            {loading ? (
+                <>
+                    <FlexBox>
+                        <Text>로딩중 ...</Text>
+                    </FlexBox>
+                </>
+            ) : (
+                <>
+                    <ListItem campInfo={campInfo} />
+                    <Space height={8} />
+                    <FlexBox direction="row" wrap="wrap" gap="10px">
+                        <PageButton>{"<"}</PageButton>
+                        <PageButton>{"<<"}</PageButton>
+                        <PageButton>222</PageButton>
+                        <PageButton>222</PageButton>
+                        <PageButton>222</PageButton>
+                        <PageButton>222</PageButton>
+                        <PageButton>222</PageButton>
+                        <PageButton>{">>"}</PageButton>
+                        <PageButton>{">"}</PageButton>
+                    </FlexBox>
+                </>
+            )}
 
             <Space height={8} />
             <Footer />
