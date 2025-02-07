@@ -11,7 +11,11 @@ function DescriptionSection({ descriptionData }) {
             </Text>
             <Space height={3} />
             <BoxShadowCard>
-                {descriptionData?.description && <Text>😁 준비 중입니다.</Text>}
+                {descriptionData?.description ? (
+                    <>{descriptionData?.description}</>
+                ) : (
+                    <Text>😁 준비 중입니다.</Text>
+                )}
             </BoxShadowCard>
         </>
     );
