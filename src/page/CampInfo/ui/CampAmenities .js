@@ -1,4 +1,5 @@
 import BoxShadowCard from "../../../component/Card/BoxShadowCard";
+import FlexBox from "../../../component/Layout/FlexBox";
 import Space from "../../../component/Layout/Space";
 import Text from "../../../component/Text/Text";
 
@@ -11,9 +12,11 @@ function CampAmenities({ amenityData }) {
             </Text>
             <Space height={3} />
             <BoxShadowCard gap="10px" justifyContent="center" alignItems="center" wrap="wrap">
-                {amenityDataArray.map((item, index) => (
-                    <Text key={index}>{item}</Text>
-                ))}
+                <FlexBox direction="row" gap="20px">
+                    {amenityDataArray.map((item, index) => (
+                        <Text key={index}>{item}</Text>
+                    ))}
+                </FlexBox>
             </BoxShadowCard>
         </>
     );
