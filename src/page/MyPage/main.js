@@ -14,6 +14,9 @@ import { useMyPage } from "./hook/useMyPage";
 
 function MyPage() {
     const {
+        userId,
+        insertDate,
+        userName,
         navigate,
         activeTab,
         setActiveTab,
@@ -36,6 +39,10 @@ function MyPage() {
         inputPasswordErrorMessage,
         regexEmail,
         regexPw,
+        onSaveEmail,
+        onSavePhone,
+        onResetPassword,
+        onDelete,
     } = useMyPage();
 
     const tabs = [
@@ -46,9 +53,9 @@ function MyPage() {
                     <FlexBox gap="8px">
                         <FlexBox align="flex-start" gap="8px">
                             <Space height="4" />
-                            <Text>가입시기 : 2025.01.01</Text>
-                            <Text>ID : admin</Text>
-                            <Text>Name : 홍길동</Text>
+                            <Text>가입시기 : {insertDate || "정보없음"}</Text>
+                            <Text>ID : {userId || "정보없음"}</Text>
+                            <Text>Name : {userName || "정보없음"}</Text>
                             {isShowEmail ? (
                                 <>
                                     <Input
@@ -69,13 +76,14 @@ function MyPage() {
                                             !inputEmail.trim() ||
                                             inputEmailErrorMessage
                                         }
+                                        onClick={onSaveEmail}
                                     >
                                         Email 수정하기
                                     </Button>
                                 </>
                             ) : (
                                 <>
-                                    <Text>Email : example@email.com</Text>
+                                    <Text>Email :{inputEmail || "정보없음"}</Text>
                                     <Button onClick={onShowEmail}>Email 수정하기</Button>
                                 </>
                             )}
@@ -99,18 +107,19 @@ function MyPage() {
                                             !inputPhone.trim() ||
                                             inputPhone.replace(/\D/g, "").length < 11
                                         }
+                                        onClick={onSavePhone}
                                     >
                                         Phone 수정
                                     </Button>
                                 </>
                             ) : (
                                 <>
-                                    <Text>Phone : {inputPhone}</Text>
+                                    <Text>Phone : {inputPhone || "정보없음"}</Text>
                                     <Button onClick={onShowPhone}>Phone</Button>
                                 </>
                             )}
 
-                            <Button>회원 탈퇴</Button>
+                            <Button onClick={onDelete}>회원 탈퇴</Button>
                         </FlexBox>
                         <Space height="4" />
                     </FlexBox>
@@ -156,6 +165,7 @@ function MyPage() {
                                 inputResetPassword !== inputCheckPassword ||
                                 !regexPw.test(inputResetPassword)
                             }
+                            onClick={onResetPassword}
                         >
                             reset password
                         </Button>
@@ -167,7 +177,7 @@ function MyPage() {
     ];
     return (
         <>
-            <Nav type="mypage" />
+            <Nav type="mypage" userId={userId} />
             <Page>
                 <FlexBox direction="column">
                     <FlexBox direction="row" gap="8px">

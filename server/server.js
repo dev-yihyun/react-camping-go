@@ -214,6 +214,160 @@ app.post("/login", (req, res) => {
     connection.query(query, data, getUserInfo);
 });
 
+app.post("/mypage", (req, res) => {
+    const data = req.body.userData;
+    console.log("##data", data);
+    const query = "SELECT id,name,phone,email,insertdate FROM react_project.user_ WHERE id=?;";
+
+    const getUserInfo = (err, result) => {
+        if (err) {
+            console.log("정보 찾기 실패", err);
+            return res.status(500).json({
+                success: false,
+                message: "서버 오류가 발생했습니다.",
+                error: err,
+            });
+        } else {
+            if (result.length > 0) {
+                return res.status(200).json({
+                    success: true,
+                    id: result[0].id,
+                    name: result[0].name,
+                    phone: result[0].phone,
+                    email: result[0].email,
+                    insertdate: result[0].insertdate,
+                    userinfo: result[0],
+                });
+            } else {
+                return res.status(200).json({
+                    success: false,
+                    message: "정보를 찾을 수 없습니다.",
+                });
+            }
+        }
+    };
+    connection.query(query, data, getUserInfo);
+});
+
+app.post("/emailupdate", (req, res) => {
+    const { inputEmail, inputId } = req.body.userData;
+    const data = [inputEmail, inputId];
+    const query = "UPDATE react_project.user_ SET email=? WHERE id=?";
+    const updateUserInfo = (err) => {
+        if (err) {
+            console.error("email update fail", err);
+            return res.status(500).json({
+                success: false,
+                message: "서버 오류가 발생했습니다.",
+                error: err,
+            });
+        } else {
+            try {
+                console.log("##email update success");
+                return res.status(200).json({
+                    success: true,
+                });
+            } catch (error) {
+                console.log("##email update fail");
+                return res.status(200).json({
+                    success: false,
+                });
+            }
+        }
+    };
+    connection.query(query, data, updateUserInfo);
+});
+
+app.post("/phoneupdate", (req, res) => {
+    const { inputPhone, inputId } = req.body.userData;
+    const data = [inputPhone, inputId];
+    const query = "UPDATE react_project.user_ SET phone=? WHERE id=?";
+    const updateUserInfo = (err) => {
+        if (err) {
+            console.error("phone update fail", err);
+            return res.status(500).json({
+                success: false,
+                message: "서버 오류가 발생했습니다.",
+                error: err,
+            });
+        } else {
+            try {
+                console.log("##phone update success");
+                return res.status(200).json({
+                    success: true,
+                });
+            } catch (error) {
+                console.log("##phone update fail");
+                return res.status(200).json({
+                    success: false,
+                });
+            }
+        }
+    };
+    connection.query(query, data, updateUserInfo);
+});
+
+app.post("/checkcurrentpassword", (req, res) => {
+    const { inputId, inputPw } = req.body.userData;
+    const data = [inputId, inputPw];
+    const query = `SELECT pw FROM react_project.user_ WHERE id=? and pw=?`;
+
+    const getUserInfo = (err, result) => {
+        if (err) {
+            console.error("fail", err);
+            return res.status(500).json({
+                success: false,
+                message: "서버 오류가 발생했습니다.",
+                error: err,
+            });
+        } else {
+            if (result.length > 0) {
+                console.log("계정과 pw 일치");
+                return res.status(200).json({
+                    success: true,
+                });
+            } else {
+                console.log("계정과 pw 일치하지 않습니다.");
+                return res.status(200).json({
+                    success: false,
+                });
+            }
+        }
+    };
+
+    connection.query(query, data, getUserInfo);
+});
+
+app.post("/deleteuser", (req, res) => {
+    const data = [req.body.userData];
+    const query = "DELETE FROM `react_project`.`user_` WHERE id=?;";
+
+    const deleteUser = (err) => {
+        if (err) {
+            console.log("##delete user fail", err);
+            return res.status(500).json({
+                success: false,
+                message: "서버 오류가 발생했습니다.",
+                error: err,
+            });
+        } else {
+            try {
+                console.log("##사용자 탈퇴 완료");
+                return res.status(200).json({
+                    success: true,
+                });
+            } catch (error) {
+                console.log("##사용자 탈퇴 실패");
+                return res.status(200).json({
+                    success: false,
+                });
+            }
+        }
+    };
+
+    connection.query(query, data, deleteUser);
+});
+
 app.listen(port, () => {
     console.log(`Connect at http://localhost:${port}`);
 });
