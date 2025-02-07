@@ -25,7 +25,6 @@ function Home() {
     const totalPage = Math.ceil(totalData / numOfRows);
 
     const fetchData = async () => {
-        console.log("##Loading..");
         setLoading(true);
         const API_URL = `https://apis.data.go.kr/B551011/GoCamping/basedList?numOfRows=${numOfRows}&pageNo=${pageNo.current}&MobileOS=ETC&MobileApp=WebTest&serviceKey=${process.env.REACT_APP_API_KEY}&_type=JSON`;
         try {
@@ -43,7 +42,6 @@ function Home() {
                 </FlexBox>
             );
         } finally {
-            console.log("Loading..");
             setLoading(false);
         }
     };
@@ -76,7 +74,6 @@ function Home() {
             }
         }
     };
-    console.log("##pageNo.current", pageNo.current);
     const onNext = () => {
         if (pageNo.current < totalPage) {
             pageNo.current += 1;
@@ -99,9 +96,7 @@ function Home() {
             <Nav type="home" userId={userId} />
             <MainSection />
             <Space height={8} />
-            {/* <Link to={"/campinfo"}>
-                <ListItem />
-            </Link> */}
+
             {loading ? (
                 <>
                     <FlexBox>

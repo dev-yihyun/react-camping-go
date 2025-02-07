@@ -7,7 +7,6 @@ import Nav from "../../component/Nav/Nav";
 import Text from "../../component/Text/Text";
 import CampAmenities from "./ui/CampAmenities ";
 import DescriptionSection from "./ui/DescriptionSection";
-import FacilitiesEtc from "./ui/FacilitiesEtc";
 import InfoSection from "./ui/InfoSection";
 import MapSection from "./ui/MapSection";
 
@@ -22,7 +21,6 @@ function CampInfo() {
             </FlexBox>
         );
     }
-    console.log("##campData", campData);
     const InfoData = {
         firstImageUrl: campData?.firstImageUrl,
         facltNm: campData?.facltNm,
@@ -41,6 +39,7 @@ function CampInfo() {
     const amenityData = {
         amenities: campData?.sbrsCl,
     };
+
     return (
         <>
             <Nav type="CampInfo" userId={userId} />
@@ -53,7 +52,7 @@ function CampInfo() {
                 <Space height={8} />
                 <CampAmenities amenityData={amenityData} />
                 <Space height={8} />
-                <FacilitiesEtc />
+                {/* <FacilitiesEtc /> */}
                 <Space height={8} />
                 <MapSection />
             </SideSpace>

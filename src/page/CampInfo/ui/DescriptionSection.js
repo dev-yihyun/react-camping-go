@@ -3,7 +3,6 @@ import Space from "../../../component/Layout/Space";
 import Text from "../../../component/Text/Text";
 
 function DescriptionSection({ descriptionData }) {
-    console.log("##descriptionData", descriptionData);
     return (
         <>
             <Text fontWeight="bold" fontSize="24px">

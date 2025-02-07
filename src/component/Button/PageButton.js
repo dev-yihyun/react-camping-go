@@ -13,7 +13,6 @@ const ButtonComponent = styled.button`
 `;
 
 function PageButton({ children, onClick, active }) {
-    console.log("##");
     return (
         <>
             <ButtonComponent onClick={onClick} active={active}>

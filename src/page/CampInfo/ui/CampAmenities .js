@@ -3,10 +3,7 @@ import Space from "../../../component/Layout/Space";
 import Text from "../../../component/Text/Text";
 
 function CampAmenities({ amenityData }) {
-    console.log("##amenityData", amenityData);
-
-    const arr = amenityData?.amenities.split(",");
-    console.log(arr); // ["전기", "무선인터넷", "물놀이장"]
+    const amenityDataArray = amenityData?.amenities.split(",");
     return (
         <>
             <Text fontWeight="bold" fontSize="24px">
@@ -14,7 +11,7 @@ function CampAmenities({ amenityData }) {
             </Text>
             <Space height={3} />
             <BoxShadowCard gap="10px" justifyContent="center" alignItems="center" wrap="wrap">
-                {arr.map((item, index) => (
+                {amenityDataArray.map((item, index) => (
                     <Text key={index}>{item}</Text>
                 ))}
             </BoxShadowCard>

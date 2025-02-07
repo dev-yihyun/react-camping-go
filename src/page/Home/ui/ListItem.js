@@ -19,7 +19,6 @@ const ItemCardComponent = styled.div`
     }
 `;
 
-// Link 스타일 적용
 const StyledLink = styled(Link)`
     text-decoration: none;
     color: inherit;
@@ -71,13 +70,13 @@ const ItemDescriptionComponent = styled.p`
     margin-bottom: 16px;
 
     display: -webkit-box;
-    -webkit-line-clamp: 4; /* 최대 4줄 */
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: normal; /* 줄바꿈 허용 */
+    white-space: normal;
     @media (max-width: 599px) {
-        -webkit-line-clamp: 6; /* 최대 6줄 */
+        -webkit-line-clamp: 6;
     }
 `;
 
