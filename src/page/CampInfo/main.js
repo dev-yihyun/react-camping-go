@@ -34,6 +34,10 @@ function CampInfo() {
         resveUrl: campData?.resveUrl,
     };
 
+    const descriptionData = {
+        description: campData?.intro,
+    };
+
     return (
         <>
             <Nav type="CampInfo" userId={userId} />
@@ -42,7 +46,7 @@ function CampInfo() {
                 <Space height={8} />
                 <InfoSection InfoData={InfoData} />
                 <Space height={8} />
-                <DescriptionSection />
+                <DescriptionSection descriptionData={descriptionData} />
                 <Space height={8} />
                 <CampAmenities />
                 <Space height={8} />
