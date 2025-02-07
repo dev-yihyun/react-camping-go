@@ -38,6 +38,9 @@ function CampInfo() {
         description: campData?.intro,
     };
 
+    const amenityData = {
+        amenities: campData?.sbrsCl,
+    };
     return (
         <>
             <Nav type="CampInfo" userId={userId} />
@@ -48,7 +51,7 @@ function CampInfo() {
                 <Space height={8} />
                 <DescriptionSection descriptionData={descriptionData} />
                 <Space height={8} />
-                <CampAmenities />
+                <CampAmenities amenityData={amenityData} />
                 <Space height={8} />
                 <FacilitiesEtc />
                 <Space height={8} />
