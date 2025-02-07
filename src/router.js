@@ -21,6 +21,7 @@ function Router() {
                     <Route path="/home" element={<Home />} />
                     <Route path="/campinfo" element={<CampInfo />} />
                     <Route path="/mypage" element={<MyPage />} />
+                    <Route path="/campinfo/:contentId" element={<CampInfo />} />
                 </Routes>
             </BrowserRouter>
         </>

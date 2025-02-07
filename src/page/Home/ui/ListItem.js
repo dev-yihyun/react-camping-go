@@ -1,5 +1,6 @@
 import React from "react";
 import { FaLocationDot, FaPhone } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 const ItemCardComponent = styled.div`
     display: flex;
@@ -16,6 +17,15 @@ const ItemCardComponent = styled.div`
         flex-direction: column;
         height: auto;
     }
+`;
+
+// Link 스타일 적용
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    width: 100%;
+    height: 100%;
 `;
 
 const ImgComponent = styled.div`
@@ -95,33 +105,35 @@ function ListItem({ campInfo }) {
             {campInfo &&
                 campInfo.map((item, index) => (
                     <ItemCardComponent key={index}>
-                        <ImgComponent>
-                            <Img
-                                src={item?.firstImageUrl || <>이미지 없음</>}
-                                alt="캠핑장 이미지"
-                            />
-                        </ImgComponent>
-                        <ContentComponent>
-                            <ItemTitleComponent>
-                                {item?.facltNm || "캠핑장 이름 정보 없음"}
-                            </ItemTitleComponent>
-                            <ItemSubtitleComponent>
-                                {item?.lineIntro || "정보 없음"}
-                            </ItemSubtitleComponent>
-                            <ItemDescriptionComponent>
-                                {item?.intro || "설명 정보 없음"}
-                            </ItemDescriptionComponent>
-                            <InfoComponent>
-                                <AddressComponent>
-                                    <FaLocationDot />
-                                    {item?.addr1 || "주소 정보 없음음"}
-                                </AddressComponent>
-                                <PhoneComponent>
-                                    <FaPhone />
-                                    {item?.tel || "전화번호 정보 없음"}
-                                </PhoneComponent>
-                            </InfoComponent>
-                        </ContentComponent>
+                        <StyledLink to={`/campinfo/${item?.contentId}`} state={{ item }}>
+                            <ImgComponent>
+                                <Img
+                                    src={item?.firstImageUrl || <>이미지 없음</>}
+                                    alt="캠핑장 이미지"
+                                />
+                            </ImgComponent>
+                            <ContentComponent>
+                                <ItemTitleComponent>
+                                    {item?.facltNm || "캠핑장 이름 정보 없음"}
+                                </ItemTitleComponent>
+                                <ItemSubtitleComponent>
+                                    {item?.lineIntro || "정보 없음"}
+                                </ItemSubtitleComponent>
+                                <ItemDescriptionComponent>
+                                    {item?.intro || "설명 정보 없음"}
+                                </ItemDescriptionComponent>
+                                <InfoComponent>
+                                    <AddressComponent>
+                                        <FaLocationDot />
+                                        {item?.addr1 || "주소 정보 없음음"}
+                                    </AddressComponent>
+                                    <PhoneComponent>
+                                        <FaPhone />
+                                        {item?.tel || "전화번호 정보 없음"}
+                                    </PhoneComponent>
+                                </InfoComponent>
+                            </ContentComponent>
+                        </StyledLink>
                     </ItemCardComponent>
                 ))}
         </>

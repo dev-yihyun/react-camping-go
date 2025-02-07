@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import TestImg from "../../../assets/img/Home/mainsection.jpg";
 import BoxShadowCard from "../../../component/Card/BoxShadowCard";
 import Space from "../../../component/Layout/Space";
 import Text from "../../../component/Text/Text";
+import TextLink from "../../../component/Text/TextLink";
 
 const InfoSectionComponent = styled.div`
     display: flex;
@@ -25,12 +25,20 @@ const BannerImageComponent = styled.img`
     border-radius: 8px;
 `;
 
-function InfoSection() {
+function InfoSection({ InfoData }) {
+    console.log("##InfoData", InfoData);
+
+    const homepageLink = InfoData?.homepage.startsWith("http")
+        ? InfoData?.homepage
+        : `http://${InfoData?.homepage}`;
+    const resveLink = InfoData?.resveUrl.startsWith("http")
+        ? InfoData?.resveUrl
+        : `http://${InfoData?.resveUrl}`;
     return (
         <>
             <InfoSectionComponent>
                 <ImageComponent>
-                    <BannerImageComponent src={TestImg} alt="campImg" />
+                    <BannerImageComponent src={InfoData.firstImageUrl} alt="campImg" />
                 </ImageComponent>
                 <BoxShadowCard
                     flex="2"
@@ -42,41 +50,69 @@ function InfoSection() {
                     wrap="wrap"
                 >
                     <Text fontWeight="bold" fontSize="24px">
+                        {InfoData.facltNm}
+                    </Text>
+                    <Text fontWeight="bold" fontSize="24px">
                         📍 주소
                     </Text>
-                    <Text>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua
-                    </Text>
+                    <Text>{InfoData.addr1}</Text>
                     <Space />
                     <Text fontWeight="bold" fontSize="24px">
                         📞 연락처
                     </Text>
-                    <Text>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua
-                    </Text>
+                    <Text>{InfoData.tel}</Text>
                     <Space />
 
                     <Text fontWeight="bold" fontSize="24px">
-                        🚗 주차
+                        🏠홈페이지
                     </Text>
-                    <Text>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua
-                    </Text>
+
+                    {InfoData?.homepage ? (
+                        <TextLink
+                            text="{link}"
+                            links={[
+                                {
+                                    to: homepageLink,
+                                    label: homepageLink,
+                                    color: "#212121",
+                                },
+                            ]}
+                            target
+                        >
+                            {InfoData?.homepage}
+                        </TextLink>
+                    ) : (
+                        "정보 없음"
+                    )}
+
                     <Space />
 
                     <Text fontWeight="bold" fontSize="24px">
                         ⛺ 운영 기간
                     </Text>
-                    <Text>봄,여름, 가을, 겨울</Text>
+                    <Text>{InfoData.operPdCl}</Text>
                     <Space />
 
-                    <Text fontWeight="bold" fontSize="24px">
-                        ⭐ 특징
-                    </Text>
-                    <Text>평가: 4점</Text>
+                    {InfoData?.resveCl && InfoData?.resveUrl ? (
+                        <>
+                            <Text fontWeight="bold" fontSize="24px">
+                                📖 {InfoData?.resveCl}
+                            </Text>
+                            <TextLink
+                                text="{link}"
+                                links={[
+                                    {
+                                        to: resveLink,
+                                        label: resveLink,
+                                        color: "#212121",
+                                    },
+                                ]}
+                                target
+                            >
+                                {InfoData?.resveUrl}
+                            </TextLink>
+                        </>
+                    ) : null}
                     <Space />
                 </BoxShadowCard>
             </InfoSectionComponent>
