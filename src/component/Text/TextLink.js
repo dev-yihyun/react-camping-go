@@ -3,7 +3,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Text from "./Text";
 
-const TextLink = ({ text, links = [], color, fontSize, fontWeight, textAlign, alignSelf }) => {
+const TextLink = ({
+    text,
+    links = [],
+    color,
+    fontSize,
+    fontWeight,
+    textAlign,
+    alignSelf,
+    target,
+}) => {
     const parsedText = text.split(/(\{link\})/);
 
     return (
@@ -26,6 +35,8 @@ const TextLink = ({ text, links = [], color, fontSize, fontWeight, textAlign, al
                                 textDecoration: "none",
                                 fontWeight: currentLink.fontWeight === "bold" ? "700" : "400",
                             }}
+                            target={target ? "_blank" : undefined}
+                            rel={target ? "noopener noreferrer" : undefined}
                         >
                             {currentLink.label}
                         </Link>
