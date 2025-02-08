@@ -58,7 +58,7 @@ function InfoSection({ InfoData }) {
                     <Text fontWeight="bold" fontSize="24px">
                         📞 연락처
                     </Text>
-                    <Text>{InfoData.tel}</Text>
+                    <Text>{InfoData.tel || "정보 없음"}</Text>
                     <Space />
 
                     <Text fontWeight="bold" fontSize="24px">
@@ -88,7 +88,7 @@ function InfoSection({ InfoData }) {
                     <Text fontWeight="bold" fontSize="24px">
                         ⛺ 운영 기간
                     </Text>
-                    <Text>{InfoData.operPdCl}</Text>
+                    <Text>{InfoData.operPdCl || "정보없음"}</Text>
                     <Space />
 
                     {InfoData?.resveCl && InfoData?.resveUrl ? (
@@ -110,7 +110,9 @@ function InfoSection({ InfoData }) {
                                 {InfoData?.resveUrl}
                             </TextLink>
                         </>
-                    ) : null}
+                    ) : (
+                        ""
+                    )}
                     <Space />
                 </BoxShadowCard>
             </InfoSectionComponent>
