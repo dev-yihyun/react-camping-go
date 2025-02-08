@@ -35,7 +35,6 @@ const ButtonComponent = styled.button`
 `;
 
 const Button = ({ children = "Button", disabled = false, onClick = () => {} }) => {
-    console.log("##disabled", disabled);
     return (
         <ButtonComponent disabled={disabled} onClick={onClick}>
             {children}

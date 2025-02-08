@@ -36,11 +36,6 @@ function FindPw() {
         isFormValid,
     } = useFindPw();
 
-    console.log("## !inputPw.trim()", !inputPw.trim());
-    console.log("## !regexPw.test(inputPw)", !regexPw.test(inputPw));
-    console.log("## !inputCheckPw.trim()", !inputCheckPw.trim());
-    console.log("## inputPw !== inputCheckPw", inputPw !== inputCheckPw);
-    console.log("## inputPwErrorMessage", inputPwErrorMessage ? "true" : "false");
     return (
         <>
             <Page>
