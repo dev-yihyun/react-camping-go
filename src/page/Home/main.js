@@ -124,7 +124,7 @@ function Home() {
                                     <PageButton
                                         key={index}
                                         onClick={() => onGoPage(index)}
-                                        active={pageIndex === pageNo.current ? "true" : "false"}
+                                        active={pageIndex === pageNo.current}
                                     >
                                         {pageIndex}
                                     </PageButton>
