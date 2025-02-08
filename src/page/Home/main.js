@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PageButton from "../../component/Button/PageButton";
 import Footer from "../../component/Footer/Footer";
 import FlexBox from "../../component/Layout/FlexBox";
@@ -18,11 +18,15 @@ function Home() {
     const [totalData, setTotalData] = useState(0);
 
     const numOfRows = 10;
-    const pageNo = useRef(1);
     const pageButtonNumber = 5;
     const [currentPageGroup, setCurrentPageGroup] = useState(0);
 
     const totalPage = Math.ceil(totalData / numOfRows);
+
+    const location = useLocation();
+    // 🔹 sessionStorage에서 페이지 번호 불러오기 (기본값: 1)
+    const savedPage = sessionStorage.getItem("currentPage");
+    const pageNo = useRef(savedPage ? Number(savedPage) : 1);
 
     const fetchData = async () => {
         setLoading(true);
@@ -49,12 +53,15 @@ function Home() {
     useEffect(() => {
         fetchData();
     }, []);
+
     if (!userId) {
         alert("로그인 후 이용 가능합니다.");
         navigate("/");
     }
+
     const onGoPage = (index) => {
         pageNo.current = currentPageGroup * pageButtonNumber + index + 1;
+        sessionStorage.setItem("currentPage", pageNo.current);
         fetchData();
     };
 
@@ -62,6 +69,7 @@ function Home() {
         if (currentPageGroup > 0) {
             setCurrentPageGroup((prev) => prev - 1);
             pageNo.current = (currentPageGroup - 1) * pageButtonNumber + 1;
+            sessionStorage.setItem("currentPage", pageNo.current);
             fetchData();
         }
     };

@@ -28,6 +28,7 @@ export const useMyPage = () => {
 
     const [insertDate, setInsertDate] = useState("");
     const [userName, setUserName] = useState("");
+    sessionStorage.removeItem("currentPage");
 
     const getUserInfo = async (userData) => {
         const response = await fetch("http://localhost:3001/mypage", {
