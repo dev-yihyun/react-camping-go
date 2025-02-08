@@ -12,7 +12,14 @@ const FlexBoxContainer = styled.div`
     gap: ${({ $gap }) => $gap || "0"};
 `;
 
-const FlexBox = ({ children, gap, direction, wrap, justify, align }) => {
+const FlexBox = ({
+    children,
+    gap = "0px",
+    direction = "column",
+    wrap = "wrap",
+    justify = "center",
+    align = "center",
+}) => {
     return (
         <FlexBoxContainer
             $gap={gap}
@@ -41,11 +48,13 @@ FlexBox.propTypes = {
     ]),
     align: PropTypes.oneOf(["flex-start", "flex-end", "center", "stretch", "baseline"]),
 };
-FlexBox.defaultProps = {
-    gap: "0px",
-    direction: "column",
-    wrap: "wrap",
-    justify: "center",
-    align: "center",
-};
+
+// FlexBox.defaultProps = {
+//     gap: "0px",
+//     direction: "column",
+//     wrap: "wrap",
+//     justify: "center",
+//     align: "center",
+// };
+
 export default React.memo(FlexBox);

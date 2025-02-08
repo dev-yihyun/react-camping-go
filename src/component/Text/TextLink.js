@@ -6,12 +6,12 @@ import Text from "./Text";
 const TextLink = ({
     text,
     links = [],
-    color,
-    fontSize,
-    fontWeight,
-    textAlign,
-    alignSelf,
-    target,
+    color = "#212121",
+    fontSize = "16px",
+    fontWeight = "normal",
+    textAlign = "left",
+    alignSelf = "auto",
+    target = false,
 }) => {
     const parsedText = text.split(/(\{link\})/);
 
@@ -72,12 +72,13 @@ TextLink.propTypes = {
     target: PropTypes.bool,
 };
 
-TextLink.defaultProps = {
-    color: "#212121",
-    fontSize: "16px",
-    fontWeight: "normal",
-    textAlign: "left",
-    alignSelf: "auto",
-    target: false,
-};
+// TextLink.defaultProps = {
+//     color: "#212121",
+//     fontSize: "16px",
+//     fontWeight: "normal",
+//     textAlign: "left",
+//     alignSelf: "auto",
+//     target: false,
+// };
+
 export default React.memo(TextLink);

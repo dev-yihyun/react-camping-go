@@ -7,7 +7,7 @@ const PasswordContainer = styled.div`
     display: flex;
     align-items: center;
     background-color: #f2f2f2;
-    border: ${({ error }) => (error ? "2px solid red" : "none")};
+    border: ${({ $error }) => ($error ? "2px solid red" : "none")};
     border-radius: 10px;
     padding: 10px;
     color: #1e1e23;
@@ -57,14 +57,20 @@ const PasswordContainer = styled.div`
     }
 `;
 
-const Password = ({ error, placeholder, value, onChange, maxLength }) => {
+const Password = ({
+    error = false,
+    placeholder = "",
+    value = "",
+    onChange = () => {},
+    maxLength = 255,
+}) => {
     const [isShow, setIsShow] = useState(true);
     const onShow = () => {
         setIsShow(!isShow);
     };
     return (
         <>
-            <PasswordContainer error={error}>
+            <PasswordContainer $error={error}>
                 <input
                     type={isShow ? "password" : "text"}
                     placeholder={placeholder}
@@ -86,13 +92,14 @@ Password.prototype = {
     type: PropTypes.oneOf(["text", "password"]),
     maxLength: PropTypes.number,
 };
-Password.defaultProps = {
-    error: false,
-    placeholder: "",
-    value: "",
-    type: "password",
-    onChange: () => {},
-    maxLength: 255,
-};
+
+// Password.defaultProps = {
+//     error: false,
+//     placeholder: "",
+//     value: "",
+//     type: "password",
+//     onChange: () => {},
+//     maxLength: 255,
+// };
 
 export default React.memo(Password);

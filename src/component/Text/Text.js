@@ -37,7 +37,14 @@ const TextComponent = styled.p`
     margin: 0;
 `;
 
-const Text = ({ children, color, fontSize, fontWeight, textAlign, alignSelf }) => {
+const Text = ({
+    children,
+    color = "#212121",
+    fontSize = "16px",
+    fontWeight = "normal",
+    textAlign = "left",
+    alignSelf = "auto",
+}) => {
     return (
         <TextComponent
             color={color}
@@ -51,12 +58,12 @@ const Text = ({ children, color, fontSize, fontWeight, textAlign, alignSelf }) =
     );
 };
 
-Text.defaultProps = {
-    color: "#212121",
-    fontSize: "16px",
-    fontWeight: "normal",
-    textAlign: "left",
-    alignSelf: "auto",
-};
+// Text.defaultProps = {
+//     color: "#212121",
+//     fontSize: "16px",
+//     fontWeight: "normal",
+//     textAlign: "left",
+//     alignSelf: "auto",
+// };
 
 export default React.memo(Text);

@@ -7,8 +7,6 @@ const BoxShadowCardComponent = styled.div`
     background-color: #ffffff;
     border-radius: 8px;
     padding: 20px;
-    ${({ $flex }) => $flex && `flex: ${$flex};`}
-
     display: flex;
 
     ${({ $flex }) => $flex && `flex: ${$flex};`}
@@ -23,12 +21,12 @@ const BoxShadowCardComponent = styled.div`
 const BoxShadowCard = ({
     children,
     flex,
-    gap,
-    direction,
-    wrap,
-    justifyContent,
-    alignItems,
-    alignContent,
+    gap = "0px",
+    direction = "column",
+    wrap = "wrap",
+    justifyContent = "center",
+    alignItems = "center",
+    alignContent = "center",
 }) => {
     return (
         <BoxShadowCardComponent
@@ -70,14 +68,14 @@ BoxShadowCard.propTypes = {
     alignContent: PropTypes.oneOf(["flex-start", "flex-end", "center", "stretch", "baseline"]),
 };
 
-BoxShadowCard.defaultProps = {
-    gap: "0px",
-    direction: "column",
-    wrap: "wrap",
-    justifyItems: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    alignContent: "center",
-};
+// BoxShadowCard.defaultProps = {
+//     gap: "0px",
+//     direction: "column",
+//     wrap: "wrap",
+//     justifyItems: "center",
+//     justifyContent: "center",
+//     alignItems: "center",
+//     alignContent: "center",
+// };
 
 export default React.memo(BoxShadowCard);

@@ -9,13 +9,13 @@ const ButtonComponent = styled.button`
     cursor: pointer;
     font-weight: bold;
     padding: 10px;
-    background-color: ${({ active }) => (active ? "#D9E4CC " : "#ffffff")};
+    background-color: ${({ $active }) => ($active ? "#D9E4CC " : "#ffffff")};
 `;
 
-function PageButton({ children, onClick, active }) {
+function PageButton({ children = "Button", onClick = () => {}, active = false }) {
     return (
         <>
-            <ButtonComponent onClick={onClick} active={active}>
+            <ButtonComponent onClick={onClick} $active={active}>
                 {children}
             </ButtonComponent>
         </>
@@ -28,10 +28,10 @@ PageButton.propTypes = {
     active: PropTypes.bool,
 };
 
-PageButton.defaultProps = {
-    children: "Button",
-    onClick: () => {},
-    active: false,
-};
+// PageButton.defaultProps = {
+//     children: "Button",
+//     onClick: () => {},
+//     active: false,
+// };
 
 export default React.memo(PageButton);
