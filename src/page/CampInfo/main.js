@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Footer from "../../component/Footer/Footer";
 import FlexBox from "../../component/Layout/FlexBox";
@@ -15,10 +14,6 @@ function CampInfo() {
     const userId = localStorage.getItem("userId");
     const location = useLocation();
     const campData = location?.state?.item;
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
     if (!campData) {
         return (
             <FlexBox>
