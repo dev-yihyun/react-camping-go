@@ -93,13 +93,4 @@ Password.prototype = {
     maxLength: PropTypes.number,
 };
 
-// Password.defaultProps = {
-//     error: false,
-//     placeholder: "",
-//     value: "",
-//     type: "password",
-//     onChange: () => {},
-//     maxLength: 255,
-// };
-
 export default React.memo(Password);

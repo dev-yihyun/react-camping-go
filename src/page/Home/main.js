@@ -24,7 +24,6 @@ function Home() {
     const totalPage = Math.ceil(totalData / numOfRows);
 
     const location = useLocation();
-    // 🔹 sessionStorage에서 페이지 번호 불러오기 (기본값: 1)
     const savedPage = sessionStorage.getItem("currentPage");
     const pageNo = useRef(savedPage ? Number(savedPage) : 1);
 

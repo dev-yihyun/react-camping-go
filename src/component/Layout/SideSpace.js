@@ -16,8 +16,4 @@ SideSpace.propTypes = {
     margin: PropTypes.string,
 };
 
-// SideSpace.defaultProps = {
-//     margin: "20px",
-// };
-
 export default React.memo(SideSpace);

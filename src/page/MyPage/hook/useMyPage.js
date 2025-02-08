@@ -30,7 +30,6 @@ export const useMyPage = () => {
     const [userName, setUserName] = useState("");
     sessionStorage.removeItem("currentPage");
 
-    // 새로운 currentEmail 상태 추가
     const [currentEmail, setCurrentEmail] = useState("");
 
     const getUserInfo = async (userData) => {
@@ -55,7 +54,7 @@ export const useMyPage = () => {
             setUserName(data?.name);
             setInputEmail(data?.email);
             setInputPhone(data?.phone);
-            setCurrentEmail(data?.email); // currentEmail 설정
+            setCurrentEmail(data?.email);
         } else {
             alert("오류가 발생했습니다. 홈으로 이동합니다.");
             navigate("/home");
@@ -97,8 +96,7 @@ export const useMyPage = () => {
 
     const onShowEmail = () => {
         if (isShowEmail) {
-            setInputEmail(currentEmail); // currentEmail 사용
-            // setInputEmail(userInfo?.email);
+            setInputEmail(currentEmail);
             setInputEmailErrorMessage("");
         }
         setIsShowEmail(!isShowEmail);
@@ -354,7 +352,7 @@ export const useMyPage = () => {
     };
 
     return {
-        currentEmail, // currentEmail 반환
+        currentEmail,
         userId,
         insertDate,
         userName,

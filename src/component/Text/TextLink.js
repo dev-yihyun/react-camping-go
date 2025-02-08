@@ -72,13 +72,4 @@ TextLink.propTypes = {
     target: PropTypes.bool,
 };
 
-// TextLink.defaultProps = {
-//     color: "#212121",
-//     fontSize: "16px",
-//     fontWeight: "normal",
-//     textAlign: "left",
-//     alignSelf: "auto",
-//     target: false,
-// };
-
 export default React.memo(TextLink);

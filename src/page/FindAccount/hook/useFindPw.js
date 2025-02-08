@@ -112,7 +112,6 @@ export const useFindPw = () => {
             !inputPhone.trim() ||
             !inputEmail.trim() ||
             inputPhone.replace(/\D/g, "").length < 11;
-        console.log("##isValid", isValid);
         return isValid;
     };
 

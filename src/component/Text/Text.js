@@ -58,12 +58,4 @@ const Text = ({
     );
 };
 
-// Text.defaultProps = {
-//     color: "#212121",
-//     fontSize: "16px",
-//     fontWeight: "normal",
-//     textAlign: "left",
-//     alignSelf: "auto",
-// };
-
 export default React.memo(Text);

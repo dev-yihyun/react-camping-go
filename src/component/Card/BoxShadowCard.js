@@ -68,14 +68,4 @@ BoxShadowCard.propTypes = {
     alignContent: PropTypes.oneOf(["flex-start", "flex-end", "center", "stretch", "baseline"]),
 };
 
-// BoxShadowCard.defaultProps = {
-//     gap: "0px",
-//     direction: "column",
-//     wrap: "wrap",
-//     justifyItems: "center",
-//     justifyContent: "center",
-//     alignItems: "center",
-//     alignContent: "center",
-// };
-
 export default React.memo(BoxShadowCard);

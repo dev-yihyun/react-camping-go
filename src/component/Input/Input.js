@@ -63,13 +63,4 @@ Input.prototype = {
     maxLength: PropTypes.number,
 };
 
-// Input.defaultProps = {
-//     error: false,
-//     placeholder: "",
-//     value: "",
-//     type: "text",
-//     onChange: () => {},
-//     maxLength: 255,
-// };
-
 export default React.memo(Input);

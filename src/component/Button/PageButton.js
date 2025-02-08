@@ -28,10 +28,4 @@ PageButton.propTypes = {
     active: PropTypes.bool,
 };
 
-// PageButton.defaultProps = {
-//     children: "Button",
-//     onClick: () => {},
-//     active: false,
-// };
-
 export default React.memo(PageButton);
