@@ -106,13 +106,14 @@ export const useFindPw = () => {
     };
 
     const isFormValid = () => {
-        return (
+        const isValid =
             !inputId.trim() ||
             !inputName.trim() ||
             !inputPhone.trim() ||
             !inputEmail.trim() ||
-            inputPhone.replace(/\D/g, "").length < 11
-        );
+            inputPhone.replace(/\D/g, "").length < 11;
+        console.log("##isValid", isValid);
+        return isValid;
     };
 
     const updateUserInfo = async (userData) => {
