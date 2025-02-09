@@ -115,8 +115,8 @@ function Home() {
                     <ListItem campInfo={campInfo} />
                     <Space height={8} />
                     <FlexBox direction="row" wrap="wrap" gap="10px">
-                        <PageButton onClick={onPrevPage}>{"<"}</PageButton>
                         <PageButton onClick={onPrev}>{"<<"}</PageButton>
+                        <PageButton onClick={onPrevPage}>{"<"}</PageButton>
 
                         {Array.from(
                             {
@@ -139,8 +139,8 @@ function Home() {
                             }
                         )}
 
-                        <PageButton onClick={onNextPage}>{">>"}</PageButton>
                         <PageButton onClick={onNext}>{">"}</PageButton>
+                        <PageButton onClick={onNextPage}>{">>"}</PageButton>
                     </FlexBox>
                 </>
             )}
