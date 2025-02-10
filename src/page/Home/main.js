@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PageButton from "../../component/Button/PageButton";
 import Footer from "../../component/Footer/Footer";
 import FlexBox from "../../component/Layout/FlexBox";
@@ -23,9 +23,9 @@ function Home() {
 
     const totalPage = Math.ceil(totalData / numOfRows);
 
-    const location = useLocation();
     const savedPage = sessionStorage.getItem("currentPage");
     const pageNo = useRef(savedPage ? Number(savedPage) : 1);
+    const [isError, setIsError] = useState(false);
 
     const fetchData = async () => {
         setLoading(true);
@@ -34,8 +34,10 @@ function Home() {
             const response = await axios.get(API_URL);
             setCampInfo(response?.data?.response?.body?.items?.item);
             setTotalData(response?.data?.response?.body?.totalCount);
+            setIsError(false);
         } catch (err) {
             console.error(`fail api : ${err.message}`);
+            setIsError(true);
             return (
                 <FlexBox>
                     <Text>
@@ -110,6 +112,10 @@ function Home() {
                         <Text>로딩중 ...</Text>
                     </FlexBox>
                 </>
+            ) : isError ? (
+                <FlexBox>
+                    <Text>데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해 주세요.</Text>
+                </FlexBox>
             ) : (
                 <>
                     <ListItem campInfo={campInfo} />
