@@ -7,7 +7,7 @@ const FlexBoxContainer = styled.div`
     flex-wrap: ${({ wrap }) => wrap || "wrap"};
     justify-content: ${({ justify }) => justify || "center"};
     justify-items: center;
-    align-items: ${({ align }) => align || "center"};
+    align-items: ${({ $align }) => $align || "center"};
     align-content: center;
     gap: ${({ $gap }) => $gap || "0"};
 `;
@@ -26,7 +26,7 @@ const FlexBox = ({
             direction={direction}
             $wrap={wrap}
             $justify={justify}
-            align={align}
+            $align={align}
         >
             {children}
         </FlexBoxContainer>
