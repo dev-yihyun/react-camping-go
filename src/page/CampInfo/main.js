@@ -22,7 +22,6 @@ function CampInfo() {
                 <Space height={8} />
                 <CampAmenities amenityData={amenityData} />
                 <Space height={8} />
-                {/* <FacilitiesEtc /> */}
                 <Space height={8} />
                 <MapSection mapX={campData?.mapX} mapY={campData?.mapY} />
             </SideSpace>

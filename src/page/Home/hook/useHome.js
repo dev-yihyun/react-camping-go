@@ -26,7 +26,7 @@ export const useHome = () => {
         const response = await fetch(
             `https://apis.data.go.kr/B551011/GoCamping/basedList?numOfRows=${numOfRows}&pageNo=${pageNo.current}&MobileOS=ETC&MobileApp=WebTest&serviceKey=${process.env.REACT_APP_API_KEY}&_type=JSON`,
             {
-                method: "GET", // GET 방식으로 변경
+                method: "GET",
             }
         );
 
@@ -39,8 +39,6 @@ export const useHome = () => {
         return response.json();
     };
     const fetchDataSuccess = (data) => {
-        console.log("##data", data);
-        console.log("##data_");
         setCampInfo(data?.response?.body?.items?.item);
         setTotalData(data?.response?.body?.totalCount);
         setLoading(false);
