@@ -28,6 +28,7 @@ function Home() {
     const [isError, setIsError] = useState(false);
 
     const getData = async () => {
+        setLoading(true);
         const response = await fetch(
             `https://apis.data.go.kr/B551011/GoCamping/basedList?numOfRows=${numOfRows}&pageNo=${pageNo.current}&MobileOS=ETC&MobileApp=WebTest&serviceKey=${process.env.REACT_APP_API_KEY}&_type=JSON`,
             {
@@ -37,6 +38,8 @@ function Home() {
 
         if (!response.ok) {
             console.error(`오류: ${response.status}`);
+            setLoading(false);
+            setIsError(true);
             throw new Error("서버 요청 실패");
         }
         return response.json();
@@ -51,6 +54,7 @@ function Home() {
     };
     const fetchDataError = (error) => {
         console.error(`오류: ${error}`);
+        setLoading(false);
         setIsError(true);
     };
     const fetchDataMutation = useMutation({
@@ -65,7 +69,6 @@ function Home() {
 
     useEffect(() => {
         fetchData();
-        setLoading(true);
     }, []);
 
     if (!userId) {
