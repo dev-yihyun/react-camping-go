@@ -1,4 +1,4 @@
-import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PageButton from "../../component/Button/PageButton";
@@ -27,32 +27,45 @@ function Home() {
     const pageNo = useRef(savedPage ? Number(savedPage) : 1);
     const [isError, setIsError] = useState(false);
 
-    const fetchData = async () => {
-        setLoading(true);
-        const API_URL = `https://apis.data.go.kr/B551011/GoCamping/basedList?numOfRows=${numOfRows}&pageNo=${pageNo.current}&MobileOS=ETC&MobileApp=WebTest&serviceKey=${process.env.REACT_APP_API_KEY}&_type=JSON`;
-        try {
-            const response = await axios.get(API_URL);
-            setCampInfo(response?.data?.response?.body?.items?.item);
-            setTotalData(response?.data?.response?.body?.totalCount);
-            setIsError(false);
-        } catch (err) {
-            console.error(`fail api : ${err.message}`);
-            setIsError(true);
-            return (
-                <FlexBox>
-                    <Text>
-                        {err.message} : 데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해
-                        주세요.
-                    </Text>
-                </FlexBox>
-            );
-        } finally {
-            setLoading(false);
+    const getData = async () => {
+        const response = await fetch(
+            `https://apis.data.go.kr/B551011/GoCamping/basedList?numOfRows=${numOfRows}&pageNo=${pageNo.current}&MobileOS=ETC&MobileApp=WebTest&serviceKey=${process.env.REACT_APP_API_KEY}&_type=JSON`,
+            {
+                method: "GET", // GET 방식으로 변경
+            }
+        );
+
+        if (!response.ok) {
+            console.error(`오류: ${response.status}`);
+            throw new Error("서버 요청 실패");
         }
+        return response.json();
+    };
+    const fetchDataSuccess = (data) => {
+        console.log("##data", data);
+        console.log("##data_");
+        setCampInfo(data?.response?.body?.items?.item);
+        setTotalData(data?.response?.body?.totalCount);
+        setLoading(false);
+        setIsError(false);
+    };
+    const fetchDataError = (error) => {
+        console.error(`오류: ${error}`);
+        setIsError(true);
+    };
+    const fetchDataMutation = useMutation({
+        mutationFn: getData,
+        onSuccess: fetchDataSuccess,
+        onError: fetchDataError,
+    });
+
+    const fetchData = () => {
+        fetchDataMutation.mutate();
     };
 
     useEffect(() => {
         fetchData();
+        setLoading(true);
     }, []);
 
     if (!userId) {
