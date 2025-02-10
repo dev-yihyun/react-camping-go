@@ -9,7 +9,7 @@ import InfoSection from "./ui/InfoSection";
 import MapSection from "./ui/MapSection";
 
 function CampInfo() {
-    const { userId, InfoData, descriptionData, amenityData, campData } = useCampInfo();
+    const { userId, campData, InfoData, descriptionData, amenityData } = useCampInfo();
     return (
         <>
             <Nav type="CampInfo" userId={userId} />
