@@ -13,7 +13,7 @@ const InfoSectionComponent = styled.div`
     }
 `;
 const ImageComponent = styled.div`
-    flex: 1;
+    flex: 2;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
