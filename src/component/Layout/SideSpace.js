@@ -7,17 +7,13 @@ const SideSpaceComponent = styled.div`
     margin-right: ${({ $margin }) => ($margin ? $margin : "20px")};
 `;
 
-function SideSpace({ children, margin }) {
+function SideSpace({ children, margin = "20px" }) {
     return <SideSpaceComponent $margin={margin}>{children}</SideSpaceComponent>;
 }
 
 SideSpace.propTypes = {
     children: PropTypes.node,
     margin: PropTypes.string,
-};
-
-SideSpace.defaultProps = {
-    margin: "20px",
 };
 
 export default React.memo(SideSpace);

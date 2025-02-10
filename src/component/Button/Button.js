@@ -34,7 +34,7 @@ const ButtonComponent = styled.button`
     }
 `;
 
-const Button = ({ children, disabled, onClick }) => {
+const Button = ({ children = "Button", disabled = false, onClick = () => {} }) => {
     return (
         <ButtonComponent disabled={disabled} onClick={onClick}>
             {children}
@@ -48,9 +48,4 @@ Button.propTypes = {
     onClick: PropTypes.func,
 };
 
-Button.defaultProps = {
-    children: "Button",
-    disabled: false,
-    onClick: () => {},
-};
 export default React.memo(Button);

@@ -14,6 +14,7 @@ import { useMyPage } from "./hook/useMyPage";
 
 function MyPage() {
     const {
+        currentEmail,
         userId,
         insertDate,
         userName,
@@ -74,7 +75,8 @@ function MyPage() {
                                         disabled={
                                             !regexEmail.test(inputEmail) ||
                                             !inputEmail.trim() ||
-                                            inputEmailErrorMessage
+                                            inputEmailErrorMessage ||
+                                            currentEmail === inputEmail
                                         }
                                         onClick={onSaveEmail}
                                     >
@@ -161,7 +163,6 @@ function MyPage() {
                                 !inputCurrentPassword.trim() ||
                                 !inputCheckPassword.trim() ||
                                 !inputResetPassword.trim() ||
-                                inputPasswordErrorMessage ||
                                 inputResetPassword !== inputCheckPassword ||
                                 !regexPw.test(inputResetPassword)
                             }

@@ -7,11 +7,13 @@ import Home from "./page/Home/main";
 import Join from "./page/Join/main";
 import Login from "./page/Login/main";
 import MyPage from "./page/MyPage/main";
+import ScrollToTop from "./utils/ScrollToTop";
 
 function Router() {
     return (
         <>
             <BrowserRouter>
+                <ScrollToTop />
                 <Routes>
                     <Route path="/" element={<Login />} />
                     <Route path="/login" element={<Login />} />
@@ -21,6 +23,7 @@ function Router() {
                     <Route path="/home" element={<Home />} />
                     <Route path="/campinfo" element={<CampInfo />} />
                     <Route path="/mypage" element={<MyPage />} />
+                    <Route path="/campinfo/:contentId" element={<CampInfo />} />
                 </Routes>
             </BrowserRouter>
         </>

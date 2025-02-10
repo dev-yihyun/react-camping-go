@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const InputComponent = styled.input`
     background-color: #f2f2f2;
-    border: ${({ error }) => (error ? "2px solid red" : "none")};
+    border: ${({ $error }) => ($error ? "2px solid red" : "none")};
     border-radius: 10px;
     padding: 10px;
     line-height: 22px;
@@ -34,10 +34,17 @@ const InputComponent = styled.input`
     }
 `;
 
-const Input = ({ value, onChange, placeholder, error, type, maxLength }) => {
+const Input = ({
+    value = "",
+    onChange = () => {},
+    placeholder = "",
+    error = false,
+    type,
+    maxLength = 255,
+}) => {
     return (
         <InputComponent
-            error={error ? "true" : undefined}
+            $error={error ? "true" : undefined}
             type={type}
             placeholder={placeholder}
             value={value}
@@ -54,15 +61,6 @@ Input.prototype = {
     onChange: PropTypes.func.isRequired,
     type: PropTypes.oneOf(["text", "password", "email", "number", "tel", "url"]),
     maxLength: PropTypes.number,
-};
-
-Input.defaultProps = {
-    error: false,
-    placeholder: "",
-    value: "",
-    type: "text",
-    onChange: () => {},
-    maxLength: 255,
 };
 
 export default React.memo(Input);

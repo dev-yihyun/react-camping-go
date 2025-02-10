@@ -1,16 +1,20 @@
 import BoxShadowCard from "../../../component/Card/BoxShadowCard";
 import Space from "../../../component/Layout/Space";
+import Text from "../../../component/Text/Text";
 
-function DescriptionSection() {
+function DescriptionSection({ descriptionData }) {
     return (
         <>
-            <h2>캠핑장 소개</h2>
+            <Text fontWeight="bold" fontSize="24px">
+                캠핑장 소개
+            </Text>
             <Space height={3} />
             <BoxShadowCard>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis
-                hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris
-                sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique
+                {descriptionData?.description ? (
+                    <>{descriptionData?.description}</>
+                ) : (
+                    <Text>😁 준비 중입니다.</Text>
+                )}
             </BoxShadowCard>
         </>
     );
