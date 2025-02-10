@@ -325,6 +325,7 @@ export const useMyPage = () => {
             alert("탈퇴 되었습니다. 로그인 화면으로 돌아갑니다.");
             localStorage.removeItem("token");
             localStorage.removeItem("userId");
+            sessionStorage.clear();
             navigate("/");
         } else {
             alert("서버 요청 중 오류가 발생했습니다. 홈으로 돌아갑니다.");
