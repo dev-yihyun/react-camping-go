@@ -52,10 +52,12 @@ function Join() {
                                 maxLength="16"
                                 error={inputIdErrorMessage ? (idCheck ? false : true) : false}
                             />
-                            {inputIdErrorMessage && (
+                            {inputIdErrorMessage ? (
                                 <Text color={idCheck ? "green" : "error"} alignSelf="flex-start">
                                     {inputIdErrorMessage}
                                 </Text>
+                            ) : (
+                                ""
                             )}
                             <Button
                                 disabled={!inputId || !!inputIdErrorMessage || inputId.length < 4}
@@ -78,10 +80,12 @@ function Join() {
                                 error={inputPwErrorMessage}
                             />
 
-                            {inputPwErrorMessage && (
+                            {inputPwErrorMessage ? (
                                 <Text alignSelf="flex-start" color="error">
                                     {inputPwErrorMessage}
                                 </Text>
+                            ) : (
+                                ""
                             )}
                             <Input
                                 placeholder="NAME"
@@ -111,10 +115,12 @@ function Join() {
                                 onChange={onInputEmail}
                                 error={inputEmailErrorMessage}
                             />
-                            {inputEmailErrorMessage && (
+                            {inputEmailErrorMessage ? (
                                 <Text alignSelf="flex-start" color="error">
                                     {inputEmailErrorMessage}
                                 </Text>
+                            ) : (
+                                ""
                             )}
 
                             <Button disabled={!isFormValid()} onClick={onJoin}>

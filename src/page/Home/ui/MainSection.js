@@ -1,4 +1,3 @@
-import { FaLocationDot } from "react-icons/fa6";
 import styled, { keyframes } from "styled-components";
 import mainsection from "../../../assets/img/Home/mainsection.jpg";
 
@@ -56,18 +55,6 @@ const DescriptionComponent = styled.p`
     }
 `;
 
-const CurrentLocationComponent = styled.div`
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    color: white;
-    gap: 10px;
-
-    i {
-        font-size: 1.2rem;
-    }
-`;
-
 const fadeInOut = keyframes`
     0%, 100% {
         opacity: 1;
@@ -113,12 +100,7 @@ function MainSection() {
                         <br />
                         it is a journey to build deeper connections with nature.
                     </DescriptionComponent>
-                    <CurrentLocationComponent>
-                        <i className="location-icon">
-                            <FaLocationDot />
-                        </i>
-                        <span>Current Location</span>
-                    </CurrentLocationComponent>
+
                     <ScrollIndicatorComponent>
                         <Bouncy>
                             <p>↓ Scroll down to explore more ↓</p>

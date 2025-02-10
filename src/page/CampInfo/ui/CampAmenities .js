@@ -1,19 +1,22 @@
 import BoxShadowCard from "../../../component/Card/BoxShadowCard";
+import FlexBox from "../../../component/Layout/FlexBox";
 import Space from "../../../component/Layout/Space";
+import Text from "../../../component/Text/Text";
 
-function CampAmenities() {
+function CampAmenities({ amenityData }) {
+    const amenityDataArray = amenityData?.amenities.split(",");
     return (
         <>
-            <h2>캠핑장 편의시설</h2>
+            <Text fontWeight="bold" fontSize="24px">
+                캠핑장 편의시설
+            </Text>
             <Space height={3} />
             <BoxShadowCard gap="10px" justifyContent="center" alignItems="center" wrap="wrap">
-                <p>CampAmenities</p>
-                <p>CampAmenities</p>
-                <p>CampAmenities</p>
-                <p>CampAmenities</p>
-                <p>CampAmenities</p>
-                <p>CampAmenities</p>
-                <p>CampAmenities</p>
+                <FlexBox direction="row" gap="20px">
+                    {amenityDataArray.map((item, index) => (
+                        <Text key={index}>{item}</Text>
+                    ))}
+                </FlexBox>
             </BoxShadowCard>
         </>
     );

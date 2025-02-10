@@ -102,7 +102,7 @@ function FindPw() {
                                                 !regexPw.test(inputPw) ||
                                                 !inputCheckPw.trim() ||
                                                 inputPw !== inputCheckPw ||
-                                                inputPwErrorMessage
+                                                (inputPwErrorMessage ? true : false)
                                             }
                                             onClick={onResetPassword}
                                         >

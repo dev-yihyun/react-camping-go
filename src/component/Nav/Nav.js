@@ -9,6 +9,7 @@ function Nav({ type = "home", userId }) {
     const onLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
+        sessionStorage.clear();
         alert("로그아웃되었습니다. 로그인 화면으로 돌아갑니다.");
         navigate("/");
     };
