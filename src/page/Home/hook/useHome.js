@@ -85,7 +85,6 @@ export const useHome = () => {
     const onPrevPage = () => {
         if (currentPageGroup > 0) {
             setPageGroup(currentPageGroup - 1);
-            // setCurrentPageGroup((prev) => prev - 1);
             pageNo.current = (currentPageGroup - 1) * pageButtonNumber + 1;
             sessionStorage.setItem("currentPage", pageNo.current);
             fetchData();
@@ -97,7 +96,6 @@ export const useHome = () => {
             sessionStorage.setItem("currentPage", pageNo.current);
             fetchData();
             if (pageNo.current <= currentPageGroup * pageButtonNumber) {
-                // setCurrentPageGroup((prev) => prev - 1);
                 setPageGroup(currentPageGroup - 1);
             }
         }
@@ -108,14 +106,12 @@ export const useHome = () => {
             sessionStorage.setItem("currentPage", pageNo.current);
             fetchData();
             if (pageNo.current > (currentPageGroup + 1) * pageButtonNumber) {
-                // setCurrentPageGroup((prev) => prev + 1);
                 setPageGroup(currentPageGroup + 1);
             }
         }
     };
     const onNextPage = () => {
         if (currentPageGroup < totalPage - 1) {
-            // setCurrentPageGroup((prev) => prev + 1);
             setPageGroup(currentPageGroup + 1);
             pageNo.current = (currentPageGroup + 1) * pageButtonNumber + 1;
             sessionStorage.setItem("currentPage", pageNo.current);
