@@ -29,6 +29,7 @@ export const useMyPage = () => {
     const [insertDate, setInsertDate] = useState("");
     const [userName, setUserName] = useState("");
     sessionStorage.removeItem("currentPage");
+    sessionStorage.removeItem("currentPageGroup");
 
     const [currentEmail, setCurrentEmail] = useState("");
 

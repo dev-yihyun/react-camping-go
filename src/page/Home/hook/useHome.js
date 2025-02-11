@@ -11,7 +11,10 @@ export const useHome = () => {
 
     const numOfRows = 10;
     const pageButtonNumber = 5;
-    const [currentPageGroup, setCurrentPageGroup] = useState(0);
+    const savedPageGroup = sessionStorage.getItem("currentPageGroup");
+    const [currentPageGroup, setCurrentPageGroup] = useState(
+        savedPageGroup ? Number(savedPageGroup) : 0
+    );
 
     const totalPage = Math.ceil(totalData / numOfRows);
 
@@ -68,6 +71,11 @@ export const useHome = () => {
         navigate("/");
     }
 
+    const setPageGroup = (newGroup) => {
+        setCurrentPageGroup(newGroup);
+        sessionStorage.setItem("currentPageGroup", newGroup);
+    };
+
     const onGoPage = (index) => {
         pageNo.current = currentPageGroup * pageButtonNumber + index + 1;
         sessionStorage.setItem("currentPage", pageNo.current);
@@ -76,7 +84,7 @@ export const useHome = () => {
 
     const onPrevPage = () => {
         if (currentPageGroup > 0) {
-            setCurrentPageGroup((prev) => prev - 1);
+            setPageGroup(currentPageGroup - 1);
             pageNo.current = (currentPageGroup - 1) * pageButtonNumber + 1;
             sessionStorage.setItem("currentPage", pageNo.current);
             fetchData();
@@ -85,25 +93,28 @@ export const useHome = () => {
     const onPrev = () => {
         if (pageNo.current > 1) {
             pageNo.current -= 1;
+            sessionStorage.setItem("currentPage", pageNo.current);
             fetchData();
             if (pageNo.current <= currentPageGroup * pageButtonNumber) {
-                setCurrentPageGroup((prev) => prev - 1);
+                setPageGroup(currentPageGroup - 1);
             }
         }
     };
     const onNext = () => {
         if (pageNo.current < totalPage) {
             pageNo.current += 1;
+            sessionStorage.setItem("currentPage", pageNo.current);
             fetchData();
             if (pageNo.current > (currentPageGroup + 1) * pageButtonNumber) {
-                setCurrentPageGroup((prev) => prev + 1);
+                setPageGroup(currentPageGroup + 1);
             }
         }
     };
     const onNextPage = () => {
         if (currentPageGroup < totalPage - 1) {
-            setCurrentPageGroup((prev) => prev + 1);
+            setPageGroup(currentPageGroup + 1);
             pageNo.current = (currentPageGroup + 1) * pageButtonNumber + 1;
+            sessionStorage.setItem("currentPage", pageNo.current);
             fetchData();
         }
     };
