@@ -3,6 +3,7 @@ import BoxShadowCard from "../../../component/Card/BoxShadowCard";
 import Space from "../../../component/Layout/Space";
 import Text from "../../../component/Text/Text";
 import TextLink from "../../../component/Text/TextLink";
+import useInfoSection from "../hook/useInfoSection";
 
 const InfoSectionComponent = styled.div`
     display: flex;
@@ -26,12 +27,7 @@ const BannerImageComponent = styled.img`
 `;
 
 function InfoSection({ InfoData }) {
-    const homepageLink = InfoData?.homepage.startsWith("http")
-        ? InfoData?.homepage
-        : `http://${InfoData?.homepage}`;
-    const resveLink = InfoData?.resveUrl.startsWith("http")
-        ? InfoData?.resveUrl
-        : `http://${InfoData?.resveUrl}`;
+    const { homepageLink, resveLink } = useInfoSection(InfoData);
     return (
         <>
             <InfoSectionComponent>
