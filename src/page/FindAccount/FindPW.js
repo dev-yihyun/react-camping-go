@@ -1,5 +1,4 @@
 import { FaArrowLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import Button from "../../component/Button/Button";
 import IconButton from "../../component/Button/IconButton";
 import Card from "../../component/Card/Card";
@@ -12,8 +11,6 @@ import Text from "../../component/Text/Text";
 import Title from "../../component/Text/Title";
 import { useFindPw } from "./hook/useFindPw";
 function FindPw() {
-    const navigate = useNavigate();
-
     const {
         inputId,
         inputName,
@@ -34,6 +31,7 @@ function FindPw() {
         onFindPw,
         onResetPassword,
         isFormValid,
+        navigate,
     } = useFindPw();
 
     return (

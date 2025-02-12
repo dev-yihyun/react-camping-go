@@ -174,5 +174,6 @@ export const useFindPw = () => {
         onFindPw,
         onResetPassword,
         isFormValid,
+        navigate,
     };
 };
