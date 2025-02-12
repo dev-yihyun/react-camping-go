@@ -1,5 +1,4 @@
 import { FaArrowLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import Button from "../../component/Button/Button";
 import IconButton from "../../component/Button/IconButton";
 import Card from "../../component/Card/Card";
@@ -11,7 +10,6 @@ import Text from "../../component/Text/Text";
 import Title from "../../component/Text/Title";
 import { useJoin } from "./hook/useJoin";
 function Join() {
-    const navigate = useNavigate();
     const {
         inputId,
         inputPw,
@@ -33,6 +31,7 @@ function Join() {
         onInputEmail,
         onJoin,
         isFormValid,
+        navigate,
     } = useJoin();
 
     return (
