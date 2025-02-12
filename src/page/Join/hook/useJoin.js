@@ -192,5 +192,6 @@ export const useJoin = () => {
         onInputEmail,
         onJoin,
         isFormValid,
+        navigate,
     };
 };
