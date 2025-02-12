@@ -1,6 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../../../component/Button/Button";
+import Input from "../../../component/Input/Input";
+import Password from "../../../component/Input/Password";
+import FlexBox from "../../../component/Layout/FlexBox";
+import Space from "../../../component/Layout/Space";
+import Text from "../../../component/Text/Text";
 import { formatDate } from "../../../utils/formatDate ";
 import { formatPhoneNumber } from "../../../utils/formatPhoneNumber";
 
@@ -32,6 +38,7 @@ export const useMyPage = () => {
     sessionStorage.removeItem("currentPageGroup");
 
     const [currentEmail, setCurrentEmail] = useState("");
+    const [currentPhone, setCurrentPhone] = useState("");
 
     const getUserInfo = async (userData) => {
         const response = await fetch("http://localhost:3001/mypage", {
@@ -56,6 +63,7 @@ export const useMyPage = () => {
             setInputEmail(data?.email);
             setInputPhone(data?.phone);
             setCurrentEmail(data?.email);
+            setCurrentPhone(data?.phone);
         } else {
             alert("오류가 발생했습니다. 홈으로 이동합니다.");
             navigate("/home");
@@ -115,7 +123,7 @@ export const useMyPage = () => {
 
     const onShowPhone = () => {
         if (isShowPhone) {
-            setInputPhone(userInfo?.phone);
+            setInputPhone(currentPhone);
             setInputPhoneErrorMessage("");
         }
         setIsShowPhone(!isShowPhone);
@@ -349,40 +357,139 @@ export const useMyPage = () => {
         if (window.confirm("정말 탈퇴하시겠습니가?")) {
             deleteMutation.mutate(userId);
         } else {
-            alert("탈퇴 취소합니다.");
+            alert("탈퇴를 취소합니다.");
         }
     };
+    const tabs = [
+        {
+            label: "Info",
+            content: (
+                <>
+                    <FlexBox gap="8px">
+                        <FlexBox align="flex-start" gap="8px">
+                            <Space height="4" />
+                            <Text>가입시기 : {insertDate || "정보없음"}</Text>
+                            <Text>ID : {userId || "정보없음"}</Text>
+                            <Text>Name : {userName || "정보없음"}</Text>
+                            {isShowEmail ? (
+                                <>
+                                    <Input
+                                        error={inputEmailErrorMessage}
+                                        type="email"
+                                        placeholder="Email"
+                                        maxLength={40}
+                                        value={inputEmail}
+                                        onChange={onInputEmail}
+                                    />
+                                    {inputEmailErrorMessage && (
+                                        <Text color="error">{inputEmailErrorMessage}</Text>
+                                    )}
+                                    <Button onClick={onShowEmail}>취소</Button>
+                                    <Button
+                                        disabled={
+                                            !regexEmail.test(inputEmail) ||
+                                            !inputEmail.trim() ||
+                                            inputEmailErrorMessage ||
+                                            currentEmail === inputEmail
+                                        }
+                                        onClick={onSaveEmail}
+                                    >
+                                        Email 수정하기
+                                    </Button>
+                                </>
+                            ) : (
+                                <>
+                                    <Text>Email :{inputEmail || "정보없음"}</Text>
+                                    <Button onClick={onShowEmail}>Email 수정하기</Button>
+                                </>
+                            )}
 
-    return {
-        currentEmail,
-        userId,
-        insertDate,
-        userName,
-        navigate,
-        activeTab,
-        setActiveTab,
-        inputEmail,
-        inputEmailErrorMessage,
-        isShowEmail,
-        onInputEmail,
-        onShowEmail,
-        inputPhone,
-        inputPhoneErrorMessage,
-        isShowPhone,
-        onInputPhone,
-        onShowPhone,
-        inputCurrentPassword,
-        onInputCurrentPassword,
-        inputResetPassword,
-        onInputResetPassword,
-        inputCheckPassword,
-        onInputCheckPassword,
-        inputPasswordErrorMessage,
-        regexEmail,
-        regexPw,
-        onSaveEmail,
-        onSavePhone,
-        onResetPassword,
-        onDelete,
-    };
+                            {isShowPhone ? (
+                                <>
+                                    <Input
+                                        error={inputPhoneErrorMessage}
+                                        type="tel"
+                                        placeholder="PHONE"
+                                        maxLength={13}
+                                        value={inputPhone}
+                                        onChange={onInputPhone}
+                                    />
+                                    {inputPhoneErrorMessage && (
+                                        <Text color="error">{inputPhoneErrorMessage}</Text>
+                                    )}
+                                    <Button onClick={onShowPhone}>취소</Button>
+                                    <Button
+                                        disabled={
+                                            !inputPhone.trim() ||
+                                            inputPhone.replace(/\D/g, "").length < 11 ||
+                                            currentPhone === inputPhone
+                                        }
+                                        onClick={onSavePhone}
+                                    >
+                                        Phone 수정
+                                    </Button>
+                                </>
+                            ) : (
+                                <>
+                                    <Text>Phone : {inputPhone || "정보없음"}</Text>
+                                    <Button onClick={onShowPhone}>Phone</Button>
+                                </>
+                            )}
+
+                            <Button onClick={onDelete}>회원 탈퇴</Button>
+                        </FlexBox>
+                        <Space height="4" />
+                    </FlexBox>
+                </>
+            ),
+        },
+        {
+            label: "Password",
+            content: (
+                <>
+                    <FlexBox justify="center" align="center" gap="8px">
+                        <Space height="4" />
+                        <Password
+                            maxLength="16"
+                            placeholder="Current Password"
+                            value={inputCurrentPassword}
+                            onChange={onInputCurrentPassword}
+                        />
+                        <Space height="3" />
+                        <Password
+                            error={inputPasswordErrorMessage}
+                            maxLength="16"
+                            placeholder="Reset Password"
+                            value={inputResetPassword}
+                            onChange={onInputResetPassword}
+                        />
+                        <Password
+                            error={inputPasswordErrorMessage}
+                            maxLength="16"
+                            placeholder="Check password"
+                            value={inputCheckPassword}
+                            onChange={onInputCheckPassword}
+                        />
+                        {inputPasswordErrorMessage && (
+                            <Text color="error">{inputPasswordErrorMessage}</Text>
+                        )}
+                        <Button
+                            disabled={
+                                !inputCurrentPassword.trim() ||
+                                !inputCheckPassword.trim() ||
+                                !inputResetPassword.trim() ||
+                                inputResetPassword !== inputCheckPassword ||
+                                !regexPw.test(inputResetPassword)
+                            }
+                            onClick={onResetPassword}
+                        >
+                            reset password
+                        </Button>
+                        <Space height="4" />
+                    </FlexBox>
+                </>
+            ),
+        },
+    ];
+    return { userId, navigate, activeTab, setActiveTab, tabs };
 };

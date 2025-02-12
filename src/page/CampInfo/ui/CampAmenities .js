@@ -2,9 +2,10 @@ import BoxShadowCard from "../../../component/Card/BoxShadowCard";
 import FlexBox from "../../../component/Layout/FlexBox";
 import Space from "../../../component/Layout/Space";
 import Text from "../../../component/Text/Text";
+import useCampAmenities from "../hook/useCampAmenities";
 
 function CampAmenities({ amenityData }) {
-    const amenityDataArray = amenityData?.amenities.split(",");
+    const amenityDataArray = useCampAmenities(amenityData);
     return (
         <>
             <Text fontWeight="bold" fontSize="24px">

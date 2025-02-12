@@ -86,5 +86,6 @@ export const useFindId = () => {
         isEmailTabDisabled,
         findIdByPhone: () => findId("phone", inputPhone),
         findIdByEmail: () => findId("email", inputEmail),
+        navigate,
     };
 };
