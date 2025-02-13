@@ -1,6 +1,8 @@
+import React from "react";
 import PageButton from "../../component/Button/PageButton";
 import Footer from "../../component/Footer/Footer";
 import FlexBox from "../../component/Layout/FlexBox";
+import Page from "../../component/Layout/Page";
 import Space from "../../component/Layout/Space";
 import Nav from "../../component/Nav/Nav";
 import Text from "../../component/Text/Text";
@@ -32,9 +34,11 @@ function Home() {
 
             {loading ? (
                 <>
-                    <FlexBox>
-                        <Text>로딩중 ...</Text>
-                    </FlexBox>
+                    <Page>
+                        <FlexBox>
+                            <Text>로딩중 ...</Text>
+                        </FlexBox>
+                    </Page>
                 </>
             ) : isError ? (
                 <FlexBox>
