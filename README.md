@@ -80,6 +80,18 @@
       </p>
     </td>
   </tr>
+ <tr>
+    <td> <p align="center">페이지네이션</p></td>
+  </tr>
+  <tr>
+    <td>
+      <p align="center">
+        <img src="https://github.com/user-attachments/assets/69c3d43b-4ffd-48f1-b276-10523ab0d1c6">
+      </p>
+    </td>
+  </tr>
+
+  
 <tr>
     <td> <p align="center">이메일 수정</p></td>
   </tr>
