@@ -80,8 +80,39 @@
       </p>
     </td>
   </tr>
+<tr>
+    <td> <p align="center">이메일 수정</p></td>
+  </tr>
+  <tr>
+    <td>
+      <p align="center">
+        <img src="https://github.com/user-attachments/assets/3fce5190-6ce6-4d1d-89ae-3fec6e048666">
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td> <p align="center">전화번호 수정</p></td>
+  </tr>
+  <tr>
+    <td>
+      <p align="center">
+        <img src="https://github.com/user-attachments/assets/33465f26-7d46-4676-94fe-dc9dc8f0de4a">
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td> <p align="center">비밀번호 수정</p></td>
+  </tr>
+  <tr>
+    <td>
+      <p align="center">
+        <img src="https://github.com/user-attachments/assets/fbd2c7e5-fc1c-466b-ba94-525bc4e4b595">
+      </p>
+    </td>
+  </tr>
 
-   
+
+  
 </table>
 
 ### [구현]
