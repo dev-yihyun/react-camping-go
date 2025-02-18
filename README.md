@@ -24,6 +24,66 @@
 5. 네이버 지도 API
 6. mysql
 
+### [시연영상]
+<table>
+  <tr>
+    <td> <p align="center">회원가입</p></td>
+  </tr>
+  <tr>
+    <td>
+      <p align="center">
+        <img src="https://github.com/user-attachments/assets/ca405394-c785-4b1f-9dbe-b9ac89ebc3a8">
+      </p>
+    </td>
+  </tr>
+
+   <tr>
+    <td> <p align="center">아이디 찾기</p></td>
+  </tr>
+  <tr>
+    <td>
+      <p align="center">
+        <img src="https://github.com/user-attachments/assets/f43813fa-3ad8-45f6-902d-986579c4bc8f">
+      </p>
+    </td>
+  </tr>
+
+   <tr>
+    <td> <p align="center">비밀번호 찾기</p></td>
+  </tr>
+  <tr>
+    <td>
+      <p align="center">
+        <img src="https://github.com/user-attachments/assets/0adde18a-f96b-4c39-a1db-12c403c1ef12">
+      </p>
+    </td>
+  </tr>
+
+   <tr>
+    <td> <p align="center">로그인</p></td>
+  </tr>
+  <tr>
+    <td>
+      <p align="center">
+        <img src="https://github.com/user-attachments/assets/c465bc30-8c79-4cac-a354-b6fbf8ce2159">
+      </p>
+    </td>
+  </tr>
+
+  <tr>
+    <td> <p align="center">메인페이지 및 상세페이지</p></td>
+  </tr>
+  <tr>
+    <td>
+      <p align="center">
+        <img src="https://github.com/user-attachments/assets/0eb44c61-023b-4dda-aa5d-d1dc9e72af12">
+      </p>
+    </td>
+  </tr>
+
+   
+</table>
+
 ### [구현]
 - **React** : 컴포넌트를 재사용하여 프로젝트 화면을 구현하였습니다.
 - **React-Query** : React-Query의 useMutation을 사용하여 효율적으로 상태를 관리하였습니다.
